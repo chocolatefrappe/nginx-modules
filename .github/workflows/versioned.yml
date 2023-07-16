@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   generate:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       # Generate modules
       - uses: actions/checkout@v3
