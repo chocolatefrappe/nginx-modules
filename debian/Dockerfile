@@ -90,5 +90,5 @@ RUN set -ex \
     && . /nginx-modules/modules.env \
     && for module in $BUILT_MODULES; do \
             mkdir -p /nginx-module-${module}; \
-            cp /nginx-modules/nginx-module-${module}-${NGINX_VERSION}*.deb /nginx-module-${module}/; \
+            cp /nginx-modules/nginx-module-${module}_${NGINX_VERSION}*.deb /nginx-module-${module}; \
        done 
