@@ -1,4 +1,5 @@
 variable "NGINX_VERSION" {}
+variable "ENABLED_MODULE" {}
 
 group "default" {
     targets = ["alpine" ]
@@ -10,7 +11,7 @@ target "nginx-template" {
     inherits = ["docker-metadata-action"]
     args = {
         NGINX_VERSION = "${NGINX_VERSION}"
-        ENABLED_MODULES = "auth-spnego brotli encrypted-session fips-check geoip geoip2 headers-more image-filter lua modsecurity ndk njs opentracing passenger perl rtmp set-misc subs-filter xslt"
+        ENABLED_MODULES = "${ENABLED_MODULE}"
     }
     platforms = [
         "linux/amd64",
