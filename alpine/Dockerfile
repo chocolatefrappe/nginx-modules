@@ -71,16 +71,16 @@ RUN set -ex \
             exit 1; \
         fi; \
     done \
-    && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
+    && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env 
+
+RUN . /tmp/packages/modules.env \
+    && for module in $BUILT_MODULES; do \
+        mkdir -p /tmp/packages/module-available; \
+        touch /tmp/packages/module-available/$module; \
+    done \
+    && rm /tmp/packages/modules.env
 
 # Nginx
 FROM nginx-base
 
 COPY --from=builder /tmp/packages /nginx-modules
-
-RUN set -ex \
-    && . /nginx-modules/modules.env \
-    && for module in $BUILT_MODULES; do \
-            mkdir -p /nginx-module-${module}; \
-            cp /nginx-modules/nginx-module-${module}-${NGINX_VERSION}*.apk /nginx-module-${module}; \
-       done 
