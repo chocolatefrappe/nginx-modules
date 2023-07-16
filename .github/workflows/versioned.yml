@@ -17,6 +17,12 @@ jobs:
   generate:
     runs-on: macos-latest
     steps:
+      # Generate modules
+      - uses: actions/checkout@v3
+      - id: module
+        run: echo "module=$(jq -cr '' nginx-modules.json)" >> "$GITHUB_OUTPUT"
+
+      # Generate release versions
       - id: today
         uses: actions-matrix/today@main
       - id: release
@@ -27,6 +33,8 @@ jobs:
           date: ${{ steps.today.outputs.year }}
     outputs:
       version: ${{ steps.release.outputs.version }}
+      module: ${{ steps.module.outputs.module }}
+
 
   alpine:
     runs-on: ubuntu-latest
@@ -37,26 +45,7 @@ jobs:
       max-parallel: 4
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
-        module:
-          - auth-spnego
-          - brotli
-          - encrypted-session
-          - fips-check
-          - geoip
-          - geoip2
-          - headers-more
-          - image-filter
-          - lua
-          - modsecurity
-          - ndk
-          - njs
-          - opentracing
-          - passenger
-          - perl
-          - rtmp
-          - set-misc
-          - subs-filter
-          - xslt
+        module: ${{ fromJson(needs.generate.outputs.module) }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -99,26 +88,7 @@ jobs:
       max-parallel: 4
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
-        module:
-          - auth-spnego
-          - brotli
-          - encrypted-session
-          - fips-check
-          - geoip
-          - geoip2
-          - headers-more
-          - image-filter
-          - lua
-          - modsecurity
-          - ndk
-          - njs
-          - opentracing
-          - passenger
-          - perl
-          - rtmp
-          - set-misc
-          - subs-filter
-          - xslt
+        module: ${{ fromJson(needs.generate.outputs.module) }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
