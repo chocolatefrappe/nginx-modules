@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   generate:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - id: today
         uses: actions-matrix/today@main

@@ -20,7 +20,7 @@ jobs:
       - run: echo "No need to do anything here"
 
   alpine:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     # continue-on-error: true
     needs: generate
     strategy:
