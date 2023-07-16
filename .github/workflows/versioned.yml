@@ -23,7 +23,7 @@ jobs:
         uses: actions-matrix/release-matrix-action@v1
         with:
           search: "nginx"
-          limit: 5
+          limit: 2
           date: ${{ steps.today.outputs.year }}
     outputs:
       version: ${{ steps.release.outputs.version }}
