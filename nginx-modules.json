@@ -8,7 +8,6 @@
     "headers-more",
     "image-filter",
     "lua",
-    "modsecurity",
     "ndk",
     "njs",
     "opentracing",
