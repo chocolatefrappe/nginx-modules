@@ -48,7 +48,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: chocolatefrappe/nginx-modules
-          tags: type=raw,value=${{ matrix.version }}-${{ matrix.module }}-alpine
+          tags: type=raw,value=${{ matrix.version }}-alpine-${{ matrix.module }}
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
