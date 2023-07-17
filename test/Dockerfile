@@ -7,3 +7,7 @@ FROM nginx:${NGINX_VERSION}-alpine
 COPY --from=mod-brotli  /nginx-modules /nginx-modules
 COPY --from=mod-rtmp    /nginx-modules /nginx-modules
 COPY --from=mod-echo    /nginx-modules /nginx-modules
+
+RUN for module in /nginx-modules/nginx-module-*-${NGINX_VERSION}*.apk; do \
+        apk add --no-cache --allow-untrusted $module; \
+    done
