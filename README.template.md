@@ -30,3 +30,6 @@ RUN for module in /nginx-modules/nginx-module-*-${NGINX_VERSION}*.apk; do \
 ## Modules
 
 The following modules are available:<!--modules-->
+
+## License
+Licensed under the [MIT License](LICENSE).

@@ -50,3 +50,6 @@ The following modules are available:
 - `subs-filter`
 - `xslt`
 - `echo`
+
+## License
+Licensed under the [MIT License](LICENSE).
