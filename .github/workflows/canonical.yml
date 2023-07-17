@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'alpine/*'
+      - 'debian/*'
+      - 'modules/*'
+      - 'docker-bake.hcl'
+      - 'nginx-modules.json'
 
   # Runs at 00:00, only on Sunday
   schedule:
