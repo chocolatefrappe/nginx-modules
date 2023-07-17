@@ -80,7 +80,6 @@ RUN . /tmp/packages/modules.env \
     done \
     && rm /tmp/packages/modules.env
 
-# Nginx
-FROM nginx-base
-
+# NGINX module package
+FROM scratch
 COPY --from=builder /tmp/packages /nginx-modules
