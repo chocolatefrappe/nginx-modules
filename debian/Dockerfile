@@ -21,7 +21,7 @@ RUN set -ex \
         exit 1; \
     fi
 
-COPY ./ /modules/
+COPY ./modules /modules/
 
 RUN set -ex \
     && apt update \
