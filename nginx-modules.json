@@ -16,5 +16,6 @@
     "rtmp",
     "set-misc",
     "subs-filter",
-    "xslt"
+    "xslt",
+    "echo"
 ]
