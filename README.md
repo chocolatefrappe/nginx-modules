@@ -1,5 +1,7 @@
-# nginx-packages
+# nginx-modules
 A pre-built NGINX packages and modules for container
+
+[Source](https://github.com/chocolatefrappe/nginx-modules) | [Docker Hub](https://hub.docker.com/r/chocolatefrappe/nginx-modules)
 
 ## Usage
 
