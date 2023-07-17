@@ -83,8 +83,8 @@ RUN set -ex \
 
 RUN . /tmp/packages/modules.env \
     && for module in $BUILT_MODULES; do \
-        mkdir -p /tmp/packages/module-available; \
-        touch /tmp/packages/module-available/$module; \
+        mkdir -p /tmp/packages/module-available.d; \
+        touch /tmp/packages/module-available.d/$module; \
     done \
     && rm /tmp/packages/modules.env
 

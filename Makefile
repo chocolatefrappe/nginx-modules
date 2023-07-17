@@ -1,11 +1,20 @@
 NGINX_VERSION := stable
 ENABLED_MODULES := brotli
 
-test:
-	@echo "Buildind Alpine test image echo-nginx-module:latest..."
+build:
+	@echo "Buildind Alpine test image nginx-module:latest..."
 	@docker build \
-	-t echo-nginx-module:latest \
+	-t nginx-module:latest \
 	-f alpine/Dockerfile \
 		--build-arg NGINX_VERSION=$(NGINX_VERSION) \
 		--build-arg ENABLED_MODULES=$(ENABLED_MODULES) \
+	.
+
+.PHONY: test
+test:
+	@echo "Buildind test image nginx-module-test:latest..."
+	@docker build \
+	-t nginx-module-test:latest \
+	-f test/Dockerfile \
+		--build-arg NGINX_VERSION=$(NGINX_VERSION) \
 	.
