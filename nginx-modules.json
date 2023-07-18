@@ -1,21 +1,78 @@
-[
-    "auth-spnego",
-    "brotli",
-    "encrypted-session",
-    "fips-check",
-    "geoip",
-    "geoip2",
-    "headers-more",
-    "image-filter",
-    "lua",
-    "ndk",
-    "njs",
-    "opentracing",
-    "passenger",
-    "perl",
-    "rtmp",
-    "set-misc",
-    "subs-filter",
-    "xslt",
-    "echo"
-]
+{
+    "auth-spnego": {
+        "desc": "3rd-party kerberos authentication dynamic module",
+        "homepage": "https://github.com/stnoonan/spnego-http-auth-nginx-module"
+    },
+    "brotli": {
+        "desc": "3rd-party brotli compression dynamic modules",
+        "homepage": "https://github.com/google/ngx_brotli"
+    },
+    "encrypted-session": {
+        "desc": "3rd-party encrypted session dynamic module",
+        "homepage": "https://github.com/openresty/encrypted-session-nginx-module"
+    },
+    "fips-check": {
+        "desc": "3rd-party FIPS status check dynamic module",
+        "homepage": "https://github.com/ogarrett/nginx-fips-check-module"
+    },
+    "geoip": {
+        "desc": "GeoIP dynamic modules",
+        "homepage": "https://nginx.org/en/docs/stream/ngx_stream_geoip_module.html"
+    },
+    "geoip2": {
+        "desc": "3rd-party GeoIP2 dynamic modules",
+        "homepage": "https://github.com/leev/ngx_http_geoip2_module"
+    },
+    "headers-more": {
+        "desc": "3rd-party headers-more dynamic module",
+        "homepage": "https://github.com/openresty/headers-more-nginx-module"
+    },
+    "image-filter": {
+        "desc": "image filter dynamic module",
+        "homepage": "https://nginx.org/en/docs/http/ngx_http_image_filter_module.htm"
+    },
+    "lua": {
+        "desc": "3rd-party Lua dynamic modules",
+        "homepage": "https://github.com/openresty/lua-nginx-module"
+    },
+    "ndk": {
+        "desc": "3rd-party NDK dynamic module",
+        "homepage": "https://github.com/vision5/ngx_devel_kit"
+    },
+    "njs": {
+        "desc": "njs dynamic modules",
+        "homepage": "https://nginx.org/en/docs/njs/"
+    },
+    "opentracing": {
+        "desc": "3rd-party OpenTracing dynamic module",
+        "homepage": "https://github.com/opentracing-contrib/nginx-opentracing"
+    },
+    "passenger": {
+        "desc": "3rd-party Passenger dynamic module",
+        "homepage": "https://www.phusionpassenger.com/library/config/nginx/intro.html"
+    },
+    "perl": {
+        "desc": "Perl dynamic module",
+        "homepage": "http://nginx.org/en/docs/http/ngx_http_perl_module.html"
+    },
+    "rtmp": {
+        "desc": "3rd-party RTMP dynamic module",
+        "homepage": "https://github.com/arut/nginx-rtmp-module"
+    },
+    "set-misc": {
+        "desc": "3rd-party set-misc dynamic module",
+        "homepage": "https://github.com/openresty/set-misc-nginx-module"
+    },
+    "subs-filter": {
+        "desc": "3rd-party substitution dynamic module",
+        "homepage": "https://www.nginx.com/resources/wiki/modules/substitutions/"
+    },
+    "xslt": {
+        "desc": "xslt dynamic module",
+        "homepage": "https://nginx.org/en/docs/http/ngx_http_xslt_module.html"
+    },
+    "echo": {
+        "desc": "Brings \"echo\", \"sleep\", \"time\", \"exec\" and more shell-style goodies to Nginx config file",
+        "homepage": "https://github.com/openresty/echo-nginx-module"
+    }
+}

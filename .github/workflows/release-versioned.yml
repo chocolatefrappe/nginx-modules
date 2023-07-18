@@ -26,7 +26,7 @@ jobs:
       # Generate modules
       - uses: actions/checkout@v3
       - id: module
-        run: echo "module=$(jq -cr '' nginx-modules.json)" >> "$GITHUB_OUTPUT"
+        run: echo "module=$(jq -ecr "keys_unsorted" nginx-modules.json)" >> "$GITHUB_OUTPUT"
 
       # Generate release versions
       - id: today

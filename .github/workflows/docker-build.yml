@@ -25,6 +25,13 @@ on:
         type: string
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check
+        run: |
+          jq -ecr ".[\"${{ inputs.module }}\"]" nginx-modules.json || echo "" && exit 1
   build:
     runs-on: ubuntu-latest
     steps:
@@ -39,8 +46,8 @@ jobs:
       - name: Get module description
         id: module
         run: |
-          description=$(jq -cr ".[\"${{ inputs.module }}\"].desc" nginx-modules-info.json)
-          homepage=$(jq -cr ".[\"${{ inputs.module }}\"].homepage" nginx-modules-info.json)
+          description=$(jq -cr ".[\"${{ inputs.module }}\"].desc" nginx-modules.json)
+          homepage=$(jq -cr ".[\"${{ inputs.module }}\"].homepage" nginx-modules.json)
           echo "description=${description}" >> $GITHUB_OUTPUT
           echo "homepage=${homepage}" >> $GITHUB_OUTPUT
 

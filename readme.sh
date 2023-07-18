@@ -38,10 +38,10 @@ readme releases "$md_releases"
 
 echo "- Generate modules list..."
 md_modules="\n"
-modules=(`jq -cr '. | join(" ")' ./nginx-modules.json`)
+modules=(`jq -cr 'keys_unsorted | join(" ")' ./nginx-modules.json`)
 for mod in "${modules[@]}"; do
-    desc=$(jq -cr ".[\"${mod}\"].desc" nginx-modules-info.json)
-    homepage=$(jq -cr ".[\"${mod}\"].homepage" nginx-modules-info.json)
+    desc=$(jq -cr ".[\"${mod}\"].desc" nginx-modules.json)
+    homepage=$(jq -cr ".[\"${mod}\"].homepage" nginx-modules.json)
 
     md_modules+="\n- [\`$mod\`](${homepage}): ${desc}"
 done
