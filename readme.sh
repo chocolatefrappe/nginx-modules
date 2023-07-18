@@ -25,7 +25,7 @@ cp $TEMPLATE_FILE $README_FILE
 
 echo "- Generate supported releases list..."
 md_releases="\n"
-releases=(`jq -cr '.version | join(" ")' ./nginx-versions.json`)
+releases=(`jq -cr '. | join(" ")' ./nginx-versions.json`)
 for release in "${releases[@]}"; do
     md_releases+="\n- \`$release\`"
 done
@@ -58,7 +58,7 @@ done
 md_tags+="\n"
 md_tags+="\n**Versioning releases**:"
 md_tags+="\n"
-releases=(`jq -cr '.version | join(" ")' ./nginx-versions.json`)
+releases=(`jq -cr '. | join(" ")' ./nginx-versions.json`)
 for release in "${releases[@]}"; do
     for mod in "${modules[@]}"; do
         # [Note] Set alpine release inline
