@@ -1,4 +1,4 @@
-name: generate-readme
+name: Generate README.md
 
 on:
   workflow_call:
