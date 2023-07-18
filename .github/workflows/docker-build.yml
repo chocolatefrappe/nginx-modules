@@ -36,6 +36,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Get module description
+        id: module
+        run: |
+          description=$(jq -cr ".[\"${{ inputs.module }}\"].desc" nginx-modules-info.json)
+          homepage=$(jq -cr ".[\"${{ inputs.module }}\"].homepage" nginx-modules-info.json)
+          echo "description=${description}" >> $GITHUB_OUTPUT
+          echo "homepage=${homepage}" >> $GITHUB_OUTPUT
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
@@ -44,6 +52,10 @@ jobs:
           flavor: |
             latest=false
           tags: ${{ inputs.tags }}
+          labels: |
+            org.opencontainers.image.title=${{ inputs.module }}
+            org.opencontainers.image.description=${{ steps.module.outputs.description }}
+            org.opencontainers.image.url=${{ steps.module.outputs.homepage }}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
