@@ -23,6 +23,13 @@ on:
         description: 'The tags for the image'
         required: false
         type: string
+    secrets:
+      DOCKERHUB_USERNAME:
+        description: 'The username for Docker Hub'
+        required: true
+      DOCKERHUB_TOKEN:
+        description: 'The token for Docker Hub'
+        required: true
 
 jobs:
   build:
