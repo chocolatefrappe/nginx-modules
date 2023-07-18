@@ -73,13 +73,15 @@ RUN set -ex \
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env 
 
+# Create module-available.d directory and touch files for built modules
 RUN . /tmp/packages/modules.env \
     && for module in $BUILT_MODULES; do \
-        mkdir -p /tmp/packages/module-available.d; \
-        touch /tmp/packages/module-available.d/$module; \
+        mkdir -p /tmp/module-available.d; \
+        touch /tmp/module-available.d/$module; \
     done \
     && rm /tmp/packages/modules.env
 
 # NGINX module package
 FROM scratch
-COPY --from=builder /tmp/packages /nginx-modules
+COPY --from=builder /tmp/module-available.d /module-available.d
+COPY --from=builder /tmp/packages /packages
