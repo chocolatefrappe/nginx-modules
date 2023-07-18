@@ -41,7 +41,7 @@ md_modules="\n"
 modules=(`jq -cr 'keys_unsorted | join(" ")' ./nginx-modules.json`)
 for mod in "${modules[@]}"; do
     desc=$(jq -cr ".[\"${mod}\"].desc" nginx-modules.json)
-    homepage=$(jq -cr ".[\"${mod}\"].homepage" nginx-modules.json)
+    homepage=$(jq -cr ".[\"${mod}\"].url" nginx-modules.json)
 
     md_modules+="\n- [\`$mod\`](${homepage}): ${desc}"
 done
