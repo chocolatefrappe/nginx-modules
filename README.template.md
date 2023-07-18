@@ -56,6 +56,15 @@ RUN set -ex \
     && rm -rf /tmp/nginx-modules
 ```
 
+## Supported releases
+
+The following releases are available:
+
+- `mainline`, `mainline-alpine`
+- `stable`, `stable-alpine`
+
+**Versioning releases**:<!--releases-->
+
 ## Modules
 
 The following modules are available:<!--modules-->
