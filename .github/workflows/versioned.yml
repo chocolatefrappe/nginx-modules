@@ -85,6 +85,6 @@ jobs:
       - generate
       - alpine
       - debian
-    uses: ./.github/workflows/generate-readme.yml
+    uses: ./.github/workflows/readme.yml
     with:
       version: needs.generate.outputs.version
