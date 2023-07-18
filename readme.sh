@@ -7,7 +7,12 @@ TEMPLATE_FILE=README.template.md
 function readme() {
     local key=$1
     local value=$2
-    sed -i "" -e "s|<!--$key-->|$value|" $README_FILE
+    
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' -e "s|<!--$key-->|$value|" $README_FILE
+    else
+        sed -i -e "s|<!--$key-->|$value|" $README_FILE
+    fi
 }
 
 if [ ! -f "./nginx-versions.json" ]; then
