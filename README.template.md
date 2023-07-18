@@ -35,7 +35,7 @@ FROM nginx:${NGINX_VERSION}
 COPY --from=mod-brotli  / /tmp/nginx-modules
 COPY --from=mod-echo    / /tmp/nginx-modules
 
-# Aline
+# Alpine
 RUN set -ex \
     cd /tmp/nginx-modules && \
     for mod in `ls module-available.d/*`; do \
