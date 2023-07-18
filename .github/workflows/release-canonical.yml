@@ -37,6 +37,7 @@ jobs:
           search: "nginx"
           limit: 2
           date: ${{ steps.today.outputs.year }}
+
       - id: semver
         uses: actions-matrix/semver@v1
         with:
@@ -64,7 +65,7 @@ jobs:
       module: ${{ matrix.module }}
       targets: alpine
       tags: |
-        type=semver,pattern={{version}}-alpine-${{ matrix.module }},value=${{ matrix.version }}
+        type=raw,value=${{ matrix.version }}-alpine-${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
 
   debian:
@@ -84,5 +85,5 @@ jobs:
       module: ${{ matrix.module }}
       targets: debian
       tags: |
-        type=semver,pattern={{version}}-${{ matrix.module }},value=${{ matrix.version }}
+        type=raw,value=${{ matrix.version }}-${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
