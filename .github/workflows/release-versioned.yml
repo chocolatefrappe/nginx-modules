@@ -5,9 +5,9 @@ on:
     branches:
       - main
     paths:
-      - 'alpine/*'
-      - 'debian/*'
-      - 'modules/*'
+      - 'alpine/**'
+      - 'debian/**'
+      - 'modules/**'
       - 'docker-bake.hcl'
       - 'nginx-modules.json'
 
