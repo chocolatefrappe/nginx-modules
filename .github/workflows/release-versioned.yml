@@ -91,4 +91,4 @@ jobs:
       contents: write
     uses: ./.github/workflows/readme.yml
     with:
-      version: needs.generate.outputs.version
+      version: ${{ needs.generate.outputs.version }}
