@@ -129,3 +129,21 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
       - name: Docker Metadata Summary
         uses: dockerbakery/docker-metadata-summary@v1
+
+  generate-readme:
+    needs: [generate, alpine, debian]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate nginx-versions.json
+        run: |
+          cat <<EOF > nginx-versions.json
+          ${{ needs.generate.outputs.version }}
+          EOF
+
+      - name: Generate README.md
+        run: ./readme.sh
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
