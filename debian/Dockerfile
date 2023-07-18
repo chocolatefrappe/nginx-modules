@@ -1,13 +1,4 @@
-# Nginx
-#
-# This is an "alpine" based image.
-# There is no plan on supporting other variants.
-#
-# Required arguments example:
-# - NGINX_VERSION = 1.23
-#
 ARG NGINX_VERSION
-# FROM harbor.sorakh.io/hub/nginx:${NGINX_VERSION} as nginx-base
 FROM nginx:${NGINX_VERSION} as nginx-base
 
 # Module Builder
