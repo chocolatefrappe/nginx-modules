@@ -72,7 +72,7 @@
         "url": "https://nginx.org/en/docs/http/ngx_http_xslt_module.html"
     },
     "echo": {
-        "desc": "Brings \"echo\", \"sleep\", \"time\", \"exec\" and more shell-style goodies to Nginx config file",
+        "desc": "Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file",
         "url": "https://github.com/openresty/echo-nginx-module"
     }
 }
