@@ -23,12 +23,13 @@ FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-alpine-brotli AS mod-brotli
 FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-alpine-echo AS mod-echo
 
 FROM nginx:${NGINX_VERSION}-alpine
-COPY --from=mod-brotli  /nginx-modules /nginx-modules
-COPY --from=mod-echo    /nginx-modules /nginx-modules
+COPY --from=mod-brotli  / /tmp/nginx-modules
+COPY --from=mod-echo    / /tmp/nginx-modules
 
-RUN for module in /nginx-modules/nginx-module-*-${NGINX_VERSION}*.apk; do \
+RUN for module in /tmp/nginx-modules/packages/nginx-module-*-${NGINX_VERSION}*.apk; do \
         apk add --no-cache --allow-untrusted $module; \
-    done
+    done \
+    && rm -rf /tmp/nginx-modules
 ```
 
 ## Modules
