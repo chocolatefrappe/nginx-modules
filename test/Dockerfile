@@ -1,10 +1,10 @@
-ARG NGINX_VERSION=stable
-FROM nginx-module:latest AS mod-brotli
+ARG NGINX_VERSION=stable-alpine
+FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-brotli AS mod-brotli
 
 # - `/module-available.d`: Represent the available modules
 # - `/packages`: The content of the modules as os specific package
 
-FROM nginx:${NGINX_VERSION}-alpine
+FROM nginx:${NGINX_VERSION}
 
 COPY --from=mod-brotli  / /tmp/nginx-modules
 RUN set -ex \
