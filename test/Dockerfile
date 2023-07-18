@@ -15,8 +15,7 @@ RUN set -ex \
     && cd /tmp/nginx-modules \
     && for mod in module-available.d/*; do \
             module=$(basename $mod); \
-            echo "Installing $module...";  \
-            apk add --no-cache --allow-untrusted packages/nginx-module-$module-${NGINX_VERSION}*.apk; \
+            apk add --no-cache --allow-untrusted packages/nginx-module-${module}-${NGINX_VERSION}*.apk; \
         done \
     && rm -rf /tmp/nginx-modules
 
@@ -26,7 +25,6 @@ RUN set -ex \
 #     && cd /tmp/nginx-modules \
 #     && for mod in module-available.d/*; do \
 #             module=$(basename $mod); \
-#             echo "Installing $module...";  \
 #             apt install --no-install-suggests --no-install-recommends -y /tmp/nginx-modules/packages/nginx-module-${module}_${NGINX_VERSION}*.deb; \
 #         done \
 #     && rm -rf /tmp/nginx-modules \
