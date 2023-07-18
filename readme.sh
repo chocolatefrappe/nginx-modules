@@ -7,7 +7,7 @@ TEMPLATE_FILE=README.template.md
 function readme() {
     local key=$1
     local value=$2
-    sed -I ".original" -e "s|<!--$key-->|$value|" $README_FILE
+    sed -i ".original" -e "s|<!--$key-->|$value|" $README_FILE
 }
 
 if [ ! -f "./nginx-versions.json" ]; then
