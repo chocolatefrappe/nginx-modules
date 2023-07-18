@@ -11,6 +11,7 @@ The module is shipped using `scratch` as base image and contains the following s
 - `/packages`: The content of the modules as os specific package
 
 ```Dockerfile
+# Use `{version}` for debian variant and `{version}-alpine` for alpine variant
 ARG NGINX_VERSION=stable-alpine 
 # or
 # NGINX_VERSION=1.25-alpine (Not available yet)
