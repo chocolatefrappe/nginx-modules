@@ -1,0 +1,99 @@
+name: Release versioned
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'alpine/**'
+      - 'debian/**'
+      - 'modules/**'
+      - 'docker-bake.hcl'
+      - 'nginx-modules.json'
+
+  # Runs at 00:00, only on Sunday
+  schedule:
+    - cron: '0 0 * * SUN'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      # Generate modules
+      - uses: actions/checkout@v3
+      - id: module
+        run: echo "module=$(jq -ecr "keys_unsorted" nginx-modules.json)" >> "$GITHUB_OUTPUT"
+
+      # Generate release versions
+      - id: today
+        uses: actions-matrix/today@main
+      - id: release
+        uses: actions-matrix/release-matrix-action@v1
+        with:
+          search: "nginx"
+          limit: 2
+          date: ${{ steps.today.outputs.year }}
+      - id: semver
+        uses: actions-matrix/semver@v1
+        with:
+          value: ${{ steps.release.outputs.version }}
+          pattern: "{major}.{minor}"
+    outputs:
+      version: ${{ steps.semver.outputs.version }}
+      module: ${{ steps.module.outputs.module }}
+
+
+  alpine:
+    # continue-on-error: true
+    needs:
+      - generate
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.version) }}
+        module: ${{ fromJson(needs.generate.outputs.module) }}
+    uses: ./.github/workflows/docker-build.yml
+    secrets: inherit
+    with:
+      version: ${{ matrix.version }}
+      module: ${{ matrix.module }}
+      targets: alpine
+      tags: |
+        type=semver,pattern={{version}}-alpine-${{ matrix.module }},value=${{ matrix.version }}
+      push: ${{ github.event_name != 'pull_request' }}
+
+  debian:
+    # continue-on-error: true
+    needs:
+      - generate
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.version) }}
+        module: ${{ fromJson(needs.generate.outputs.module) }}
+    uses: ./.github/workflows/docker-build.yml
+    secrets: inherit
+    with:
+      version: ${{ matrix.version }}
+      module: ${{ matrix.module }}
+      targets: debian
+      tags: |
+        type=semver,pattern={{version}}-${{ matrix.module }},value=${{ matrix.version }}
+      push: ${{ github.event_name != 'pull_request' }}
+
+  generate-readme:
+    needs: 
+      - generate
+      - alpine
+      - debian
+    permissions:
+      contents: write
+    uses: ./.github/workflows/readme.yml
+    with:
+      version: ${{ needs.generate.outputs.version }}
