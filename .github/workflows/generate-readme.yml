@@ -1,6 +1,12 @@
 name: Generate README.md
 
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version of nginx to generate the README for'
+        required: true
+        type: string
   workflow_call:
     inputs:
       version:
