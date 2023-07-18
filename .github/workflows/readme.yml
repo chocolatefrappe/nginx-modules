@@ -37,3 +37,10 @@ jobs:
         with:
           commit_message: Generate README.md
           file_pattern: README.md
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: chocolatefrappe/nginx-modules
