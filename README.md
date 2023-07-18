@@ -92,7 +92,7 @@ The following modules are available:
 - [`set-misc`](https://github.com/openresty/set-misc-nginx-module): 3rd-party set-misc dynamic module
 - [`subs-filter`](https://www.nginx.com/resources/wiki/modules/substitutions/): 3rd-party substitution dynamic module
 - [`xslt`](https://nginx.org/en/docs/http/ngx_http_xslt_module.html): xslt dynamic module
-- [`echo`](https://github.com/openresty/echo-nginx-module): Brings "echo", "sleep", "time", "exec" and more shell-style goodies to Nginx config file
+- [`echo`](https://github.com/openresty/echo-nginx-module): Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file
 
 ## Tags
 
