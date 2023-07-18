@@ -86,14 +86,3 @@ jobs:
       tags: |
         type=semver,pattern={{version}}-${{ matrix.module }},value=${{ matrix.version }}
       push: ${{ github.event_name != 'pull_request' }}
-
-  generate-readme:
-    needs: 
-      - generate
-      - alpine
-      - debian
-    permissions:
-      contents: write
-    uses: ./.github/workflows/readme.yml
-    with:
-      version: ${{ needs.generate.outputs.version }}
