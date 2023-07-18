@@ -1,4 +1,4 @@
-name: Release canonical
+name: Release channel
 
 on:
   push:
