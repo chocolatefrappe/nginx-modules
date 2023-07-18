@@ -38,24 +38,26 @@ COPY --from=mod-brotli  / /tmp/nginx-modules
 COPY --from=mod-echo    / /tmp/nginx-modules
 
 # Alpine
-RUN set -ex && \
-    cd /tmp/nginx-modules && \
-    for mod in module-available.d/*; do \
-        _module=$(basename $mod); \
-        echo "Installing $_module...";  \
-        apk add --no-cache --allow-untrusted packages/nginx-module-$_module-${NGINX_VERSION}*.apk; \
-    done \
+RUN set -ex \
+    && cd /tmp/nginx-modules \
+    && for mod in module-available.d/*; do \
+            module=$(basename $mod); \
+            echo "Installing $module...";  \
+            apk add --no-cache --allow-untrusted packages/nginx-module-$module-${NGINX_VERSION}*.apk; \
+        done \
     && rm -rf /tmp/nginx-modules
 
 # Debian
-RUN set -ex && \
-    cd /tmp/nginx-modules && \
-    for mod in module-available.d/*; do \
-        _module=$(basename $mod); \
-        echo "Installing $_module...";  \
-        apt install --no-install-suggests --no-install-recommends -y packages/nginx-module-$_module-${NGINX_VERSION}*.deb; \
-    done \
-    && rm -rf /tmp/nginx-modules
+RUN set -ex \
+    && apt update \
+    && cd /tmp/nginx-modules \
+    && for mod in module-available.d/*; do \
+            module=$(basename $mod); \
+            echo "Installing $module...";  \
+            apt install --no-install-suggests --no-install-recommends -y /tmp/nginx-modules/packages/nginx-module-${module}_${NGINX_VERSION}*.deb; \
+        done \
+    && rm -rf /tmp/nginx-modules \
+    && rm -rf /var/lib/apt/lists/
 ```
 
 ## Supported releases
