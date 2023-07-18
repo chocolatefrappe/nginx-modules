@@ -7,6 +7,10 @@
         "desc": "3rd-party brotli compression dynamic modules",
         "url": "https://github.com/google/ngx_brotli"
     },
+    "echo": {
+        "desc": "Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file",
+        "url": "https://github.com/openresty/echo-nginx-module"
+    },
     "encrypted-session": {
         "desc": "3rd-party encrypted session dynamic module",
         "url": "https://github.com/openresty/encrypted-session-nginx-module"
@@ -70,9 +74,5 @@
     "xslt": {
         "desc": "xslt dynamic module",
         "url": "https://nginx.org/en/docs/http/ngx_http_xslt_module.html"
-    },
-    "echo": {
-        "desc": "Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file",
-        "url": "https://github.com/openresty/echo-nginx-module"
     }
 }
