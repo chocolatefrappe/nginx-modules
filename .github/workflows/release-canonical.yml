@@ -1,4 +1,4 @@
-name: Release versioned
+name: Release canonical
 
 on:
   push:
