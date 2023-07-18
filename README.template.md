@@ -53,7 +53,7 @@ RUN set -ex && \
     for mod in module-available.d/*; do \
         _module=$(basename $mod); \
         echo "Installing $_module...";  \
-        apk add --no-cache --allow-untrusted packages/nginx-module-$_module-${NGINX_VERSION}*.deb; \
+        apt install --no-install-suggests --no-install-recommends -y packages/nginx-module-$_module-${NGINX_VERSION}*.deb; \
     done \
     && rm -rf /tmp/nginx-modules
 ```
