@@ -1,0 +1,27 @@
+name: generate-readme
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'The version of nginx to generate the README for'
+        required: true
+        type: string
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate nginx-versions.json
+        run: |
+          cat <<EOF >nginx-versions.json
+          ${{ inputs.version }}
+          EOF
+
+      - name: Generate README.md
+        run: ./readme.sh
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4

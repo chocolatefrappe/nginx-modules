@@ -38,9 +38,9 @@ COPY --from=mod-brotli  / /tmp/nginx-modules
 COPY --from=mod-echo    / /tmp/nginx-modules
 
 # Alpine
-RUN set -ex \
+RUN set -ex && \
     cd /tmp/nginx-modules && \
-    for mod in `ls module-available.d/*`; do \
+    for mod in module-available.d/*; do \
         _module=$(basename $mod); \
         echo "Installing $_module...";  \
         apk add --no-cache --allow-untrusted packages/nginx-module-$_module-${NGINX_VERSION}*.apk; \
@@ -48,9 +48,9 @@ RUN set -ex \
     && rm -rf /tmp/nginx-modules
 
 # Debian
-RUN set -ex \
+RUN set -ex && \
     cd /tmp/nginx-modules && \
-    for mod in `ls module-available.d/*`; do \
+    for mod in module-available.d/*; do \
         _module=$(basename $mod); \
         echo "Installing $_module...";  \
         apk add --no-cache --allow-untrusted packages/nginx-module-$_module-${NGINX_VERSION}*.deb; \
