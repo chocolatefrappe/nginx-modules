@@ -54,7 +54,7 @@ jobs:
       - generate
     strategy:
       fail-fast: false
-      max-parallel: 6
+      #max-parallel: 6
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
@@ -74,7 +74,7 @@ jobs:
       - generate
     strategy:
       fail-fast: false
-      max-parallel: 6
+      #max-parallel: 6
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
