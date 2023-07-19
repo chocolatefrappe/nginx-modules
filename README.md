@@ -74,6 +74,10 @@ The following releases are available:
 
 ## Modules
 
+You can find modules in the following links:
+- https://www.nginx.com/resources/wiki/modules/
+- https://hg.nginx.org/pkg-oss
+
 The following modules are available:
 
 - [`auth-spnego`](https://github.com/stnoonan/spnego-http-auth-nginx-module): 3rd-party kerberos authentication dynamic module
