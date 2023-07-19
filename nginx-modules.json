@@ -67,10 +67,6 @@
         "desc": "3rd-party set-misc dynamic module",
         "url": "https://github.com/openresty/set-misc-nginx-module"
     },
-    "stream-echo": {
-        "desc": "3rd-party stream-echo dynamic module",
-        "url": "https://github.com/openresty/stream-echo-nginx-module"
-    },
     "subs-filter": {
         "desc": "3rd-party substitution dynamic module",
         "url": "https://www.nginx.com/resources/wiki/modules/substitutions/"
