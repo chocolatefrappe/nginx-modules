@@ -1,4 +1,4 @@
-NGINX_VERSION := stable-alpine
+NGINX_VERSION := stable
 ENABLED_MODULES := brotli
 
 build:
