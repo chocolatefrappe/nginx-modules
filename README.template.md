@@ -69,6 +69,10 @@ The following releases are available:
 
 ## Modules
 
+You can find modules in the following links:
+- https://www.nginx.com/resources/wiki/modules/
+- https://hg.nginx.org/pkg-oss
+
 The following modules are available:<!--modules-->
 
 ## Tags
