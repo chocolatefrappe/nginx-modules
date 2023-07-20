@@ -12,9 +12,9 @@ on:
       - 'docker-bake.hcl'
       - 'nginx-modules.json'
 
-  # Runs at 00:00, only on Sunday
+  # Runs at 12:00, only on Sunday
   schedule:
-    - cron: '0 0 * * SUN'
+    - cron: '0 12 * * SUN'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
