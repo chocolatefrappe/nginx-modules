@@ -3,6 +3,12 @@ A pre-built NGINX packages and modules for container.
 
 [Source](https://github.com/chocolatefrappe/nginx-modules) | [Docker Hub](https://hub.docker.com/r/chocolatefrappe/nginx-modules)
 
+> **Warning**:
+> 
+> A schedule is set to build the modules and releases every week but due to limitations of GitHub Actions, n a public repository, scheduled workflows are automatically disabled when no repository activity has occurred in 60 days.
+> 
+> See https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration#disabling-and-enabling-workflows
+
 ## Usage
 
 The module is shipped using `scratch` as base image and contains the following structure:
@@ -90,9 +96,13 @@ The following releases are available:
 
 All modules are shipped using `scratch` as base image to reduce the size of the image and avoid unnecessary dependencies.
 
-You can find modules in the following links:
-- https://www.nginx.com/resources/wiki/modules/
-- https://hg.nginx.org/pkg-oss
+> **Note**:
+>
+> This repository will automatically continue to build modules and releases if any changes made to the NGINX `oss-pkg` repository.
+>
+> See https://hg.nginx.org/pkg-oss/
+> 
+> Also see https://www.nginx.com/resources/wiki/modules/
 
 The following modules are available:
 
