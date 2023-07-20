@@ -53,6 +53,7 @@ jobs:
       tags: |
         type=raw,value=${{ matrix.version }}-alpine-${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
+      generate-summary: true
 
   debian:
     # continue-on-error: true
@@ -73,3 +74,4 @@ jobs:
       tags: |
         type=raw,value=${{ matrix.version }}-${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
+      generate-summary: true

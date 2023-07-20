@@ -61,6 +61,7 @@ jobs:
       tags: |
         type=semver,pattern={{version}}-alpine-${{ matrix.module }},value=${{ matrix.version }}
       push: ${{ github.event_name != 'pull_request' }}
+      generate-summary: true
 
   debian:
     # continue-on-error: true
@@ -81,6 +82,7 @@ jobs:
       tags: |
         type=semver,pattern={{version}}-${{ matrix.module }},value=${{ matrix.version }}
       push: ${{ github.event_name != 'pull_request' }}
+      generate-summary: true
 
   generate-readme:
     needs: 

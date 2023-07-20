@@ -23,6 +23,10 @@ on:
         description: 'The tags for the image'
         required: false
         type: string
+      generate-summary:
+        description: 'Whether to generate a summary of the build'
+        required: false
+        type: boolean
 
 jobs:
   build:
