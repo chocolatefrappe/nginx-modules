@@ -1,9 +1,7 @@
 ## About
 A pre-built NGINX packages and modules for container.
 
-[Source](https://github.com/chocolatefrappe/nginx-modules) | [Docker Hub](https://hub.docker.com/r/chocolatefrappe/nginx-modules)
-
-> **Warning**:
+> **Note**
 > 
 > This repository will operate autonomously via GitHub scheduled workflow.
 >
@@ -12,6 +10,8 @@ A pre-built NGINX packages and modules for container.
 > If you are expecting a new builds for new NGINX and it is not available, feel free to submit a ticket.
 >
 > See https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration#disabling-and-enabling-workflows
+
+[Source](https://github.com/chocolatefrappe/nginx-modules) | [Docker Hub](https://hub.docker.com/r/chocolatefrappe/nginx-modules)
 
 ## Usage
 
@@ -95,7 +95,7 @@ The following releases are available:
 
 All modules are shipped using `scratch` as base image to reduce the size of the image and avoid unnecessary dependencies.
 
-> **Note**:
+> **Note**
 >
 > This repository will automatically continue to build modules and releases if any changes made to the NGINX `oss-pkg` repository.
 >
