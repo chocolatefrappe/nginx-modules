@@ -34,6 +34,7 @@ jobs:
           token: ${{ secrets.BOT_PAT }}
 
       - name: Generate nginx-versions.json
+        if: ${{ github.event.inputs.version }}
         run: |
           cat <<EOF >.github/locks/nginx-versions.json
           ${{ inputs.version }}
