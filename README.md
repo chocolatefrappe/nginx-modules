@@ -252,5 +252,11 @@ The following tags are available:
 - `1.25.1-xslt`, `1.25.1-xslt-alpine`
 - `1.25.1-zip`, `1.25.1-zip-alpine`
 
+## Contributing
+
+Contributions are welcome!
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
 ## License
 Licensed under the [MIT License](LICENSE).
