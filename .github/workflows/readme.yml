@@ -20,7 +20,7 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    # continue-on-error: true
+    # continue-on-error: truegit
     steps:
       - uses: actions/checkout@v3
         with:
@@ -38,8 +38,10 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Generate README.md
           file_pattern: README.md
+          commit_message: Generate README.md
+          commit_user_name: ${{ vars.BOT_USERNAME }}
+          commit_user_email: ${{ vars.BOT_EMAIL}}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
