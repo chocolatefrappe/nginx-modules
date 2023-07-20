@@ -60,12 +60,21 @@ RUN set -ex \
 
 ## Supported releases
 
+The supported releases are available in the following format:
+- `{version}`, `{version}-alpine`
+- `{major}.{minor}`, `{major}.{minor}-alpine`
+
+See [tags](#tags) section below for more information.
+
+### Releases
+
 The following releases are available:
 
+**Channel releases**:
 - `mainline`, `mainline-alpine`
 - `stable`, `stable-alpine`
 
-**Versioning releases**:<!--releases-->
+**Versioned releases**:<!--releases-->
 
 ## Modules
 

@@ -60,12 +60,21 @@ RUN set -ex \
 
 ## Supported releases
 
+The supported releases are available in the following format:
+- `{version}`, `{version}-alpine`
+- `{major}.{minor}`, `{major}.{minor}-alpine`
+
+See [tags](#tags) section below for more information.
+
+### Releases
+
 The following releases are available:
 
+**Channel releases**:
 - `mainline`, `mainline-alpine`
 - `stable`, `stable-alpine`
 
-**Versioning releases**:
+**Versioned releases**:
 
 - `1.23.4`
 - `1.24.0`
@@ -99,6 +108,7 @@ The following modules are available:
 - [`set-misc`](https://github.com/openresty/set-misc-nginx-module): 3rd-party set-misc dynamic module
 - [`subs-filter`](https://www.nginx.com/resources/wiki/modules/substitutions/): 3rd-party substitution dynamic module
 - [`xslt`](https://nginx.org/en/docs/http/ngx_http_xslt_module.html): xslt dynamic module
+- [`zip`](https://github.com/evanmiller/mod_zip): 3rd-party zip dynamic module
 
 ## Tags
 
@@ -123,6 +133,7 @@ The following tags are available:
 - `mainline-set-misc`, `mainline-set-misc-alpine`
 - `mainline-subs-filter`, `mainline-subs-filter-alpine`
 - `mainline-xslt`, `mainline-xslt-alpine`
+- `mainline-zip`, `mainline-zip-alpine`
 - `stable-auth-spnego`, `stable-auth-spnego-alpine`
 - `stable-brotli`, `stable-brotli-alpine`
 - `stable-echo`, `stable-echo-alpine`
@@ -142,6 +153,7 @@ The following tags are available:
 - `stable-set-misc`, `stable-set-misc-alpine`
 - `stable-subs-filter`, `stable-subs-filter-alpine`
 - `stable-xslt`, `stable-xslt-alpine`
+- `stable-zip`, `stable-zip-alpine`
 
 **Versioning releases**:
 
@@ -164,6 +176,7 @@ The following tags are available:
 - `1.23.4-set-misc`, `1.23.4-set-misc-alpine`
 - `1.23.4-subs-filter`, `1.23.4-subs-filter-alpine`
 - `1.23.4-xslt`, `1.23.4-xslt-alpine`
+- `1.23.4-zip`, `1.23.4-zip-alpine`
 - `1.24.0-auth-spnego`, `1.24.0-auth-spnego-alpine`
 - `1.24.0-brotli`, `1.24.0-brotli-alpine`
 - `1.24.0-echo`, `1.24.0-echo-alpine`
@@ -183,6 +196,7 @@ The following tags are available:
 - `1.24.0-set-misc`, `1.24.0-set-misc-alpine`
 - `1.24.0-subs-filter`, `1.24.0-subs-filter-alpine`
 - `1.24.0-xslt`, `1.24.0-xslt-alpine`
+- `1.24.0-zip`, `1.24.0-zip-alpine`
 - `1.25.0-auth-spnego`, `1.25.0-auth-spnego-alpine`
 - `1.25.0-brotli`, `1.25.0-brotli-alpine`
 - `1.25.0-echo`, `1.25.0-echo-alpine`
@@ -202,6 +216,7 @@ The following tags are available:
 - `1.25.0-set-misc`, `1.25.0-set-misc-alpine`
 - `1.25.0-subs-filter`, `1.25.0-subs-filter-alpine`
 - `1.25.0-xslt`, `1.25.0-xslt-alpine`
+- `1.25.0-zip`, `1.25.0-zip-alpine`
 - `1.25.1-auth-spnego`, `1.25.1-auth-spnego-alpine`
 - `1.25.1-brotli`, `1.25.1-brotli-alpine`
 - `1.25.1-echo`, `1.25.1-echo-alpine`
@@ -221,6 +236,7 @@ The following tags are available:
 - `1.25.1-set-misc`, `1.25.1-set-misc-alpine`
 - `1.25.1-subs-filter`, `1.25.1-subs-filter-alpine`
 - `1.25.1-xslt`, `1.25.1-xslt-alpine`
+- `1.25.1-zip`, `1.25.1-zip-alpine`
 
 ## License
 Licensed under the [MIT License](LICENSE).
