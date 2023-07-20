@@ -82,4 +82,5 @@ jobs:
           push: ${{ inputs.push }}
 
       - name: Docker Metadata Summary
+        if: ${{ inputs.generate-summary }}
         uses: dockerbakery/docker-metadata-summary@v1
