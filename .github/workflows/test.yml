@@ -65,3 +65,12 @@ jobs:
       tags: |
         type=raw,value=${{ matrix.version }}-${{ matrix.module }}
       push: false
+
+  status:
+    needs:
+      - alpine
+      - debian
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Test result for alpine = ${{ needs.alpine.result }}"
+      - run: echo "Test result for debian = ${{ needs.debian.result }}"
