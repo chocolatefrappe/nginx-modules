@@ -1,6 +1,13 @@
 name: README.md
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'readme.sh'
+      - 'README.template.md'
+      - '.github/locks/nginx-versions.json'
   workflow_dispatch:
     inputs:
       version:
