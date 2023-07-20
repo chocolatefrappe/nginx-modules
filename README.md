@@ -81,6 +81,10 @@ The following releases are available:
 
 **Versioned releases**:
 
+- `1.23.4`
+- `1.24.0`
+- `1.25.0`
+- `1.25.1`
 
 ## Modules
 
@@ -163,6 +167,90 @@ The following tags are available:
 
 **Versioning releases**:
 
+- `1.23.4-auth-spnego`, `1.23.4-auth-spnego-alpine`
+- `1.23.4-brotli`, `1.23.4-brotli-alpine`
+- `1.23.4-echo`, `1.23.4-echo-alpine`
+- `1.23.4-encrypted-session`, `1.23.4-encrypted-session-alpine`
+- `1.23.4-fips-check`, `1.23.4-fips-check-alpine`
+- `1.23.4-geoip`, `1.23.4-geoip-alpine`
+- `1.23.4-geoip2`, `1.23.4-geoip2-alpine`
+- `1.23.4-headers-more`, `1.23.4-headers-more-alpine`
+- `1.23.4-image-filter`, `1.23.4-image-filter-alpine`
+- `1.23.4-lua`, `1.23.4-lua-alpine`
+- `1.23.4-ndk`, `1.23.4-ndk-alpine`
+- `1.23.4-njs`, `1.23.4-njs-alpine`
+- `1.23.4-opentracing`, `1.23.4-opentracing-alpine`
+- `1.23.4-passenger`, `1.23.4-passenger-alpine`
+- `1.23.4-perl`, `1.23.4-perl-alpine`
+- `1.23.4-rtmp`, `1.23.4-rtmp-alpine`
+- `1.23.4-set-misc`, `1.23.4-set-misc-alpine`
+- `1.23.4-subs-filter`, `1.23.4-subs-filter-alpine`
+- `1.23.4-vts`, `1.23.4-vts-alpine`
+- `1.23.4-xslt`, `1.23.4-xslt-alpine`
+- `1.23.4-zip`, `1.23.4-zip-alpine`
+- `1.24.0-auth-spnego`, `1.24.0-auth-spnego-alpine`
+- `1.24.0-brotli`, `1.24.0-brotli-alpine`
+- `1.24.0-echo`, `1.24.0-echo-alpine`
+- `1.24.0-encrypted-session`, `1.24.0-encrypted-session-alpine`
+- `1.24.0-fips-check`, `1.24.0-fips-check-alpine`
+- `1.24.0-geoip`, `1.24.0-geoip-alpine`
+- `1.24.0-geoip2`, `1.24.0-geoip2-alpine`
+- `1.24.0-headers-more`, `1.24.0-headers-more-alpine`
+- `1.24.0-image-filter`, `1.24.0-image-filter-alpine`
+- `1.24.0-lua`, `1.24.0-lua-alpine`
+- `1.24.0-ndk`, `1.24.0-ndk-alpine`
+- `1.24.0-njs`, `1.24.0-njs-alpine`
+- `1.24.0-opentracing`, `1.24.0-opentracing-alpine`
+- `1.24.0-passenger`, `1.24.0-passenger-alpine`
+- `1.24.0-perl`, `1.24.0-perl-alpine`
+- `1.24.0-rtmp`, `1.24.0-rtmp-alpine`
+- `1.24.0-set-misc`, `1.24.0-set-misc-alpine`
+- `1.24.0-subs-filter`, `1.24.0-subs-filter-alpine`
+- `1.24.0-vts`, `1.24.0-vts-alpine`
+- `1.24.0-xslt`, `1.24.0-xslt-alpine`
+- `1.24.0-zip`, `1.24.0-zip-alpine`
+- `1.25.0-auth-spnego`, `1.25.0-auth-spnego-alpine`
+- `1.25.0-brotli`, `1.25.0-brotli-alpine`
+- `1.25.0-echo`, `1.25.0-echo-alpine`
+- `1.25.0-encrypted-session`, `1.25.0-encrypted-session-alpine`
+- `1.25.0-fips-check`, `1.25.0-fips-check-alpine`
+- `1.25.0-geoip`, `1.25.0-geoip-alpine`
+- `1.25.0-geoip2`, `1.25.0-geoip2-alpine`
+- `1.25.0-headers-more`, `1.25.0-headers-more-alpine`
+- `1.25.0-image-filter`, `1.25.0-image-filter-alpine`
+- `1.25.0-lua`, `1.25.0-lua-alpine`
+- `1.25.0-ndk`, `1.25.0-ndk-alpine`
+- `1.25.0-njs`, `1.25.0-njs-alpine`
+- `1.25.0-opentracing`, `1.25.0-opentracing-alpine`
+- `1.25.0-passenger`, `1.25.0-passenger-alpine`
+- `1.25.0-perl`, `1.25.0-perl-alpine`
+- `1.25.0-rtmp`, `1.25.0-rtmp-alpine`
+- `1.25.0-set-misc`, `1.25.0-set-misc-alpine`
+- `1.25.0-subs-filter`, `1.25.0-subs-filter-alpine`
+- `1.25.0-vts`, `1.25.0-vts-alpine`
+- `1.25.0-xslt`, `1.25.0-xslt-alpine`
+- `1.25.0-zip`, `1.25.0-zip-alpine`
+- `1.25.1-auth-spnego`, `1.25.1-auth-spnego-alpine`
+- `1.25.1-brotli`, `1.25.1-brotli-alpine`
+- `1.25.1-echo`, `1.25.1-echo-alpine`
+- `1.25.1-encrypted-session`, `1.25.1-encrypted-session-alpine`
+- `1.25.1-fips-check`, `1.25.1-fips-check-alpine`
+- `1.25.1-geoip`, `1.25.1-geoip-alpine`
+- `1.25.1-geoip2`, `1.25.1-geoip2-alpine`
+- `1.25.1-headers-more`, `1.25.1-headers-more-alpine`
+- `1.25.1-image-filter`, `1.25.1-image-filter-alpine`
+- `1.25.1-lua`, `1.25.1-lua-alpine`
+- `1.25.1-ndk`, `1.25.1-ndk-alpine`
+- `1.25.1-njs`, `1.25.1-njs-alpine`
+- `1.25.1-opentracing`, `1.25.1-opentracing-alpine`
+- `1.25.1-passenger`, `1.25.1-passenger-alpine`
+- `1.25.1-perl`, `1.25.1-perl-alpine`
+- `1.25.1-rtmp`, `1.25.1-rtmp-alpine`
+- `1.25.1-set-misc`, `1.25.1-set-misc-alpine`
+- `1.25.1-subs-filter`, `1.25.1-subs-filter-alpine`
+- `1.25.1-vts`, `1.25.1-vts-alpine`
+- `1.25.1-xslt`, `1.25.1-xslt-alpine`
+- `1.25.1-zip`, `1.25.1-zip-alpine`
 
 ## License
 Licensed under the [MIT License](LICENSE).
