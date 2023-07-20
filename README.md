@@ -114,7 +114,7 @@ The following modules are available:
 - [`rtmp`](https://github.com/arut/nginx-rtmp-module): 3rd-party RTMP dynamic module
 - [`set-misc`](https://github.com/openresty/set-misc-nginx-module): 3rd-party set-misc dynamic module
 - [`subs-filter`](https://www.nginx.com/resources/wiki/modules/substitutions/): 3rd-party substitution dynamic module
-- [`vts`](https://github.com/vozlt/nginx-module-vts): 3rd-party virtual host traffic dynamic module
+- [`vts`](https://github.com/vozlt/nginx-module-vts): 3rd-party virtual host traffic status dynamic module
 - [`xslt`](https://nginx.org/en/docs/http/ngx_http_xslt_module.html): xslt dynamic module
 - [`zip`](https://github.com/evanmiller/mod_zip): 3rd-party zip dynamic module
 
