@@ -1,5 +1,5 @@
 # nginx-modules
-A pre-built NGINX packages and modules for container
+A pre-built NGINX packages and modules for container.
 
 [Source](https://github.com/chocolatefrappe/nginx-modules) | [Docker Hub](https://hub.docker.com/r/chocolatefrappe/nginx-modules)
 
@@ -82,6 +82,8 @@ The following releases are available:
 **Versioned releases**:<!--releases-->
 
 ## Modules
+
+All modules are shipped using `scratch` as base image to reduce the size of the image and avoid unnecessary dependencies.
 
 You can find modules in the following links:
 - https://www.nginx.com/resources/wiki/modules/
