@@ -5,10 +5,12 @@ A pre-built NGINX packages and modules for container.
 
 > **Warning**:
 > 
-> A schedule is set to build the modules and releases every week.
+> This repository will operate autonomously via GitHub scheduled workflow.
 >
 > Due to limitations of GitHub Actions, in a public repository, scheduled workflows are automatically disabled when no repository activity has occurred in 60 days.
 > 
+> If you are expecting a new builds for new NGINX and it is not available, feel free to submit a ticket. 😉
+>
 > See https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration#disabling-and-enabling-workflows
 
 ## Usage
