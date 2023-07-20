@@ -1,0 +1,67 @@
+name: test
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      # Generate modules
+      - uses: actions/checkout@v3
+      - id: module
+        run: echo "module=$(jq -ecr "keys_unsorted" nginx-modules.json)" >> "$GITHUB_OUTPUT"
+      - id: release
+        run: echo 'version=["stable", "mainline"]' >> "$GITHUB_OUTPUT"
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+      module: ${{ steps.module.outputs.module }}
+
+  alpine:
+    # continue-on-error: true
+    needs:
+      - generate
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.version) }}
+        module: ${{ fromJson(needs.generate.outputs.module) }}
+    uses: ./.github/workflows/docker-build.yml
+    secrets: inherit
+    with:
+      version: ${{ matrix.version }}
+      module: ${{ matrix.module }}
+      targets: alpine
+      tags: |
+        type=raw,value=${{ matrix.version }}-alpine-${{ matrix.module }}
+      push: false
+
+  debian:
+    # continue-on-error: true
+    needs:
+      - generate
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.version) }}
+        module: ${{ fromJson(needs.generate.outputs.module) }}
+    uses: ./.github/workflows/docker-build.yml
+    secrets: inherit
+    with:
+      version: ${{ matrix.version }}
+      module: ${{ matrix.module }}
+      targets: debian
+      tags: |
+        type=raw,value=${{ matrix.version }}-${{ matrix.module }}
+      push: false
