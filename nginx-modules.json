@@ -71,6 +71,10 @@
         "desc": "3rd-party substitution dynamic module",
         "url": "https://www.nginx.com/resources/wiki/modules/substitutions/"
     },
+    "vts": {
+        "desc": "3rd-party virtual host traffic dynamic module",
+        "url": "https://github.com/vozlt/nginx-module-vts"
+    },
     "xslt": {
         "desc": "xslt dynamic module",
         "url": "https://nginx.org/en/docs/http/ngx_http_xslt_module.html"
