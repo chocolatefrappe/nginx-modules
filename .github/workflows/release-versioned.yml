@@ -48,7 +48,7 @@ jobs:
       - generate
     strategy:
       fail-fast: false
-      max-parallel: 4
+      #max-parallel: 6
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
@@ -61,6 +61,7 @@ jobs:
       tags: |
         type=semver,pattern={{version}}-alpine-${{ matrix.module }},value=${{ matrix.version }}
       push: ${{ github.event_name != 'pull_request' }}
+      generate-summary: true
 
   debian:
     # continue-on-error: true
@@ -68,7 +69,7 @@ jobs:
       - generate
     strategy:
       fail-fast: false
-      max-parallel: 4
+      #max-parallel: 6
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
@@ -81,6 +82,7 @@ jobs:
       tags: |
         type=semver,pattern={{version}}-${{ matrix.module }},value=${{ matrix.version }}
       push: ${{ github.event_name != 'pull_request' }}
+      generate-summary: true
 
   generate-readme:
     needs: 

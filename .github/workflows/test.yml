@@ -1,24 +1,16 @@
-name: Release channel
+name: test
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-    paths:
-      - '.trigger-ci'
-      - 'alpine/*'
-      - 'debian/*'
-      - 'modules/*'
-      - 'docker-bake.hcl'
-      - 'nginx-modules.json'
-
-  # Runs at 00:00, only on Sunday
-  schedule:
-    - cron: '0 0 * * SUN'
+    types:
+      - opened
+      - synchronize
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   generate:
@@ -40,7 +32,7 @@ jobs:
       - generate
     strategy:
       fail-fast: false
-      #max-parallel: 6
+      max-parallel: 4
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
@@ -52,8 +44,7 @@ jobs:
       targets: alpine
       tags: |
         type=raw,value=${{ matrix.version }}-alpine-${{ matrix.module }}
-      push: ${{ github.event_name != 'pull_request' }}
-      generate-summary: true
+      push: false
 
   debian:
     # continue-on-error: true
@@ -61,7 +52,7 @@ jobs:
       - generate
     strategy:
       fail-fast: false
-      #max-parallel: 6
+      max-parallel: 4
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
@@ -73,5 +64,13 @@ jobs:
       targets: debian
       tags: |
         type=raw,value=${{ matrix.version }}-${{ matrix.module }}
-      push: ${{ github.event_name != 'pull_request' }}
-      generate-summary: true
+      push: false
+
+  status:
+    needs:
+      - alpine
+      - debian
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Test result for alpine = ${{ needs.alpine.result }}"
+      - run: echo "Test result for debian = ${{ needs.debian.result }}"

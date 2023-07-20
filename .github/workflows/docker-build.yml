@@ -23,6 +23,10 @@ on:
         description: 'The tags for the image'
         required: false
         type: string
+      generate-summary:
+        description: 'Whether to generate a summary of the build'
+        required: false
+        type: boolean
 
 jobs:
   build:
@@ -78,4 +82,5 @@ jobs:
           push: ${{ inputs.push }}
 
       - name: Docker Metadata Summary
+        if: ${{ inputs.generate-summary }}
         uses: dockerbakery/docker-metadata-summary@v1
