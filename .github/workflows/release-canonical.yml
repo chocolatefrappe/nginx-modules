@@ -1,6 +1,7 @@
 name: Release canonical
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
