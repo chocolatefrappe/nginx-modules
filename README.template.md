@@ -95,5 +95,11 @@ The following modules are available:<!--modules-->
 
 The following tags are available:<!--tags-->
 
+## Contributing
+
+Contributions are welcome!
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
 ## License
 Licensed under the [MIT License](LICENSE).
