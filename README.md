@@ -107,6 +107,7 @@ The following modules are available:
 - [`rtmp`](https://github.com/arut/nginx-rtmp-module): 3rd-party RTMP dynamic module
 - [`set-misc`](https://github.com/openresty/set-misc-nginx-module): 3rd-party set-misc dynamic module
 - [`subs-filter`](https://www.nginx.com/resources/wiki/modules/substitutions/): 3rd-party substitution dynamic module
+- [`vts`](https://github.com/vozlt/nginx-module-vts): 3rd-party virtual host traffic dynamic module
 - [`xslt`](https://nginx.org/en/docs/http/ngx_http_xslt_module.html): xslt dynamic module
 - [`zip`](https://github.com/evanmiller/mod_zip): 3rd-party zip dynamic module
 
@@ -132,6 +133,7 @@ The following tags are available:
 - `mainline-rtmp`, `mainline-rtmp-alpine`
 - `mainline-set-misc`, `mainline-set-misc-alpine`
 - `mainline-subs-filter`, `mainline-subs-filter-alpine`
+- `mainline-vts`, `mainline-vts-alpine`
 - `mainline-xslt`, `mainline-xslt-alpine`
 - `mainline-zip`, `mainline-zip-alpine`
 - `stable-auth-spnego`, `stable-auth-spnego-alpine`
@@ -152,6 +154,7 @@ The following tags are available:
 - `stable-rtmp`, `stable-rtmp-alpine`
 - `stable-set-misc`, `stable-set-misc-alpine`
 - `stable-subs-filter`, `stable-subs-filter-alpine`
+- `stable-vts`, `stable-vts-alpine`
 - `stable-xslt`, `stable-xslt-alpine`
 - `stable-zip`, `stable-zip-alpine`
 
@@ -175,6 +178,7 @@ The following tags are available:
 - `1.23.4-rtmp`, `1.23.4-rtmp-alpine`
 - `1.23.4-set-misc`, `1.23.4-set-misc-alpine`
 - `1.23.4-subs-filter`, `1.23.4-subs-filter-alpine`
+- `1.23.4-vts`, `1.23.4-vts-alpine`
 - `1.23.4-xslt`, `1.23.4-xslt-alpine`
 - `1.23.4-zip`, `1.23.4-zip-alpine`
 - `1.24.0-auth-spnego`, `1.24.0-auth-spnego-alpine`
@@ -195,6 +199,7 @@ The following tags are available:
 - `1.24.0-rtmp`, `1.24.0-rtmp-alpine`
 - `1.24.0-set-misc`, `1.24.0-set-misc-alpine`
 - `1.24.0-subs-filter`, `1.24.0-subs-filter-alpine`
+- `1.24.0-vts`, `1.24.0-vts-alpine`
 - `1.24.0-xslt`, `1.24.0-xslt-alpine`
 - `1.24.0-zip`, `1.24.0-zip-alpine`
 - `1.25.0-auth-spnego`, `1.25.0-auth-spnego-alpine`
@@ -215,6 +220,7 @@ The following tags are available:
 - `1.25.0-rtmp`, `1.25.0-rtmp-alpine`
 - `1.25.0-set-misc`, `1.25.0-set-misc-alpine`
 - `1.25.0-subs-filter`, `1.25.0-subs-filter-alpine`
+- `1.25.0-vts`, `1.25.0-vts-alpine`
 - `1.25.0-xslt`, `1.25.0-xslt-alpine`
 - `1.25.0-zip`, `1.25.0-zip-alpine`
 - `1.25.1-auth-spnego`, `1.25.1-auth-spnego-alpine`
@@ -235,6 +241,7 @@ The following tags are available:
 - `1.25.1-rtmp`, `1.25.1-rtmp-alpine`
 - `1.25.1-set-misc`, `1.25.1-set-misc-alpine`
 - `1.25.1-subs-filter`, `1.25.1-subs-filter-alpine`
+- `1.25.1-vts`, `1.25.1-vts-alpine`
 - `1.25.1-xslt`, `1.25.1-xslt-alpine`
 - `1.25.1-zip`, `1.25.1-zip-alpine`
 
