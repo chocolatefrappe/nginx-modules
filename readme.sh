@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-README_FILE=README.md
-TEMPLATE_FILE=README.template.md
+README_FILE="README.md"
+TEMPLATE_FILE="README.template.md"
+NGINX_VERSIONS_FILE=".github/locks/nginx-versions.json"
 
 # Inject value into README.md
 function readme() {
@@ -15,7 +16,7 @@ function readme() {
     fi
 }
 
-if [ ! -f "./nginx-versions.json" ]; then
+if [ ! -f "${NGINX_VERSIONS_FILE}" ]; then
     echo "The file nginx-versions.json does not exist."
     exit 1
 fi
@@ -30,7 +31,7 @@ cp $TEMPLATE_FILE $README_FILE
 
 echo "- Generate supported releases list..."
 md_releases="\n"
-releases=(`jq -cr '. | join(" ")' ./nginx-versions.json`)
+releases=(`jq -cr '. | join(" ")' ${NGINX_VERSIONS_FILE}`)
 for release in "${releases[@]}"; do
     md_releases+="\n- \`$release\`"
 done
@@ -63,7 +64,7 @@ done
 md_tags+="\n"
 md_tags+="\n**Versioning releases**:"
 md_tags+="\n"
-releases=(`jq -cr '. | join(" ")' ./nginx-versions.json`)
+releases=(`jq -cr '. | join(" ")' ${NGINX_VERSIONS_FILE}`)
 for release in "${releases[@]}"; do
     for mod in "${modules[@]}"; do
         # [Note] Set alpine release inline

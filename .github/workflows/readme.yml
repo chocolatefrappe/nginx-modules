@@ -28,7 +28,7 @@ jobs:
 
       - name: Generate nginx-versions.json
         run: |
-          cat <<EOF >nginx-versions.json
+          cat <<EOF >.github/locks/nginx-versions.json
           ${{ inputs.version }}
           EOF
 
@@ -38,7 +38,9 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file_pattern: README.md
+          file_pattern: |
+            README.md
+            .github/locks/nginx-versions.json
           commit_message: Generate README.md
           commit_user_name: ${{ vars.BOT_USERNAME }}
           commit_user_email: ${{ vars.BOT_EMAIL}}
