@@ -56,7 +56,7 @@ releases=(mainline stable)
 for release in "${releases[@]}"; do
     for mod in "${modules[@]}"; do
         # [Note] Set alpine release inline
-        md_tags+="\n- \`$release-$mod\`, \`$release-$mod-alpine\`"
+        md_tags+="\n- \`$release-$mod\`, \`$release-alpine-$mod\`"
     done
 done
 
