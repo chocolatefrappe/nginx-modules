@@ -68,7 +68,7 @@ releases=(`jq -cr '. | join(" ")' ${NGINX_VERSIONS_FILE}`)
 for release in "${releases[@]}"; do
     for mod in "${modules[@]}"; do
         # [Note] Set alpine release inline
-        md_tags+="\n- \`$release-$mod\`, \`$release-$mod-alpine\`"
+        md_tags+="\n- \`$release-$mod\`, \`$release-alpine-$mod\`"
     done
 done
 readme tags "$md_tags"
