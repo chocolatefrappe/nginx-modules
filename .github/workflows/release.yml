@@ -20,15 +20,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Sleeping for 30 seconds to allow other jobs to start"
+          sleep 30
+
   canonical:
+    needs: prepare
     uses: ./.github/workflows/release-canonical.yml
     secrets: inherit
 
   channel:
+    needs: prepare
     uses: ./.github/workflows/release-channel.yml
     secrets: inherit
 
   versioned:
+    needs: prepare
     uses: ./.github/workflows/release-versioned.yml
     secrets: inherit
     permissions:
