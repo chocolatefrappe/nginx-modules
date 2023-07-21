@@ -31,3 +31,5 @@ jobs:
   versioned:
     uses: ./.github/workflows/release-versioned.yml
     secrets: inherit
+    permissions:
+      contents: write
