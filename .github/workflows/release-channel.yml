@@ -18,6 +18,7 @@ jobs:
       module: ${{ steps.module.outputs.module }}
 
   alpine:
+    name: alpine
     # continue-on-error: true
     needs:
       - generate
@@ -39,6 +40,7 @@ jobs:
       generate-summary: true
 
   debian:
+    name: debian
     # continue-on-error: true
     needs:
       - generate
