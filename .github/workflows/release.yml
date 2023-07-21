@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  # Runs at 00:00, only on Saturday
+  schedule:
+    - cron: '0 0 * * SAT'
+  push:
+    branches:
+      - main
+    paths:
+      - 'alpine/**'
+      - 'debian/**'
+      - 'modules/**'
+      - 'docker-bake.hcl'
+      - 'nginx-modules.json'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  canonical:
+    uses: ./.github/workflows/release-canonical.yml
+    secrets: inherit
+
+  channel:
+    uses: ./.github/workflows/release-channel.yml
+    secrets: inherit
+
+  versioned:
+    uses: ./.github/workflows/release-versioned.yml
+    secrets: inherit

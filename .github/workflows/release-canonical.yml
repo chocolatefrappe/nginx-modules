@@ -1,24 +1,7 @@
 name: Release canonical
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'alpine/**'
-      - 'debian/**'
-      - 'modules/**'
-      - 'docker-bake.hcl'
-      - 'nginx-modules.json'
-
-  # Runs at 12:00, only on Sunday
-  schedule:
-    - cron: '0 12 * * SUN'
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  workflow_call:
 
 jobs:
   generate:

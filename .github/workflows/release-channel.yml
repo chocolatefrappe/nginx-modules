@@ -1,24 +1,7 @@
 name: Release channel
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'alpine/*'
-      - 'debian/*'
-      - 'modules/*'
-      - 'docker-bake.hcl'
-      - 'nginx-modules.json'
-
-  # Runs at 18:00, only on Sunday
-  schedule:
-    - cron: '0 18 * * SUN'
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  workflow_call:
 
 jobs:
   generate:
