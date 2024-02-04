@@ -71,6 +71,10 @@
         "desc": "3rd-party substitution dynamic module",
         "url": "https://www.nginx.com/resources/wiki/modules/substitutions/"
     },
+    "otel": {
+        "desc": "NGINX Native OpenTelemetry (OTel) Module",
+        "url": "https://github.com/nginxinc/nginx-otel"
+    },
     "vts": {
         "desc": "3rd-party virtual host traffic status dynamic module",
         "url": "https://github.com/vozlt/nginx-module-vts"
