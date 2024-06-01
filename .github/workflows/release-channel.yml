@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Generate modules
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - id: module
         run: echo "module=$(jq -ecr "keys_unsorted" nginx-modules.json)" >> "$GITHUB_OUTPUT"
       - id: release
