@@ -126,6 +126,7 @@ The following modules are available:
 - [`rtmp`](https://github.com/arut/nginx-rtmp-module): 3rd-party RTMP dynamic module
 - [`set-misc`](https://github.com/openresty/set-misc-nginx-module): 3rd-party set-misc dynamic module
 - [`subs-filter`](https://www.nginx.com/resources/wiki/modules/substitutions/): 3rd-party substitution dynamic module
+- [`otel`](https://github.com/nginxinc/nginx-otel): NGINX Native OpenTelemetry (OTel) Module
 - [`vts`](https://github.com/vozlt/nginx-module-vts): 3rd-party virtual host traffic status dynamic module
 - [`xslt`](https://nginx.org/en/docs/http/ngx_http_xslt_module.html): xslt dynamic module
 - [`zip`](https://github.com/evanmiller/mod_zip): 3rd-party zip dynamic module
@@ -152,6 +153,7 @@ The following tags are available:
 - `mainline-rtmp`, `mainline-alpine-rtmp`
 - `mainline-set-misc`, `mainline-alpine-set-misc`
 - `mainline-subs-filter`, `mainline-alpine-subs-filter`
+- `mainline-otel`, `mainline-alpine-otel`
 - `mainline-vts`, `mainline-alpine-vts`
 - `mainline-xslt`, `mainline-alpine-xslt`
 - `mainline-zip`, `mainline-alpine-zip`
@@ -173,6 +175,7 @@ The following tags are available:
 - `stable-rtmp`, `stable-alpine-rtmp`
 - `stable-set-misc`, `stable-alpine-set-misc`
 - `stable-subs-filter`, `stable-alpine-subs-filter`
+- `stable-otel`, `stable-alpine-otel`
 - `stable-vts`, `stable-alpine-vts`
 - `stable-xslt`, `stable-alpine-xslt`
 - `stable-zip`, `stable-alpine-zip`
@@ -197,6 +200,7 @@ The following tags are available:
 - `1.23.4-rtmp`, `1.23.4-alpine-rtmp`
 - `1.23.4-set-misc`, `1.23.4-alpine-set-misc`
 - `1.23.4-subs-filter`, `1.23.4-alpine-subs-filter`
+- `1.23.4-otel`, `1.23.4-alpine-otel`
 - `1.23.4-vts`, `1.23.4-alpine-vts`
 - `1.23.4-xslt`, `1.23.4-alpine-xslt`
 - `1.23.4-zip`, `1.23.4-alpine-zip`
@@ -218,6 +222,7 @@ The following tags are available:
 - `1.24.0-rtmp`, `1.24.0-alpine-rtmp`
 - `1.24.0-set-misc`, `1.24.0-alpine-set-misc`
 - `1.24.0-subs-filter`, `1.24.0-alpine-subs-filter`
+- `1.24.0-otel`, `1.24.0-alpine-otel`
 - `1.24.0-vts`, `1.24.0-alpine-vts`
 - `1.24.0-xslt`, `1.24.0-alpine-xslt`
 - `1.24.0-zip`, `1.24.0-alpine-zip`
@@ -239,6 +244,7 @@ The following tags are available:
 - `1.25.0-rtmp`, `1.25.0-alpine-rtmp`
 - `1.25.0-set-misc`, `1.25.0-alpine-set-misc`
 - `1.25.0-subs-filter`, `1.25.0-alpine-subs-filter`
+- `1.25.0-otel`, `1.25.0-alpine-otel`
 - `1.25.0-vts`, `1.25.0-alpine-vts`
 - `1.25.0-xslt`, `1.25.0-alpine-xslt`
 - `1.25.0-zip`, `1.25.0-alpine-zip`
@@ -260,6 +266,7 @@ The following tags are available:
 - `1.25.1-rtmp`, `1.25.1-alpine-rtmp`
 - `1.25.1-set-misc`, `1.25.1-alpine-set-misc`
 - `1.25.1-subs-filter`, `1.25.1-alpine-subs-filter`
+- `1.25.1-otel`, `1.25.1-alpine-otel`
 - `1.25.1-vts`, `1.25.1-alpine-vts`
 - `1.25.1-xslt`, `1.25.1-alpine-xslt`
 - `1.25.1-zip`, `1.25.1-alpine-zip`
