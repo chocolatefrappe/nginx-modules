@@ -16,7 +16,7 @@ jobs:
       - id: today
         uses: actions-matrix/today@main
       - id: release
-        uses: actions-matrix/release-matrix-action@v1
+        uses: actions-matrix/release-matrix-action@v2
         with:
           search: "nginx"
           limit: 2
@@ -24,7 +24,7 @@ jobs:
       - id: semver
         uses: actions-matrix/semver@v1
         with:
-          value: ${{ steps.release.outputs.version }}
+          value: ${{ steps.release.outputs.versions }}
           pattern: "{major}.{minor}"
     outputs:
       version: ${{ steps.semver.outputs.version }}

@@ -16,13 +16,13 @@ jobs:
       - id: today
         uses: actions-matrix/today@main
       - id: release
-        uses: actions-matrix/release-matrix-action@v1
+        uses: actions-matrix/release-matrix-action@v2
         with:
           search: "nginx"
           limit: 2
           date: ${{ steps.today.outputs.year }}
     outputs:
-      version: ${{ steps.release.outputs.version }}
+      versions: ${{ steps.release.outputs.versions }}
       module: ${{ steps.module.outputs.module }}
 
 
@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       #max-parallel: 6
       matrix:
-        version: ${{ fromJson(needs.generate.outputs.version) }}
+        version: ${{ fromJson(needs.generate.outputs.versions) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
     uses: ./.github/workflows/docker-build.yml
     secrets: inherit
