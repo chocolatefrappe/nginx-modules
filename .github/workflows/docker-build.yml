@@ -85,3 +85,10 @@ jobs:
       - name: Docker Metadata Summary
         if: ${{ inputs.generate-summary }}
         uses: dockerbakery/docker-metadata-summary@v1
+
+  sleep:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - run: sleep 15
+      
