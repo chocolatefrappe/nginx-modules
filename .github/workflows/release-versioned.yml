@@ -21,7 +21,7 @@ jobs:
           search: "nginx"
           # limit: 2
           # date: ">=${{ steps.today.outputs.year }}"
-          date: ">=2024-11"
+          date: ">=2024-04"
     outputs:
       versions: ${{ steps.release.outputs.versions }}
       module: ${{ steps.module.outputs.module }}
