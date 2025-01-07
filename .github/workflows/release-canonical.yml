@@ -21,7 +21,7 @@ jobs:
           search: "nginx"
           limit: 2
           # date: ">=${{ steps.today.outputs.year }}"
-          date: ">=2024"
+          date: ">=2024-04"
       - id: semver
         uses: actions-matrix/semver@v1
         with:
