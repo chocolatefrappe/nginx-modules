@@ -97,9 +97,7 @@ All modules are shipped using `scratch` as base image to reduce the size of the 
 >
 > This repository will automatically continue to build modules and releases if any changes made to the NGINX `oss-pkg` repository.
 >
-> See https://hg.nginx.org/pkg-oss/
-> 
-> Also see https://www.nginx.com/resources/wiki/modules/
+> See https://github.com/nginx/pkg-oss/
 
 The following modules are available:<!--modules-->
 

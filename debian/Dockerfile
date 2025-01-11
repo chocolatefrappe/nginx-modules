@@ -14,14 +14,13 @@ RUN set -ex \
 
 COPY ./modules /modules/
 
-RUN set -ex \
-    && apt update \
-    && apt install -y --no-install-suggests --no-install-recommends \
-                patch make wget mercurial devscripts debhelper dpkg-dev \
+RUN apt-get update \
+    && apt-get install -y --no-install-suggests --no-install-recommends \
+                patch make wget git devscripts debhelper dpkg-dev \
                 quilt lsb-release build-essential libxml2-utils xsltproc \
                 equivs git g++ libparse-recdescent-perl \
     && XSLSCRIPT_SHA512="f7194c5198daeab9b3b0c3aebf006922c7df1d345d454bd8474489ff2eb6b4bf8e2ffe442489a45d1aab80da6ecebe0097759a1e12cc26b5f0613d05b7c09ffa *stdin" \
-    && wget -O /tmp/xslscript.pl https://hg.nginx.org/xslscript/raw-file/01dc9ba12e1b/xslscript.pl \
+    && wget -O /tmp/xslscript.pl https://raw.githubusercontent.com/nginx/xslscript/9204424259c343ca08a18a78915f40f28025e093/xslscript.pl \
     && if [ "$(cat /tmp/xslscript.pl | openssl sha512 -r)" = "$XSLSCRIPT_SHA512" ]; then \
         echo "XSLScript checksum verification succeeded!"; \
         chmod +x /tmp/xslscript.pl; \
@@ -30,7 +29,7 @@ RUN set -ex \
         echo "XSLScript checksum verification failed!"; \
         exit 1; \
     fi \
-    && hg clone -r ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://hg.nginx.org/pkg-oss/ \
+    && git clone -b ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://github.com/nginx/pkg-oss/ \
     && cd pkg-oss \
     && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
@@ -45,7 +44,7 @@ RUN set -ex \
             # some modules require build dependencies
             if [ -f /modules/$module/build-deps ]; then \
                 echo "Installing $module build dependencies"; \
-                apt update && apt install -y --no-install-suggests --no-install-recommends $(cat /modules/$module/build-deps | xargs); \
+                apt-get update && apt-get install -y --no-install-suggests --no-install-recommends $(cat /modules/$module/build-deps | xargs); \
             fi; \
             # if a module has a build dependency that is not in a distro, provide a
             # shell script to fetch/build/install those

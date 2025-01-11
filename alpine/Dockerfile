@@ -14,15 +14,14 @@ RUN set -ex \
 
 COPY ./modules /modules/
 
-RUN set -ex \
-    && apk update \
+RUN apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
-               xz g++ coreutils \
+               xz g++ coreutils curl \
     # allow abuild as a root user \
     && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
     && chmod +x /usr/local/bin/abuild \
-    && hg clone -r ${NGINX_VERSION}-${PKG_RELEASE} https://hg.nginx.org/pkg-oss/ \
+    && git clone -b ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss/ \
     && cd pkg-oss \
     && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
@@ -62,7 +61,7 @@ RUN set -ex \
             exit 1; \
         fi; \
     done \
-    && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env 
+    && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
 # Create module-available.d directory and touch files for built modules
 RUN . /tmp/packages/modules.env \
