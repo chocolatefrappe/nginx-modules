@@ -1,7 +1,6 @@
 name: Release versioned
 
 on:
-  workflow_call:
   workflow_dispatch:
 
 jobs:

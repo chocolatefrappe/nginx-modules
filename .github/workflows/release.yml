@@ -14,7 +14,6 @@ on:
       - 'modules/**'
       - 'docker-bake.hcl'
       - 'nginx-modules.json'
-      - 'workflow-trigger.txt'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
