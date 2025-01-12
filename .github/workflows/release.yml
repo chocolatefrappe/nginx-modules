@@ -20,6 +20,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -30,17 +34,18 @@ jobs:
 
   canonical:
     needs: prepare
-    uses: ./.github/workflows/release-canonical.yml
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run release-canonical.yml --ref main
 
   channel:
     needs: prepare
-    uses: ./.github/workflows/release-channel.yml
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run release-channel.yml --ref main
 
   versioned:
     needs: prepare
-    uses: ./.github/workflows/release-versioned.yml
-    secrets: inherit
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run release-versioned.yml --ref main
