@@ -72,7 +72,9 @@ RUN set -ex \
 
 The supported releases are available in the following format:
 
-[![Release](https://github.com/chocolatefrappe/nginx-modules/actions/workflows/release.yml/badge.svg)](https://github.com/chocolatefrappe/nginx-modules/actions/workflows/release.yml)
+[![Release canonical](https://github.com/chocolatefrappe/nginx-modules/actions/workflows/release-canonical.yml/badge.svg)](https://github.com/chocolatefrappe/nginx-modules/actions/workflows/release-canonical.yml)
+[![Release channel](https://github.com/chocolatefrappe/nginx-modules/actions/workflows/release-channel.yml/badge.svg)](https://github.com/chocolatefrappe/nginx-modules/actions/workflows/release-channel.yml)
+[![Release versioned](https://github.com/chocolatefrappe/nginx-modules/actions/workflows/release-versioned.yml/badge.svg)](https://github.com/chocolatefrappe/nginx-modules/actions/workflows/release-versioned.yml)
 
 - `{version}`, `{version}-alpine`
 - `{major}.{minor}`, `{major}.{minor}-alpine`
