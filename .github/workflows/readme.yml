@@ -14,12 +14,14 @@ on:
         description: 'The version of nginx to generate the README for'
         required: false
         type: string
+        default: ""
   workflow_call:
     inputs:
       version:
         description: 'The version of nginx to generate the README for'
         required: true
         type: string
+        default: ""
 
 permissions:
   contents: write
@@ -34,7 +36,7 @@ jobs:
           token: ${{ secrets.BOT_PAT }}
 
       - name: Generate nginx-versions.json
-        if: ${{ github.event.inputs.version }}
+        if: ${{ github.event.inputs.version != '' }}
         run: |
           cat <<EOF >.github/locks/nginx-versions.json
           ${{ inputs.version }}
