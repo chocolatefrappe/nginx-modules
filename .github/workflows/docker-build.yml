@@ -18,7 +18,6 @@ on:
 
 jobs:
   build:
-    name: build (${{ inputs.version }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
