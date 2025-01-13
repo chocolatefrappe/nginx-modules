@@ -68,6 +68,13 @@ target "nginx-module-auth-spnego-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-auth-spnego"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-auth-spnego",
+        "org.opencontainers.image.description=3rd-party kerberos authentication dynamic module",
+        "org.opencontainers.image.url=https://github.com/stnoonan/spnego-http-auth-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-auth-spnego"
     ]
@@ -76,6 +83,13 @@ target "nginx-module-auth-spnego-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-auth-spnego"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-auth-spnego",
+        "org.opencontainers.image.description=3rd-party kerberos authentication dynamic module",
+        "org.opencontainers.image.url=https://github.com/stnoonan/spnego-http-auth-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-auth-spnego"
     ]
@@ -86,6 +100,13 @@ target "nginx-module-brotli-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-brotli"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-brotli",
+        "org.opencontainers.image.description=3rd-party brotli compression dynamic modules",
+        "org.opencontainers.image.url=https://github.com/google/ngx_brotli",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-brotli"
     ]
@@ -94,6 +115,13 @@ target "nginx-module-brotli-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-brotli"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-brotli",
+        "org.opencontainers.image.description=3rd-party brotli compression dynamic modules",
+        "org.opencontainers.image.url=https://github.com/google/ngx_brotli",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-brotli"
     ]
@@ -104,6 +132,13 @@ target "nginx-module-echo-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-echo"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-echo",
+        "org.opencontainers.image.description=Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file",
+        "org.opencontainers.image.url=https://github.com/openresty/echo-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-echo"
     ]
@@ -112,6 +147,13 @@ target "nginx-module-echo-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-echo"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-echo",
+        "org.opencontainers.image.description=Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file",
+        "org.opencontainers.image.url=https://github.com/openresty/echo-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-echo"
     ]
@@ -122,6 +164,13 @@ target "nginx-module-encrypted-session-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-encrypted-session"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-encrypted-session",
+        "org.opencontainers.image.description=3rd-party encrypted session dynamic module",
+        "org.opencontainers.image.url=https://github.com/openresty/encrypted-session-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-encrypted-session"
     ]
@@ -130,6 +179,13 @@ target "nginx-module-encrypted-session-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-encrypted-session"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-encrypted-session",
+        "org.opencontainers.image.description=3rd-party encrypted session dynamic module",
+        "org.opencontainers.image.url=https://github.com/openresty/encrypted-session-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-encrypted-session"
     ]
@@ -140,6 +196,13 @@ target "nginx-module-fips-check-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-fips-check"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-fips-check",
+        "org.opencontainers.image.description=3rd-party FIPS status check dynamic module",
+        "org.opencontainers.image.url=https://github.com/ogarrett/nginx-fips-check-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-fips-check"
     ]
@@ -148,6 +211,13 @@ target "nginx-module-fips-check-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-fips-check"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-fips-check",
+        "org.opencontainers.image.description=3rd-party FIPS status check dynamic module",
+        "org.opencontainers.image.url=https://github.com/ogarrett/nginx-fips-check-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-fips-check"
     ]
@@ -158,6 +228,13 @@ target "nginx-module-geoip-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-geoip"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-geoip",
+        "org.opencontainers.image.description=GeoIP dynamic modules",
+        "org.opencontainers.image.url=https://nginx.org/en/docs/stream/ngx_stream_geoip_module.html",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-geoip"
     ]
@@ -166,6 +243,13 @@ target "nginx-module-geoip-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-geoip"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-geoip",
+        "org.opencontainers.image.description=GeoIP dynamic modules",
+        "org.opencontainers.image.url=https://nginx.org/en/docs/stream/ngx_stream_geoip_module.html",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-geoip"
     ]
@@ -176,6 +260,13 @@ target "nginx-module-geoip2-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-geoip2"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-geoip2",
+        "org.opencontainers.image.description=3rd-party GeoIP2 dynamic modules",
+        "org.opencontainers.image.url=https://github.com/leev/ngx_http_geoip2_module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-geoip2"
     ]
@@ -184,6 +275,13 @@ target "nginx-module-geoip2-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-geoip2"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-geoip2",
+        "org.opencontainers.image.description=3rd-party GeoIP2 dynamic modules",
+        "org.opencontainers.image.url=https://github.com/leev/ngx_http_geoip2_module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-geoip2"
     ]
@@ -194,6 +292,13 @@ target "nginx-module-headers-more-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-headers-more"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-headers-more",
+        "org.opencontainers.image.description=3rd-party headers-more dynamic module",
+        "org.opencontainers.image.url=https://github.com/openresty/headers-more-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-headers-more"
     ]
@@ -202,6 +307,13 @@ target "nginx-module-headers-more-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-headers-more"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-headers-more",
+        "org.opencontainers.image.description=3rd-party headers-more dynamic module",
+        "org.opencontainers.image.url=https://github.com/openresty/headers-more-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-headers-more"
     ]
@@ -212,6 +324,13 @@ target "nginx-module-image-filter-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-image-filter"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-image-filter",
+        "org.opencontainers.image.description=image filter dynamic module",
+        "org.opencontainers.image.url=https://nginx.org/en/docs/http/ngx_http_image_filter_module.htm",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-image-filter"
     ]
@@ -220,6 +339,13 @@ target "nginx-module-image-filter-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-image-filter"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-image-filter",
+        "org.opencontainers.image.description=image filter dynamic module",
+        "org.opencontainers.image.url=https://nginx.org/en/docs/http/ngx_http_image_filter_module.htm",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-image-filter"
     ]
@@ -230,6 +356,13 @@ target "nginx-module-lua-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-lua"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-lua",
+        "org.opencontainers.image.description=3rd-party Lua dynamic modules",
+        "org.opencontainers.image.url=https://github.com/openresty/lua-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-lua"
     ]
@@ -238,6 +371,13 @@ target "nginx-module-lua-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-lua"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-lua",
+        "org.opencontainers.image.description=3rd-party Lua dynamic modules",
+        "org.opencontainers.image.url=https://github.com/openresty/lua-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-lua"
     ]
@@ -248,6 +388,13 @@ target "nginx-module-ndk-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-ndk"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-ndk",
+        "org.opencontainers.image.description=3rd-party NDK dynamic module",
+        "org.opencontainers.image.url=https://github.com/vision5/ngx_devel_kit",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-ndk"
     ]
@@ -256,6 +403,13 @@ target "nginx-module-ndk-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-ndk"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-ndk",
+        "org.opencontainers.image.description=3rd-party NDK dynamic module",
+        "org.opencontainers.image.url=https://github.com/vision5/ngx_devel_kit",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-ndk"
     ]
@@ -266,6 +420,13 @@ target "nginx-module-njs-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-njs"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-njs",
+        "org.opencontainers.image.description=njs dynamic modules",
+        "org.opencontainers.image.url=https://nginx.org/en/docs/njs/",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-njs"
     ]
@@ -274,6 +435,13 @@ target "nginx-module-njs-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-njs"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-njs",
+        "org.opencontainers.image.description=njs dynamic modules",
+        "org.opencontainers.image.url=https://nginx.org/en/docs/njs/",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-njs"
     ]
@@ -284,6 +452,13 @@ target "nginx-module-opentracing-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-opentracing"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-opentracing",
+        "org.opencontainers.image.description=3rd-party OpenTracing dynamic module",
+        "org.opencontainers.image.url=https://github.com/opentracing-contrib/nginx-opentracing",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-opentracing"
     ]
@@ -292,6 +467,13 @@ target "nginx-module-opentracing-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-opentracing"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-opentracing",
+        "org.opencontainers.image.description=3rd-party OpenTracing dynamic module",
+        "org.opencontainers.image.url=https://github.com/opentracing-contrib/nginx-opentracing",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-opentracing"
     ]
@@ -302,6 +484,13 @@ target "nginx-module-otel-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-otel"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-otel",
+        "org.opencontainers.image.description=NGINX Native OpenTelemetry (OTel) Module",
+        "org.opencontainers.image.url=https://github.com/nginxinc/nginx-otel",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-otel"
     ]
@@ -310,6 +499,13 @@ target "nginx-module-otel-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-otel"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-otel",
+        "org.opencontainers.image.description=NGINX Native OpenTelemetry (OTel) Module",
+        "org.opencontainers.image.url=https://github.com/nginxinc/nginx-otel",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-otel"
     ]
@@ -320,6 +516,13 @@ target "nginx-module-passenger-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-passenger"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-passenger",
+        "org.opencontainers.image.description=3rd-party Passenger dynamic module",
+        "org.opencontainers.image.url=https://www.phusionpassenger.com/library/config/nginx/intro.html",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-passenger"
     ]
@@ -328,6 +531,13 @@ target "nginx-module-passenger-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-passenger"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-passenger",
+        "org.opencontainers.image.description=3rd-party Passenger dynamic module",
+        "org.opencontainers.image.url=https://www.phusionpassenger.com/library/config/nginx/intro.html",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-passenger"
     ]
@@ -338,6 +548,13 @@ target "nginx-module-perl-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-perl"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-perl",
+        "org.opencontainers.image.description=Perl dynamic module",
+        "org.opencontainers.image.url=http://nginx.org/en/docs/http/ngx_http_perl_module.html",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-perl"
     ]
@@ -346,6 +563,13 @@ target "nginx-module-perl-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-perl"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-perl",
+        "org.opencontainers.image.description=Perl dynamic module",
+        "org.opencontainers.image.url=http://nginx.org/en/docs/http/ngx_http_perl_module.html",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-perl"
     ]
@@ -356,6 +580,13 @@ target "nginx-module-rtmp-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-rtmp"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-rtmp",
+        "org.opencontainers.image.description=3rd-party RTMP dynamic module",
+        "org.opencontainers.image.url=https://github.com/arut/nginx-rtmp-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-rtmp"
     ]
@@ -364,6 +595,13 @@ target "nginx-module-rtmp-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-rtmp"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-rtmp",
+        "org.opencontainers.image.description=3rd-party RTMP dynamic module",
+        "org.opencontainers.image.url=https://github.com/arut/nginx-rtmp-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-rtmp"
     ]
@@ -374,6 +612,13 @@ target "nginx-module-set-misc-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-set-misc"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-set-misc",
+        "org.opencontainers.image.description=3rd-party set-misc dynamic module",
+        "org.opencontainers.image.url=https://github.com/openresty/set-misc-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-set-misc"
     ]
@@ -382,6 +627,13 @@ target "nginx-module-set-misc-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-set-misc"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-set-misc",
+        "org.opencontainers.image.description=3rd-party set-misc dynamic module",
+        "org.opencontainers.image.url=https://github.com/openresty/set-misc-nginx-module",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-set-misc"
     ]
@@ -392,6 +644,13 @@ target "nginx-module-subs-filter-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-subs-filter"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-subs-filter",
+        "org.opencontainers.image.description=3rd-party substitution dynamic module",
+        "org.opencontainers.image.url=https://www.nginx.com/resources/wiki/modules/substitutions/",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-subs-filter"
     ]
@@ -400,6 +659,13 @@ target "nginx-module-subs-filter-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-subs-filter"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-subs-filter",
+        "org.opencontainers.image.description=3rd-party substitution dynamic module",
+        "org.opencontainers.image.url=https://www.nginx.com/resources/wiki/modules/substitutions/",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-subs-filter"
     ]
@@ -410,6 +676,13 @@ target "nginx-module-vts-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-vts"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-vts",
+        "org.opencontainers.image.description=3rd-party virtual host traffic status dynamic module",
+        "org.opencontainers.image.url=https://github.com/vozlt/nginx-module-vts",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-vts"
     ]
@@ -418,6 +691,13 @@ target "nginx-module-vts-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-vts"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-vts",
+        "org.opencontainers.image.description=3rd-party virtual host traffic status dynamic module",
+        "org.opencontainers.image.url=https://github.com/vozlt/nginx-module-vts",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-vts"
     ]
@@ -428,6 +708,13 @@ target "nginx-module-xslt-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-xslt"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-xslt",
+        "org.opencontainers.image.description=xslt dynamic module",
+        "org.opencontainers.image.url=https://nginx.org/en/docs/http/ngx_http_xslt_module.html",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-xslt"
     ]
@@ -436,6 +723,13 @@ target "nginx-module-xslt-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-xslt"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-xslt",
+        "org.opencontainers.image.description=xslt dynamic module",
+        "org.opencontainers.image.url=https://nginx.org/en/docs/http/ngx_http_xslt_module.html",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-xslt"
     ]
@@ -446,6 +740,13 @@ target "nginx-module-zip-alpine" {
     inherits = ["nginx-module-builder"]
     dockerfile = "alpine/Dockerfile"
     target = "nginx-module-zip"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-zip",
+        "org.opencontainers.image.description=3rd-party zip dynamic module",
+        "org.opencontainers.image.url=https://github.com/evanmiller/mod_zip",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-zip"
     ]
@@ -454,6 +755,13 @@ target "nginx-module-zip-debian" {
     inherits = ["nginx-module-builder"]
     dockerfile = "debian/Dockerfile"
     target = "nginx-module-zip"
+    labels = [
+        "org.opencontainers.image.title=nginx-module-zip",
+        "org.opencontainers.image.description=3rd-party zip dynamic module",
+        "org.opencontainers.image.url=https://github.com/evanmiller/mod_zip",
+        "org.opencontainers.image.version=${NGINX_VERSION}",
+        "org.opencontainers.image.licenses=",
+    ]
     tags = [
         "${TAG}:${NGINX_VERSION}-zip"
     ]

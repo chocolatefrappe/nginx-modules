@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ENABLED_MODULE=$(jq -cr 'keys | join(" ")' nginx-modules.json)
 BAKE_FILE="docker-bake.hcl"
+ENABLED_MODULE=$(jq -cr 'keys | join(" ")' nginx-modules.json)
 
 echo "Configuring nginx-modules..."
 
@@ -64,6 +64,9 @@ for module in $ENABLED_MODULE; do
     echo "  [+] Rendering $module..."
     echo "     - Adding $module to nginx-modules.hcl..."
 
+    oci_description=$(jq -r '.["'$module'"].description' nginx-modules.json)
+    oci_url=$(jq -r '.["'$module'"].url' nginx-modules.json)
+
     echo '# '$module >> $BAKE_FILE
     # alpine
     {
@@ -71,6 +74,13 @@ for module in $ENABLED_MODULE; do
         echo '    inherits = ["nginx-module-builder"]'
         echo '    dockerfile = "alpine/Dockerfile"'
         echo '    target = "nginx-module-'$module'"'
+        echo '    labels = ['
+        echo '        "org.opencontainers.image.title=nginx-module-'$module'"',
+        echo '        "org.opencontainers.image.description='$oci_description'"',
+        echo '        "org.opencontainers.image.url='$oci_url'"',
+        echo '        "org.opencontainers.image.version=${NGINX_VERSION}"',
+        echo '        "org.opencontainers.image.licenses="',
+        echo '    ]'
         echo '    tags = ['
         echo '        "${TAG}:${NGINX_VERSION}-alpine-'$module'"'
         echo '    ]'
@@ -83,6 +93,13 @@ for module in $ENABLED_MODULE; do
         echo '    inherits = ["nginx-module-builder"]'
         echo '    dockerfile = "debian/Dockerfile"'
         echo '    target = "nginx-module-'$module'"'
+        echo '    labels = ['
+        echo '        "org.opencontainers.image.title=nginx-module-'$module'"',
+        echo '        "org.opencontainers.image.description='$oci_description'"',
+        echo '        "org.opencontainers.image.url='$oci_url'"',
+        echo '        "org.opencontainers.image.version=${NGINX_VERSION}"',
+        echo '        "org.opencontainers.image.licenses="',
+        echo '    ]'
         echo '    tags = ['
         echo '        "${TAG}:${NGINX_VERSION}-'$module'"'
         echo '    ]'
