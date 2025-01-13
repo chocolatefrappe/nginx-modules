@@ -14,8 +14,9 @@ jobs:
         uses: actions-matrix/release-matrix-action@v2
         with:
           search: "nginx"
-          limit: 3
-          date: ">=${{ steps.today.outputs.year }}"
+          # limit: 3
+          # date: ">=${{ steps.today.outputs.year }}"
+          date: ">=2024-04"
       - id: semver
         uses: actions-matrix/semver@v1
         with:
