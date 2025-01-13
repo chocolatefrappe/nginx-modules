@@ -7,11 +7,6 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      # Generate modules
-      - uses: actions/checkout@v4
-      - id: module
-        run: echo "module=$(jq -ecr "keys_unsorted" nginx-modules.json)" >> "$GITHUB_OUTPUT"
-
       # Generate release versions
       - id: today
         uses: actions-matrix/today@main
@@ -28,7 +23,6 @@ jobs:
           pattern: "{major}.{minor}"
     outputs:
       version: ${{ steps.semver.outputs.version }}
-      module: ${{ steps.module.outputs.module }}
 
 
   alpine:
@@ -41,17 +35,12 @@ jobs:
       max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
-        module: ${{ fromJson(needs.generate.outputs.module) }}
     uses: ./.github/workflows/docker-build.yml
     secrets: inherit
     with:
+      targets: nginx-modules-alpine
       version: ${{ matrix.version }}
-      module: ${{ matrix.module }}
-      targets: alpine
-      tags: |
-        type=raw,value=${{ matrix.version }}-alpine-${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
-      generate-summary: true
 
   debian:
     name: debian
@@ -63,14 +52,9 @@ jobs:
       max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
-        module: ${{ fromJson(needs.generate.outputs.module) }}
     uses: ./.github/workflows/docker-build.yml
     secrets: inherit
     with:
+      targets: nginx-modules-debian
       version: ${{ matrix.version }}
-      module: ${{ matrix.module }}
-      targets: debian
-      tags: |
-        type=raw,value=${{ matrix.version }}-${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
-      generate-summary: true

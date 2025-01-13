@@ -7,10 +7,6 @@ on:
         description: 'The nginx version to build'
         required: true
         type: string
-      module:
-        description: 'The nginx module to build'
-        required: true
-        type: string
       targets:
         description: 'The targets for docker-bake.hcl'
         required: true
@@ -19,70 +15,31 @@ on:
         description: 'Whether to push the image to Docker Registry'
         required: false
         type: boolean
-      tags:
-        description: 'The tags for the image'
-        required: false
-        type: string
-      generate-summary:
-        description: 'Whether to generate a summary of the build'
-        required: false
-        type: boolean
 
 jobs:
   build:
-    name: build (${{ inputs.version }}, ${{ inputs.module }})
+    name: build (${{ inputs.version }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Get module description
-        id: module
-        run: |
-          description=$(jq -cr ".[\"${{ inputs.module }}\"].desc" nginx-modules.json)
-          url=$(jq -cr ".[\"${{ inputs.module }}\"].url" nginx-modules.json)
-          echo "description=${description}" >> $GITHUB_OUTPUT
-          echo "url=${url}" >> $GITHUB_OUTPUT
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: chocolatefrappe/nginx-modules
-          flavor: |
-            latest=false
-          tags: ${{ inputs.tags }}
-          labels: |
-            org.opencontainers.image.title=${{ inputs.module }}
-            org.opencontainers.image.description=${{ steps.module.outputs.description }}
-            org.opencontainers.image.url=${{ steps.module.outputs.url }}
-            org.opencontainers.image.version=${{ inputs.version }}
-            org.opencontainers.image.licenses=
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/bake-action@v3
+        uses: docker/bake-action@v6
         env:
           NGINX_VERSION: ${{ inputs.version }}
-          ENABLED_MODULE: ${{ inputs.module }}
         with:
           targets: ${{ inputs.targets }}
-          files: |
-            docker-bake.hcl
-            ${{ steps.meta.outputs.bake-file }}
           push: ${{ inputs.push }}
-
-      - name: Docker Metadata Summary
-        if: ${{ inputs.generate-summary }}
-        uses: dockerbakery/docker-metadata-summary@v1
-      
+          files: docker-bake.hcl

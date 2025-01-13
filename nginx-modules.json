@@ -1,91 +1,91 @@
 
 {
     "auth-spnego": {
-        "desc": "3rd-party kerberos authentication dynamic module",
+        "description": "3rd-party kerberos authentication dynamic module",
         "url": "https://github.com/stnoonan/spnego-http-auth-nginx-module"
     },
     "brotli": {
-        "desc": "3rd-party brotli compression dynamic modules",
+        "description": "3rd-party brotli compression dynamic modules",
         "url": "https://github.com/google/ngx_brotli"
     },
     "echo": {
-        "desc": "Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file",
+        "description": "Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file",
         "url": "https://github.com/openresty/echo-nginx-module"
     },
     "encrypted-session": {
-        "desc": "3rd-party encrypted session dynamic module",
+        "description": "3rd-party encrypted session dynamic module",
         "url": "https://github.com/openresty/encrypted-session-nginx-module"
     },
     "fips-check": {
-        "desc": "3rd-party FIPS status check dynamic module",
+        "description": "3rd-party FIPS status check dynamic module",
         "url": "https://github.com/ogarrett/nginx-fips-check-module"
     },
     "geoip": {
-        "desc": "GeoIP dynamic modules",
+        "description": "GeoIP dynamic modules",
         "url": "https://nginx.org/en/docs/stream/ngx_stream_geoip_module.html"
     },
     "geoip2": {
-        "desc": "3rd-party GeoIP2 dynamic modules",
+        "description": "3rd-party GeoIP2 dynamic modules",
         "url": "https://github.com/leev/ngx_http_geoip2_module"
     },
     "headers-more": {
-        "desc": "3rd-party headers-more dynamic module",
+        "description": "3rd-party headers-more dynamic module",
         "url": "https://github.com/openresty/headers-more-nginx-module"
     },
     "image-filter": {
-        "desc": "image filter dynamic module",
+        "description": "image filter dynamic module",
         "url": "https://nginx.org/en/docs/http/ngx_http_image_filter_module.htm"
     },
     "lua": {
-        "desc": "3rd-party Lua dynamic modules",
+        "description": "3rd-party Lua dynamic modules",
         "url": "https://github.com/openresty/lua-nginx-module"
     },
     "ndk": {
-        "desc": "3rd-party NDK dynamic module",
+        "description": "3rd-party NDK dynamic module",
         "url": "https://github.com/vision5/ngx_devel_kit"
     },
     "njs": {
-        "desc": "njs dynamic modules",
+        "description": "njs dynamic modules",
         "url": "https://nginx.org/en/docs/njs/"
     },
     "opentracing": {
-        "desc": "3rd-party OpenTracing dynamic module",
+        "description": "3rd-party OpenTracing dynamic module",
         "url": "https://github.com/opentracing-contrib/nginx-opentracing"
     },
     "otel": {
-        "desc": "NGINX Native OpenTelemetry (OTel) Module",
+        "description": "NGINX Native OpenTelemetry (OTel) Module",
         "url": "https://github.com/nginxinc/nginx-otel"
     },
     "passenger": {
-        "desc": "3rd-party Passenger dynamic module",
+        "description": "3rd-party Passenger dynamic module",
         "url": "https://www.phusionpassenger.com/library/config/nginx/intro.html"
     },
     "perl": {
-        "desc": "Perl dynamic module",
+        "description": "Perl dynamic module",
         "url": "http://nginx.org/en/docs/http/ngx_http_perl_module.html"
     },
     "rtmp": {
-        "desc": "3rd-party RTMP dynamic module",
+        "description": "3rd-party RTMP dynamic module",
         "url": "https://github.com/arut/nginx-rtmp-module"
     },
     "set-misc": {
-        "desc": "3rd-party set-misc dynamic module",
+        "description": "3rd-party set-misc dynamic module",
         "url": "https://github.com/openresty/set-misc-nginx-module"
     },
     "subs-filter": {
-        "desc": "3rd-party substitution dynamic module",
+        "description": "3rd-party substitution dynamic module",
         "url": "https://www.nginx.com/resources/wiki/modules/substitutions/"
     },
     "vts": {
-        "desc": "3rd-party virtual host traffic status dynamic module",
+        "description": "3rd-party virtual host traffic status dynamic module",
         "url": "https://github.com/vozlt/nginx-module-vts"
     },
     "xslt": {
-        "desc": "xslt dynamic module",
+        "description": "xslt dynamic module",
         "url": "https://nginx.org/en/docs/http/ngx_http_xslt_module.html"
     },
     "zip": {
-        "desc": "3rd-party zip dynamic module",
+        "description": "3rd-party zip dynamic module",
         "url": "https://github.com/evanmiller/mod_zip"
     }
 }
