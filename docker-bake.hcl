@@ -16,6 +16,10 @@ target "nginx-modules-alpine" {
     tags = [
         "${TAG}:${NGINX_VERSION}-alpine-${module}"
     ]
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
+    ]
 }
 
 target "nginx-modules-debian" {
@@ -31,6 +35,10 @@ target "nginx-modules-debian" {
     }
     tags = [
         "${TAG}:${NGINX_VERSION}-${module}"
+    ]
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
     ]
 }
 
