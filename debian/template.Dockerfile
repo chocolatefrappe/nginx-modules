@@ -81,4 +81,8 @@ RUN . /tmp/packages/modules.env \
     done \
     && rm /tmp/packages/modules.env
 
+FROM scratch AS nginx-modules-packages
+COPY --from=builder /tmp/module-available.d /module-available.d
+COPY --from=builder /tmp/packages /packages
+
 # NGINX module package
