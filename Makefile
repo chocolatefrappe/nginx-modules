@@ -2,6 +2,7 @@ DOCKER_BUILDER_NAME=nginx-modules-builder
 
 it:
 	./configure
+	docker buildx bake nginx-modules-{alpine,debian} --print
 
 build: alpine debian
 
