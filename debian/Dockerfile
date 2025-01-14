@@ -17,8 +17,9 @@ RUN set -ex \
 
 COPY ./modules /modules/
 
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+ARG TARGETARCH
+RUN --mount=type=cache,id=${TARGETARCH}-builder-cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=${TARGETARCH}-builder-cache,target=/var/lib/apt,sharing=locked \
     apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget git devscripts debhelper dpkg-dev \
