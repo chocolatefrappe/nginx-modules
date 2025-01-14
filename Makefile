@@ -1,4 +1,5 @@
 DOCKER_BUILDER_NAME=nginx-modules-builder
+DOCKER_BUILDER_PLATFROM := $(shell uname -m)
 
 it:
 	./configure
@@ -10,12 +11,14 @@ build: alpine debian
 alpine:
 	docker buildx bake \
 		--builder ${DOCKER_BUILDER_NAME} \
+		--set="*.platform=linux/${DOCKER_BUILDER_PLATFROM}" \
 		nginx-modules-alpine
 
 .PHONY: debian
 debian:
 	docker buildx bake \
 		--builder ${DOCKER_BUILDER_NAME} \
+		--set="*.platform=linux/${DOCKER_BUILDER_PLATFROM}" \
 		nginx-modules-debian
 
 builder:
