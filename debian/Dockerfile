@@ -2,6 +2,7 @@
 
 ARG NGINX_VERSION
 FROM nginx:${NGINX_VERSION} AS nginx-base
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 
 # Module Builder
 FROM nginx-base AS builder
@@ -16,7 +17,9 @@ RUN set -ex \
 
 COPY ./modules /modules/
 
-RUN apt-get update \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget git devscripts debhelper dpkg-dev \
                 quilt lsb-release build-essential libxml2-utils xsltproc \

@@ -16,7 +16,8 @@ RUN set -ex \
 
 COPY ./modules /modules/
 
-RUN apk update \
+RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
+    apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
                xz g++ coreutils curl \
