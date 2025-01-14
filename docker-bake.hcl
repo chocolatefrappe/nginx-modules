@@ -13,12 +13,12 @@ target "nginx-modules-alpine" {
         NGINX_VERSION = "${NGINX_VERSION}",
         ENABLED_MODULES = "auth-spnego brotli echo encrypted-session fips-check geoip geoip2 headers-more image-filter lua ndk njs opentracing otel passenger perl rtmp set-misc subs-filter vts xslt zip",
     }
-    tags = [
-        "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${module}"
-    ]
     platforms = [
         "linux/amd64",
         "linux/arm64",
+    ]
+    tags = [
+        "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${module}"
     ]
 }
 
@@ -33,12 +33,12 @@ target "nginx-modules-debian" {
         NGINX_VERSION = "${NGINX_VERSION}",
         ENABLED_MODULES = "auth-spnego brotli echo encrypted-session fips-check geoip geoip2 headers-more image-filter lua ndk njs opentracing otel passenger perl rtmp set-misc subs-filter vts xslt zip",
     }
-    tags = [
-        "${REGISTRY_IMAGE}:${NGINX_VERSION}-${module}"
-    ]
     platforms = [
         "linux/amd64",
         "linux/arm64",
+    ]
+    tags = [
+        "${REGISTRY_IMAGE}:${NGINX_VERSION}-${module}"
     ]
 }
 
