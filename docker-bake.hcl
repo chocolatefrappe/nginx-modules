@@ -3,7 +3,7 @@ variable "REGISTRY_IMAGE" { default = "chocolatefrappe/nginx-modules" }
 variable "NGINX_VERSION" { default = "stable" }
 
 target "nginx-modules-alpine" {
-    name = "nginx-module-${module}"
+    name = "nginx-module-${module}-alpine"
     target = "nginx-module-${module}"
     dockerfile = "alpine/Dockerfile"
     matrix = {
@@ -23,7 +23,7 @@ target "nginx-modules-alpine" {
 }
 
 target "nginx-modules-debian" {
-    name = "nginx-module-${module}"
+    name = "nginx-module-${module}-debian"
     target = "nginx-module-${module}"
     dockerfile = "debian/Dockerfile"
     matrix = {
