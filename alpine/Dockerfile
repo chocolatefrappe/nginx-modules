@@ -3,6 +3,15 @@
 ARG NGINX_VERSION
 FROM nginx:${NGINX_VERSION}-alpine AS nginx-base
 
+COPY ./modules /modules/
+
+ARG TARGETARCH
+RUN --mount=type=cache,id=${TARGETARCH}-builder-cache,target=/var/cache/apk,sharing=locked \
+    apk update \
+    && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
+               musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
+               xz g++ coreutils curl
+
 # Module Builder
 FROM nginx-base AS builder
 
@@ -13,8 +22,6 @@ RUN set -ex \
         echo "No additional modules enabled, exiting"; \
         exit 1; \
     fi
-
-COPY ./modules /modules/
 
 ARG TARGETARCH
 RUN --mount=type=cache,id=${TARGETARCH}-builder-cache,target=/var/cache/apk,sharing=locked \
