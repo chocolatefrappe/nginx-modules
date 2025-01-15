@@ -7,8 +7,8 @@ COPY ./modules /modules/
 
 RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 ARG TARGETARCH
-RUN --mount=type=cache,id=${TARGETARCH}-builder-cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,id=${TARGETARCH}-builder-lib,target=/var/lib/apt,sharing=locked \
+RUN --mount=type=cache,id=debian-${TARGETARCH}-builder-cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=debian-${TARGETARCH}-builder-lib,target=/var/lib/apt,sharing=locked \
     apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget git devscripts debhelper dpkg-dev \
@@ -27,7 +27,7 @@ RUN set -ex \
     fi
 
 ARG TARGETARCH
-RUN --mount=type=cache,id=${TARGETARCH}-builder-lock,target=/tmp/builder-lock,sharing=locked \
+RUN --mount=type=cache,id=debian-${TARGETARCH}-builder-lock,target=/tmp/builder-lock,sharing=locked \
     apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget git devscripts debhelper dpkg-dev \
@@ -94,6 +94,9 @@ RUN . /tmp/packages/modules.env \
     && rm /tmp/packages/modules.env
 
 # NGINX module package
-FROM scratch
+FROM scratch AS packages
 COPY --from=builder /tmp/module-available.d /module-available.d
 COPY --from=builder /tmp/packages /packages
+
+FROM scratch AS final
+COPY --from=packages / /

@@ -6,7 +6,7 @@ FROM nginx:${NGINX_VERSION}-alpine AS nginx-base
 COPY ./modules /modules/
 
 ARG TARGETARCH
-RUN --mount=type=cache,id=${TARGETARCH}-builder-cache,target=/var/cache/apk,sharing=locked \
+RUN --mount=type=cache,id=alpine-${TARGETARCH}-builder-cache,target=/var/cache/apk,sharing=locked \
     apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
@@ -24,7 +24,7 @@ RUN set -ex \
     fi
 
 ARG TARGETARCH
-RUN --mount=type=cache,id=${TARGETARCH}-builder-lock,target=/tmp/builder-lock,sharing=locked \
+RUN --mount=type=cache,id=alpine-${TARGETARCH}-builder-lock,target=/tmp/builder-lock,sharing=locked \
     apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
@@ -83,6 +83,9 @@ RUN . /tmp/packages/modules.env \
     && rm /tmp/packages/modules.env
 
 # NGINX module package
-FROM scratch
+FROM scratch AS packages
 COPY --from=builder /tmp/module-available.d /module-available.d
 COPY --from=builder /tmp/packages /packages
+
+FROM scratch AS final
+COPY --from=packages / /
