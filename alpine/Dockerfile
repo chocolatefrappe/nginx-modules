@@ -24,7 +24,7 @@ RUN set -ex \
     fi
 
 ARG TARGETARCH
-RUN --mount=type=cache,id=${TARGETARCH}-builder-cache,target=/var/cache/apk,sharing=locked \
+RUN --mount=type=cache,id=${TARGETARCH}-builder-lock,target=/tmp/builder-lock,sharing=locked \
     apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
