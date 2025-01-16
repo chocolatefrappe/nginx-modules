@@ -47,5 +47,5 @@ jobs:
     secrets: inherit
     with:
       version: ${{ matrix.version }}
-      targets: nginx-modules-debian
+      targets: debian-nginx-modules
       push: ${{ github.event_name != 'pull_request' }}
