@@ -30,7 +30,7 @@ jobs:
     secrets: inherit
     with:
       version: ${{ matrix.version }}
-      targets: nginx-modules-alpine
+      targets: alpine-nginx-modules
       push: ${{ github.event_name != 'pull_request' }}
 
   debian:
