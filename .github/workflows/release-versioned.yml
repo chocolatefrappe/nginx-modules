@@ -45,7 +45,7 @@ jobs:
       - generate
     strategy:
       fail-fast: false
-      # max-parallel: 2
+      max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.versions) }}
     uses: ./.github/workflows/docker-build-matrix.yml
