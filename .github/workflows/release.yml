@@ -36,21 +36,17 @@ jobs:
 
   canonical:
     needs: prepare
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: gh workflow run release-canonical.yml --ref main
+    uses: ./.github/workflows/release-canonical.yml
+    secrets: inherit
 
   channel:
     needs: prepare
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: gh workflow run release-channel.yml --ref main
+    uses: ./.github/workflows/release-channel.yml
+    secrets: inherit
 
   versioned:
     needs: prepare
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: gh workflow run release-versioned.yml --ref main
+    uses: ./.github/workflows/release-versioned.yml
+    secrets: inherit
+    permissions:
+      contents: write
