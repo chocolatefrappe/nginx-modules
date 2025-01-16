@@ -18,8 +18,13 @@ jobs:
           # limit: 3
           # date: ">=${{ steps.today.outputs.year }}"
           date: ">=2024-04"
+      # Generate modules
+      - uses: actions/checkout@v4
+      - id: module
+        run: echo "module=$(jq -ecr "keys" nginx-modules.json)" >> "$GITHUB_OUTPUT"
     outputs:
       versions: ${{ steps.release.outputs.versions }}
+      module: ${{ steps.module.outputs.module }}
 
   alpine:
     name: alpine
@@ -31,11 +36,13 @@ jobs:
       max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.versions) }}
-    uses: ./.github/workflows/docker-build-matrix.yml
+        module: ${{ fromJson(needs.generate.outputs.module) }}
+    uses: ./.github/workflows/docker-build.yml
     secrets: inherit
     with:
       targets: alpine
       version: ${{ matrix.version }}
+      module: ${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
 
   debian:
@@ -48,11 +55,13 @@ jobs:
       max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.versions) }}
-    uses: ./.github/workflows/docker-build-matrix.yml
+        module: ${{ fromJson(needs.generate.outputs.module) }}
+    uses: ./.github/workflows/docker-build.yml
     secrets: inherit
     with:
       targets: debian
       version: ${{ matrix.version }}
+      module: ${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
 
   generate-readme:
