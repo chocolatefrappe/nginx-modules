@@ -18,7 +18,7 @@ on:
 
 jobs:
   generate:
-    name: generate (${{ inputs.version }})
+    name: generate (${{ inputs.targets }}-${{ inputs.version }})
     runs-on: ubuntu-latest
     steps:
       # Generate modules
