@@ -28,7 +28,7 @@ jobs:
       module: ${{ steps.module.outputs.module }}
 
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: generate
     strategy:
       fail-fast: false
