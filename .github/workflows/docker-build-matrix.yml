@@ -56,6 +56,6 @@ jobs:
           NGINX_VERSION: ${{ inputs.version }}
           NGINX_MODULES: ${{ matrix.module }}
         with:
-          targets: ${{ inputs.targets }}
+          targets: ${{ inputs.targets }}-nginx-modules
           push: ${{ inputs.push }}
           files: docker-bake.hcl

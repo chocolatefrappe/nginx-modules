@@ -37,6 +37,6 @@ jobs:
         env:
           NGINX_VERSION: ${{ inputs.version }}
         with:
-          targets: ${{ inputs.targets }}
+          targets: ${{ inputs.targets }}-nginx-modules
           push: ${{ inputs.push }}
           files: docker-bake.hcl

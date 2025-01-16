@@ -26,8 +26,8 @@ jobs:
     uses: ./.github/workflows/docker-build-matrix.yml
     secrets: inherit
     with:
+      targets: alpine
       version: ${{ matrix.version }}
-      targets: alpine-nginx-modules
       push: ${{ github.event_name != 'pull_request' }}
 
   debian:
@@ -43,6 +43,6 @@ jobs:
     uses: ./.github/workflows/docker-build-matrix.yml
     secrets: inherit
     with:
+      targets: debian
       version: ${{ matrix.version }}
-      targets: debian-nginx-modules
       push: ${{ github.event_name != 'pull_request' }}
