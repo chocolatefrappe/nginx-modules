@@ -40,7 +40,7 @@ jobs:
       # max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
-    uses: ./.github/workflows/docker-build.yml
+    uses: ./.github/workflows/docker-build-matrix.yml
     secrets: inherit
     with:
       targets: nginx-modules-alpine
@@ -57,7 +57,7 @@ jobs:
       # max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
-    uses: ./.github/workflows/docker-build.yml
+    uses: ./.github/workflows/docker-build-matrix.yml
     secrets: inherit
     with:
       targets: nginx-modules-debian

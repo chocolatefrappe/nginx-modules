@@ -2,48 +2,45 @@
 variable "REGISTRY_IMAGE" { default = "chocolatefrappe/nginx-modules" }
 variable "NGINX_VERSION" { default = "stable" }
 variable "NGINX_MODULES" {
-    default = "[\"auth-spnego\",\"brotli\",\"echo\",\"encrypted-session\",\"fips-check\",\"geoip\",\"geoip2\",\"headers-more\",\"image-filter\",\"lua\",\"ndk\",\"njs\",\"opentracing\",\"otel\",\"passenger\",\"perl\",\"rtmp\",\"set-misc\",\"subs-filter\",\"vts\",\"xslt\",\"zip\"]"
     validation {
         condition = NGINX_MODULES != ""
         error_message = "The variable NGINX_MODULES must not be empty."
     }
 }
 
-target "nginx-modules-alpine" {
-    name = "nginx-module-${module}-alpine"
+group "default" {
+    targets = [
+        "alpine-nginx-modules",
+        "debian-nginx-modules",
+    ]
+}
+
+target "alpine-nginx-modules" {
     dockerfile = "alpine/Dockerfile"
-    matrix = {
-        module = jsondecode("${NGINX_MODULES}")
-    }
     args = {
         NGINX_VERSION = "${NGINX_VERSION}",
-        ENABLED_MODULES = "${module}",
+        ENABLED_MODULES = "${NGINX_MODULES}",
     }
     platforms = [
         "linux/amd64",
         "linux/arm64",
     ]
     tags = [
-        "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${module}"
+        "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${NGINX_MODULES}"
     ]
 }
 
-target "nginx-modules-debian" {
-    name = "nginx-module-${module}-debian"
+target "debian-nginx-modules" {
     dockerfile = "debian/Dockerfile"
-    matrix = {
-        module = jsondecode("${NGINX_MODULES}")
-    }
     args = {
         NGINX_VERSION = "${NGINX_VERSION}",
-        ENABLED_MODULES = "${module}",
+        ENABLED_MODULES = "${NGINX_MODULES}",
     }
     platforms = [
         "linux/amd64",
         "linux/arm64",
     ]
     tags = [
-        "${REGISTRY_IMAGE}:${NGINX_VERSION}-${module}"
+        "${REGISTRY_IMAGE}:${NGINX_VERSION}-${NGINX_MODULES}"
     ]
 }
-
