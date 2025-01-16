@@ -32,7 +32,7 @@ jobs:
     needs: generate
     strategy:
       fail-fast: false
-      # max-parallel: 2
+      max-parallel: 2
       matrix:
         module: ${{ fromJson(needs.generate.outputs.module) }}
     steps:
