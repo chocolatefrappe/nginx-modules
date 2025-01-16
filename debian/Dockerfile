@@ -5,16 +5,6 @@ FROM nginx:${NGINX_VERSION} AS nginx-base
 
 COPY ./modules /modules/
 
-RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
-ARG TARGETARCH
-RUN --mount=type=cache,id=debian-${TARGETARCH}-builder-cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,id=debian-${TARGETARCH}-builder-lib,target=/var/lib/apt,sharing=locked \
-    apt-get update \
-    && apt-get install -y --no-install-suggests --no-install-recommends \
-                patch make wget git devscripts debhelper dpkg-dev \
-                quilt lsb-release build-essential libxml2-utils xsltproc \
-                equivs git g++ libparse-recdescent-perl
-
 # Module Builder
 FROM nginx-base AS builder
 
@@ -26,9 +16,7 @@ RUN set -ex \
         exit 1; \
     fi
 
-ARG TARGETARCH
-RUN --mount=type=cache,id=debian-${TARGETARCH}-builder-lock,target=/tmp/builder-lock,sharing=locked \
-    apt-get update \
+RUN apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget git devscripts debhelper dpkg-dev \
                 quilt lsb-release build-essential libxml2-utils xsltproc \
