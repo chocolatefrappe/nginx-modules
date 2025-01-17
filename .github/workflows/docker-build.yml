@@ -22,7 +22,7 @@ on:
 
 jobs:
   build:
-    name: "${{ inputs.targets }} (${{ inputs.version }}/${{ inputs.module }})"
+    name: "${{ inputs.targets }} (${{ inputs.version }}, ${{ inputs.module }})"
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
