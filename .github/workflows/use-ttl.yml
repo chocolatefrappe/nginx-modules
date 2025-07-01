@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Creating a short-lived NGINX image at "ttl.sh/nginx-${{ format(inputs.version, '.', '-') }}:24h"...
+    name: Building "ttl.sh/nginx-${{ inputs.version }}:24h"...
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU

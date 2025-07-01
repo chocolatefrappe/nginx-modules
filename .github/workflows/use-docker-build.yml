@@ -42,7 +42,7 @@ jobs:
         env:
           NGINX_MODULES: ${{ inputs.module }}
           NGINX_VERSION: ${{ inputs.version }}
-          NGINX_IMAGE_TAG: "ttl.sh/nginx-${{ format(inputs.version, '.', '-') }}:24h"
+          NGINX_IMAGE_TAG: "ttl.sh/nginx-${{ inputs.version }}:24h"
         with:
           targets: ${{ inputs.targets }}-nginx-modules
           push: ${{ inputs.push }}

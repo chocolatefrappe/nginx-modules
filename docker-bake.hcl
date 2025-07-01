@@ -17,7 +17,7 @@ target "nginx-ttl" {
         "linux/amd64",
         "linux/arm64",
     ]
-    tags = [ "ttl.sh/nginx-${replace(NGINX_VERSION, ".", "-")}:24h" ]
+    tags = [ "ttl.sh/nginx-${NGINX_VERSION}:24h" ]
 }
 
 target "alpine-nginx-modules" {
