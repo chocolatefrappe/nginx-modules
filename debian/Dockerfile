@@ -1,7 +1,8 @@
 # check=skip=InvalidDefaultArgInFrom
 
-ARG NGINX_VERSION
-FROM nginx:${NGINX_VERSION} AS nginx-base
+ARG NGINX_VERSION=1
+ARG NGINX_IMAGE_TAG=nginx:${NGINX_VERSION}
+FROM ${NGINX_IMAGE_TAG} AS nginx-base
 
 COPY ./modules /modules/
 
