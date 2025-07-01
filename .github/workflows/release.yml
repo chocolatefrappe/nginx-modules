@@ -27,7 +27,7 @@ env:
   GH_TOKEN: ${{ github.token}}
 
 jobs:
-  prepare:
+  stage:
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -35,17 +35,17 @@ jobs:
           sleep 15
 
   canonical:
-    needs: prepare
+    needs: stage
     uses: ./.github/workflows/release-canonical.yml
     secrets: inherit
 
   channel:
-    needs: prepare
+    needs: stage
     uses: ./.github/workflows/release-channel.yml
     secrets: inherit
 
   versioned:
-    needs: prepare
+    needs: stage
     uses: ./.github/workflows/release-versioned.yml
     secrets: inherit
     permissions:

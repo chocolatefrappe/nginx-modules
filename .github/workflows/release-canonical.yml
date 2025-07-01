@@ -33,21 +33,14 @@ jobs:
 
   prepare:
     needs: generate
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
-    steps:
-      - name: Creating a short-lived NGINX image at "ttl.sh/nginx-${{ format(matrix.version, '.', '-') }}:24h"...
-        uses: docker/bake-action@v6
-        env:
-          NGINX_VERSION: ${{ matrix.version }}
-        with:
-          targets: nginx-ttl
-          push: true
-          files: docker-bake.hcl
+    uses: ./.github/workflows/use-ttl.yml
+    with:
+      version: ${{ matrix.version }}
 
   alpine:
     name: alpine
@@ -61,7 +54,7 @@ jobs:
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
-    uses: ./.github/workflows/docker-build.yml
+    uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: alpine
@@ -81,7 +74,7 @@ jobs:
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
         module: ${{ fromJson(needs.generate.outputs.module) }}
-    uses: ./.github/workflows/docker-build.yml
+    uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: debian
