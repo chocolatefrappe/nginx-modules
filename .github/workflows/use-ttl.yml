@@ -8,6 +8,10 @@ on:
         required: true
         type: string
 
+env:
+  DOCKER_BUILD_SUMMARY: false
+  DOCKER_BUILD_RECORD_UPLOAD: false
+
 jobs:
   build:
     name: Building short-lived NGINX image...
