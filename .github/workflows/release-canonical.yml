@@ -39,6 +39,7 @@ jobs:
       matrix:
         version: ${{ fromJson(needs.generate.outputs.version) }}
     uses: ./.github/workflows/use-ttl.yml
+    secrets: inherit
     with:
       version: ${{ matrix.version }}
 
