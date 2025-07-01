@@ -40,8 +40,9 @@ jobs:
       - name: Build and push
         uses: docker/bake-action@v6
         env:
-          NGINX_VERSION: ${{ inputs.version }}
           NGINX_MODULES: ${{ inputs.module }}
+          NGINX_VERSION: ${{ inputs.version }}
+          NGINX_IMAGE_TAG: "ttl.sh/nginx-${{ format(inputs.version, '.', '-') }}:24h"
         with:
           targets: ${{ inputs.targets }}-nginx-modules
           push: ${{ inputs.push }}

@@ -19,11 +19,30 @@ jobs:
       version: ${{ steps.release.outputs.version }}
       module: ${{ steps.module.outputs.module }}
 
+  prepare:
+    needs: generate
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.version) }}
+    steps:
+      - name: Creating a short-lived NGINX image at "ttl.sh/nginx-${{ format(matrix.version, '.', '-') }}:24h"...
+        uses: docker/bake-action@v6
+        env:
+          NGINX_VERSION: ${{ matrix.version }}
+        with:
+          targets: nginx-ttl
+          push: true
+          files: docker-bake.hcl
+
   alpine:
     name: alpine
     # continue-on-error: true
     needs:
       - generate
+      - prepare
     strategy:
       fail-fast: false
       max-parallel: 2
@@ -43,6 +62,7 @@ jobs:
     # continue-on-error: true
     needs:
       - generate
+      - prepare
     strategy:
       fail-fast: false
       max-parallel: 2
