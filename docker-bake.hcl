@@ -3,25 +3,31 @@ variable "REGISTRY_IMAGE" { default = "chocolatefrappe/nginx-modules" }
 variable "NGINX_MODULES" { default = "brotli" }
 variable "NGINX_VERSION" { default = "stable" }
 variable "NGINX_IMAGE_TAG" { default = "nginx:${NGINX_VERSION}" }
+
+# Target for building a short-lived NGINX image with https://ttl.sh
+# This image is used for testing purposes and will be removed after 24 hours.
+# It is not intended for intermediate build layer for other images.
 variable "NGINX_TTL_IMAGE_TAG" { default = "ttl.sh/alpine-nginx-${NGINX_VERSION}:24h" }
-
-group "default" {
-    targets = [
-        "alpine-nginx-modules",
-        "debian-nginx-modules",
-    ]
-}
-
 target "nginx-ttl" {
-    dockerfile-inline = "FROM nginx:${NGINX_VERSION}"
+    dockerfile-inline = "FROM ${NGINX_IMAGE_TAG}"
     platforms = [
         "linux/amd64",
         "linux/arm64",
     ]
-    tags = [ "${NGINX_TTL_IMAGE_TAG}" ]
+    tags = [
+        "${NGINX_TTL_IMAGE_TAG}"
+    ]
 }
 
-target "alpine-nginx-modules" {
+# NGINX targets for building images with various modules enabled.
+group "default" {
+    targets = [
+        "nginx-modules-alpine",
+        "nginx-modules-debian",
+    ]
+}
+
+target "nginx-modules-alpine" {
     dockerfile = "alpine/Dockerfile"
     args = {
         ENABLED_MODULES = "${NGINX_MODULES}",
@@ -37,7 +43,7 @@ target "alpine-nginx-modules" {
     ]
 }
 
-target "debian-nginx-modules" {
+target "nginx-modules-debian" {
     dockerfile = "debian/Dockerfile"
     args = {
         ENABLED_MODULES = "${NGINX_MODULES}",

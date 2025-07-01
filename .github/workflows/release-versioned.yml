@@ -33,7 +33,7 @@ jobs:
       max-parallel: 2
       matrix:
         version: ${{ fromJson(needs.generate.outputs.versions) }}
-    uses: ./.github/workflows/use-ttl.yml
+    uses: ./.github/workflows/use-nginx-ttl.yml
     secrets: inherit
     with:
       version: ${{ matrix.version }}
