@@ -7,10 +7,14 @@ on:
         description: 'The nginx version to build'
         required: true
         type: string
+      targets:
+        description: 'The targets for docker-bake.hcl'
+        required: true
+        type: string
 
 jobs:
   build:
-    name: Building "ttl.sh/nginx-${{ inputs.version }}:24h"...
+    name: Building "ttl.sh/${{ inputs.targets }}-nginx-${{ inputs.version }}:24h"...
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -23,6 +27,7 @@ jobs:
         uses: docker/bake-action@v6
         env:
           NGINX_VERSION: ${{ inputs.version }}
+          NGINX_TTL_IMAGE_TAG: "ttl.sh/${{ inputs.targets }}-nginx-${{ inputs.version }}:24h"
         with:
           targets: nginx-ttl
           push: true

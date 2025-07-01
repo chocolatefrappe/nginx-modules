@@ -3,6 +3,7 @@ variable "REGISTRY_IMAGE" { default = "chocolatefrappe/nginx-modules" }
 variable "NGINX_MODULES" { default = "brotli" }
 variable "NGINX_VERSION" { default = "stable" }
 variable "NGINX_IMAGE_TAG" { default = "nginx:${NGINX_VERSION}" }
+variable "NGINX_TTL_IMAGE_TAG" { default = "ttl.sh/alpine-nginx-${NGINX_VERSION}:24h" }
 
 group "default" {
     targets = [
@@ -17,7 +18,7 @@ target "nginx-ttl" {
         "linux/amd64",
         "linux/arm64",
     ]
-    tags = [ "ttl.sh/nginx-${NGINX_VERSION}:24h" ]
+    tags = [ "${NGINX_TTL_IMAGE_TAG}" ]
 }
 
 target "alpine-nginx-modules" {
