@@ -80,6 +80,7 @@ COPY --from=mod-brotli  / /tmp/nginx-modules
 COPY --from=mod-echo    / /tmp/nginx-modules
 
 RUN set -ex \
+    && chmod 1777 /tmp \
     && apt update \
     && cd /tmp/nginx-modules \
     && for mod in module-available.d/*; do \
