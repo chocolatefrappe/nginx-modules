@@ -40,6 +40,18 @@ ARG NGINX_VERSION=stable-alpine
 # Modules
 FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-brotli  AS mod-brotli
 FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-echo    AS mod-echo
+````
+
+<details>
+<summary>Alpine example</summary>
+
+```Dockerfile
+# Use `{version}` for debian variant and `{version}-alpine` for alpine variant
+ARG NGINX_VERSION=stable-alpine
+
+# Modules
+FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-brotli  AS mod-brotli
+FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-echo    AS mod-echo
 
 # NGINX
 FROM nginx:${NGINX_VERSION}
@@ -55,8 +67,27 @@ RUN set -ex \
             apk add --no-cache --allow-untrusted packages/nginx-module-${module}-${NGINX_VERSION}*.apk; \
         done \
     && rm -rf /tmp/nginx-modules
+```
 
-# Debian
+</details>
+
+<details>
+<summary>Debian example</summary>
+
+```Dockerfile
+# Use `{version}` for debian variant and `{version}-alpine` for alpine variant
+ARG NGINX_VERSION=stable
+
+# Modules
+FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-brotli  AS mod-brotli
+FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-echo    AS mod-echo
+
+# NGINX
+FROM nginx:${NGINX_VERSION}
+
+COPY --from=mod-brotli  / /tmp/nginx-modules
+COPY --from=mod-echo    / /tmp/nginx-modules
+
 RUN set -ex \
     && apt update \
     && cd /tmp/nginx-modules \
@@ -67,6 +98,8 @@ RUN set -ex \
     && rm -rf /tmp/nginx-modules \
     && rm -rf /var/lib/apt/lists/
 ```
+
+</details>
 
 ## Supported releases
 
