@@ -33,15 +33,6 @@ FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-brotli
 
 This is an example of how to use the pre-built NGINX packages and modules for container.
 
-```Dockerfile
-# Use `{version}` for debian variant and `{version}-alpine` for alpine variant
-ARG NGINX_VERSION=stable-alpine
-
-# Modules
-FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-brotli  AS mod-brotli
-FROM chocolatefrappe/nginx-modules:${NGINX_VERSION}-echo    AS mod-echo
-````
-
 <details>
 <summary>Alpine example</summary>
 
