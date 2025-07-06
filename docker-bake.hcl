@@ -67,3 +67,5 @@ target "nginx-modules-debian" {
         "${REGISTRY_IMAGE}:${NGINX_VERSION}-${NGINX_MODULES}"
     ]
 }
+
+# .
