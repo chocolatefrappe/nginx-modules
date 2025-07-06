@@ -1,13 +1,23 @@
 # check=skip=InvalidDefaultArgInFrom
 
-ARG NGINX_VERSION=1
+ARG NGINX_VERSION=stable
 ARG NGINX_IMAGE_TAG=nginx:${NGINX_VERSION}-alpine
-FROM ${NGINX_IMAGE_TAG} AS nginx-base
+
+FROM nginx:${NGINX_VERSION}-alpine AS nginx-module-builder
+
+RUN apk update \
+    && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
+               musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
+               xz g++ coreutils curl \
+    # allow abuild as a root user \
+    && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
+    && chmod +x /usr/local/bin/abuild \
+    && git clone -b ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss/
 
 COPY ./modules /modules/
 
 # Module Builder
-FROM nginx-base AS builder
+FROM ${NGINX_IMAGE_TAG} AS builder
 
 ARG ENABLED_MODULES
 
@@ -17,15 +27,7 @@ RUN set -ex \
         exit 1; \
     fi
 
-RUN apk update \
-    && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
-               musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
-               xz g++ coreutils curl \
-    # allow abuild as a root user \
-    && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
-    && chmod +x /usr/local/bin/abuild \
-    && git clone -b ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss/ \
-    && cd pkg-oss \
+RUN cd pkg-oss \
     && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \

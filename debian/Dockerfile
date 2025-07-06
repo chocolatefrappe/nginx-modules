@@ -1,21 +1,9 @@
 # check=skip=InvalidDefaultArgInFrom
 
-ARG NGINX_VERSION=1
-ARG NGINX_IMAGE_TAG=nginx:${NGINX_VERSION}
-FROM ${NGINX_IMAGE_TAG} AS nginx-base
+ARG NGINX_VERSION=stable
+ARG NGINX_IMAGE_TAG=nginx:${NGINX_VERSION}-alpine
 
-COPY ./modules /modules/
-
-# Module Builder
-FROM nginx-base AS builder
-
-ARG ENABLED_MODULES
-
-RUN set -ex \
-    && if [ "$ENABLED_MODULES" = "" ]; then \
-        echo "No additional modules enabled, exiting"; \
-        exit 1; \
-    fi
+FROM nginx:${NGINX_VERSION} AS nginx-module-builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
@@ -32,8 +20,22 @@ RUN apt-get update \
         echo "XSLScript checksum verification failed!"; \
         exit 1; \
     fi \
-    && git clone -b ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://github.com/nginx/pkg-oss/ \
-    && cd pkg-oss \
+    && git clone -b ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://github.com/nginx/pkg-oss/
+
+COPY ./modules /modules/
+
+# Module Builder
+FROM ${NGINX_IMAGE_TAG} AS builder
+
+ARG ENABLED_MODULES
+
+RUN set -ex \
+    && if [ "$ENABLED_MODULES" = "" ]; then \
+        echo "No additional modules enabled, exiting"; \
+        exit 1; \
+    fi
+
+RUN cd pkg-oss \
     && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
