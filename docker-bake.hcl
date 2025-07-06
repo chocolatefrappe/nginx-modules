@@ -7,7 +7,8 @@ variable "REGISTRY_IMAGE" { default = "chocolatefrappe/nginx-modules" }
 # This image is used for testing purposes and will be removed after 24 hours.
 # It is not intended for intermediate build layer for other images.
 variable "NGINX_TTL_VARIANT" { default = "alpine" }
-variable "NGINX_TTL_IMAGE_TAG" { default = "ttl.sh/nginx-module-builder-${NGINX_TTL_VARIANT}-${NGINX_VERSION}:24h" }
+# ttl.sh/nginx-module-builder-${NGINX_TTL_VARIANT}-${NGINX_VERSION}:24h
+variable "NGINX_TTL_IMAGE_TAG" { default = "nginx-module-builder" }
 target "nginx-module-builder" {
     inherits = [ "nginx-modules-${NGINX_TTL_VARIANT}" ]
     target = "nginx-module-builder"
@@ -37,7 +38,7 @@ target "nginx-modules-alpine" {
     args = {
         ENABLED_MODULES = "${NGINX_MODULES}",
         NGINX_VERSION = "${NGINX_VERSION}",
-        NGINX_TTL_IMAGE_TAG = "${NGINX_TTL_IMAGE_TAG}",
+        NGINX_TTL_IMAGE_TAG = NGINX_TTL_IMAGE_TAG,
     }
     platforms = [
         "linux/amd64",

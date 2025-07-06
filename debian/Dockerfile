@@ -19,8 +19,10 @@ RUN apt-get update \
     else \
         echo "XSLScript checksum verification failed!"; \
         exit 1; \
-    fi \
-    && git clone -b ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://github.com/nginx/pkg-oss/
+    fi
+
+ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE%%~*} /pkg-oss
+WORKDIR /pkg-oss
 
 COPY ./modules /modules/
 
@@ -35,8 +37,8 @@ RUN set -ex \
         exit 1; \
     fi
 
-RUN cd pkg-oss \
-    && mkdir /tmp/packages \
+WORKDIR /pkg-oss
+RUN mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \

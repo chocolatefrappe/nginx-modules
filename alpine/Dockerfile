@@ -11,8 +11,10 @@ RUN apk update \
                xz g++ coreutils curl \
     # allow abuild as a root user \
     && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
-    && chmod +x /usr/local/bin/abuild \
-    && git clone -b ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss/
+    && chmod +x /usr/local/bin/abuild
+
+ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE} /pkg-oss
+WORKDIR /pkg-oss
 
 COPY ./modules /modules/
 
@@ -27,8 +29,8 @@ RUN set -ex \
         exit 1; \
     fi
 
-RUN cd pkg-oss \
-    && mkdir /tmp/packages \
+WORKDIR /pkg-oss
+RUN mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \
