@@ -1,7 +1,7 @@
 # check=skip=InvalidDefaultArgInFrom
 
 ARG NGINX_VERSION=stable
-ARG NGINX_IMAGE_TAG=nginx:${NGINX_VERSION}-alpine
+ARG NGINX_TTL_IMAGE_TAG=nginx-module-builder
 
 FROM nginx:${NGINX_VERSION}-alpine AS nginx-module-builder
 
@@ -17,7 +17,7 @@ RUN apk update \
 COPY ./modules /modules/
 
 # Module Builder
-FROM ${NGINX_IMAGE_TAG} AS builder
+FROM ${NGINX_TTL_IMAGE_TAG} AS builder
 
 ARG ENABLED_MODULES
 

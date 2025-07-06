@@ -2,9 +2,6 @@
 variable "NGINX_VARIANT" { default = "alpine" }
 variable "NGINX_VERSION" { default = "stable" }
 variable "NGINX_MODULES" { default = "brotli" }
-variable "NGINX_IMAGE_TAG" {
-  default = "ttl.sh/nginx-module-builder-${NGINX_VARIANT}-${NGINX_VERSION}:24h"
-}
 variable "REGISTRY_IMAGE" { default = "chocolatefrappe/nginx-modules" }
 
 # Target for building a short-lived NGINX image with https://ttl.sh
@@ -40,7 +37,7 @@ target "nginx-modules-alpine" {
     args = {
         ENABLED_MODULES = "${NGINX_MODULES}",
         NGINX_VERSION = "${NGINX_VERSION}",
-        NGINX_IMAGE_TAG = "${NGINX_IMAGE_TAG}",
+        NGINX_TTL_IMAGE_TAG = "${NGINX_TTL_IMAGE_TAG}",
     }
     platforms = [
         "linux/amd64",
@@ -60,7 +57,7 @@ target "nginx-modules-debian" {
     args = {
         ENABLED_MODULES = "${NGINX_MODULES}",
         NGINX_VERSION = "${NGINX_VERSION}",
-        NGINX_IMAGE_TAG = "${NGINX_IMAGE_TAG}",
+        NGINX_TTL_IMAGE_TAG = "${NGINX_TTL_IMAGE_TAG}",
     }
     platforms = [
         "linux/amd64",
