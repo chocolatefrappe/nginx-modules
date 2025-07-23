@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> This repository is no longer being maintained.
+> 
+> Please use [chocolatefrappe/nginx-builder](https://github.com/chocolatefrappe/nginx-builder) instead.
+
 ## About
 A pre-built NGINX packages and modules for container.
 
