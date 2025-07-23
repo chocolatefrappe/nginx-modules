@@ -1,6 +1,5 @@
 > [!IMPORTANT]
-> This repository is no longer being maintained.
-> 
+> This repository is no longer being maintained.  
 > Please use [chocolatefrappe/nginx-builder](https://github.com/chocolatefrappe/nginx-builder) instead.
 
 ## About
