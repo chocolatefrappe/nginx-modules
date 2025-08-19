@@ -40,7 +40,7 @@ target "nginx-modules-alpine" {
         NGINX_VERSION = NGINX_VERSIONS
         ENABLED_MODULE = NGINX_MODULES
     }
-    name = "nginx-modules-alpine-${ENABLED_MODULE}"
+    name = "nginx-modules-alpine-${NGINX_VERSION}-${ENABLED_MODULE}"
     args = {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
@@ -60,7 +60,7 @@ target "nginx-modules-debian" {
         NGINX_VERSION = NGINX_VERSIONS
         ENABLED_MODULE = NGINX_MODULES
     }
-    name = "nginx-modules-debian-${ENABLED_MODULE}"
+    name = "nginx-modules-debian-${NGINX_VERSION}-${ENABLED_MODULE}"
     args = {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
