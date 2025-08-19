@@ -8,14 +8,26 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
+      # Generate release versions
+      - id: today
+        uses: actions-matrix/today@main
+      - id: release
+        uses: actions-matrix/release-matrix-action@v2
+        with:
+          search: "nginx"
+          limit: 3
+          date: ">=${{ steps.today.outputs.year }}"
+      - id: nginx-versions
+        uses: actions-matrix/semver@v1
+        with:
+          value: ${{ steps.release.outputs.versions }}
+          pattern: "{major}.{minor}"
       # Generate modules
       - uses: actions/checkout@v4
-      - id: nginx-versions
-        run: echo "versions=stable,mainline" >> "$GITHUB_OUTPUT"
       - id: nginx-modules
         run: echo "modules=$(jq -ecr 'keys | join(",")' nginx-modules.json)" >> "$GITHUB_OUTPUT"
     outputs:
-      versions: ${{ steps.nginx-versions.outputs.versions }}
+      versions: ${{ steps.nginx-versions.outputs.version }}
       modules: ${{ steps.nginx-modules.outputs.modules }}
 
   alpine:
@@ -23,11 +35,15 @@ jobs:
     # continue-on-error: true
     needs:
       - generate
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.versions) }}
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: alpine
-      versions: ${{ needs.generate.outputs.versions }}
+      versions: ${{ matrix.version }}
       modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}
 
@@ -36,10 +52,14 @@ jobs:
     # continue-on-error: true
     needs:
       - generate
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.versions) }}
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: debian
-      versions: ${{ needs.generate.outputs.versions }}
+      versions: ${{ matrix.version }}
       modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}

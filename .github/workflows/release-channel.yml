@@ -11,7 +11,7 @@ jobs:
       # Generate modules
       - uses: actions/checkout@v4
       - id: nginx-versions
-        run: echo "versions=$(jq -ecr 'join("\n")' nginx-versions.json | cut -d. -f1,2 | uniq | paste -sd, -)" >> "$GITHUB_OUTPUT"
+        run: echo 'versions=["stable", "mainline"]' >> "$GITHUB_OUTPUT"
       - id: nginx-modules
         run: echo "modules=$(jq -ecr 'keys | join(",")' nginx-modules.json)" >> "$GITHUB_OUTPUT"
     outputs:
@@ -23,11 +23,15 @@ jobs:
     # continue-on-error: true
     needs:
       - generate
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.versions) }}
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: alpine
-      versions: ${{ needs.generate.outputs.versions }}
+      versions: ${{ matrix.version }}
       modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}
 
@@ -36,10 +40,14 @@ jobs:
     # continue-on-error: true
     needs:
       - generate
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.versions) }}
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: debian
-      versions: ${{ needs.generate.outputs.versions }}
+      versions: ${{ matrix.version }}
       modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}
