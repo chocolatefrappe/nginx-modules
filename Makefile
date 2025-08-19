@@ -6,5 +6,10 @@ it:
 	docker buildx bake pkg-oss
 	docker buildx bake --set="*.platform=" --print
 
-build:
-	docker buildx bake --set="*.platform=" --load
+build: alpine debian
+.PHONY: alpine
+alpine:
+	docker buildx bake --set="*.platform=" --load alpine
+.PHONY: debian
+debian:
+	docker buildx bake --set="*.platform=" --load debian

@@ -17,6 +17,16 @@ group "default" {
         "nginx-modules-debian",
     ]
 }
+group "alpine" {
+    targets = [
+        "nginx-modules-alpine",
+    ]
+}
+group "debian" {
+    targets = [
+        "nginx-modules-debian",
+    ]
+}
 
 target "pkg-oss" {
     context = "pkg-oss"
