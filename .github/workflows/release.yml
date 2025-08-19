@@ -44,9 +44,7 @@ jobs:
     uses: ./.github/workflows/release-channel.yml
     secrets: inherit
 
-  # versioned:
-  #   needs: stage
-  #   uses: ./.github/workflows/release-versioned.yml
-  #   secrets: inherit
-  #   permissions:
-  #     contents: write
+  versioned:
+    needs: stage
+    uses: ./.github/workflows/release-versioned.yml
+    secrets: inherit
