@@ -11,23 +11,18 @@ jobs:
       # Generate release versions
       - id: today
         uses: actions-matrix/today@main
-      - id: release
+      - id: nginx-versions
         uses: actions-matrix/release-matrix-action@v2
         with:
           search: "nginx"
           limit: 3
           date: ">=${{ steps.today.outputs.year }}"
-      - id: nginx-versions
-        uses: actions-matrix/semver@v1
-        with:
-          value: ${{ steps.release.outputs.versions }}
-          pattern: "{major}.{minor}"
       # Generate modules
       - uses: actions/checkout@v4
       - id: nginx-modules
         run: echo "modules=$(jq -ecr 'keys | join(",")' nginx-modules.json)" >> "$GITHUB_OUTPUT"
     outputs:
-      versions: ${{ steps.nginx-versions.outputs.version }}
+      versions: ${{ steps.nginx-versions.outputs.versions }}
       modules: ${{ steps.nginx-modules.outputs.modules }}
 
   alpine:
