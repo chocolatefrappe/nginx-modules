@@ -29,7 +29,7 @@ RUN set -ex \
     fi
 
 WORKDIR /pkg-oss
-RUN --mount=type=cache,target=/tmp/locked,sharing=locked \
+RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
     set -eo pipefail; \
     mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \

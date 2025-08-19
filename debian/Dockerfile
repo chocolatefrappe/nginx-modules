@@ -37,7 +37,7 @@ RUN set -ex \
     fi
 
 WORKDIR /pkg-oss
-RUN RUN --mount=type=cache,target=/tmp/locked,sharing=locked \
+RUN RUN --mount=type=cache,id=debian,target=/tmp/locked,sharing=locked \
     set -eo pipefail; \
     mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
