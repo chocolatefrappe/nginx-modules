@@ -24,18 +24,12 @@ jobs:
     # continue-on-error: true
     needs:
       - generate
-    strategy:
-      fail-fast: false
-      max-parallel: 2
-      matrix:
-        version: ${{ fromJson(needs.generate.outputs.version) }}
-        module: ${{ fromJson(needs.generate.outputs.module) }}
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: alpine
-      version: ${{ matrix.version }}
-      module: ${{ matrix.module }}
+      versions: ${{ needs.generate.outputs.versions }}
+      modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}
 
   debian:
@@ -43,17 +37,10 @@ jobs:
     # continue-on-error: true
     needs:
       - generate
-      - prepare
-    strategy:
-      fail-fast: false
-      max-parallel: 2
-      matrix:
-        version: ${{ fromJson(needs.generate.outputs.version) }}
-        module: ${{ fromJson(needs.generate.outputs.module) }}
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: debian
-      version: ${{ matrix.version }}
-      module: ${{ matrix.module }}
+      versions: ${{ needs.generate.outputs.versions }}
+      modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}
