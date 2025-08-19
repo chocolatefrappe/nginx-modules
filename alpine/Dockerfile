@@ -6,12 +6,13 @@ FROM nginx:${NGINX_VERSION}-alpine AS builder
 RUN apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
-               xz g++ coreutils curl \
+               xz g++ coreutils curl cargo \
     # allow abuild as a root user \
     && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
     && chmod +x /usr/local/bin/abuild
 
 ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE} /pkg-oss
+ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
 
 COPY ./modules /modules/
@@ -26,7 +27,7 @@ RUN set -ex \
 
 WORKDIR /pkg-oss
 RUN --mount=type=cache,target=/tmp/locked,sharing=locked \
-    set -eou pipefail \
+    set -eo pipefail; \
     mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \

@@ -37,6 +37,12 @@ group "default" {
     ]
 }
 
+target "pkg-oss" {
+    context = "pkg-oss"
+    output = [ "pkg-oss" ]
+    platforms = [ "local" ]
+}
+
 target "nginx-modules-alpine" {
     dockerfile = "alpine/Dockerfile"
     matrix = {
