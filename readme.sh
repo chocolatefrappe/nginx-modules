@@ -2,7 +2,7 @@
 
 README_FILE="README.md"
 TEMPLATE_FILE="README.template.md"
-NGINX_VERSIONS_FILE=".github/locks/nginx-versions.json"
+NGINX_VERSIONS_FILE="nginx-versions.json"
 
 # Inject value into README.md
 function readme() {
