@@ -1,5 +1,5 @@
 .EXPORT_ALL_VARIABLES:
-NGINX_VERSIONS ?= stable
+NGINX_VERSIONS ?= $(shell jq -ecr 'join(",")' nginx-versions.json)
 NGINX_MODULES ?= $(shell jq -r '. | keys | join(",")' nginx-modules.json)
 
 it:
