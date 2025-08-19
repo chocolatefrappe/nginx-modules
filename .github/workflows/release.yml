@@ -39,10 +39,10 @@ jobs:
     uses: ./.github/workflows/release-canonical.yml
     secrets: inherit
 
-  channel:
-    needs: stage
-    uses: ./.github/workflows/release-channel.yml
-    secrets: inherit
+  # channel:
+  #   needs: stage
+  #   uses: ./.github/workflows/release-channel.yml
+  #   secrets: inherit
 
   versioned:
     needs: stage
