@@ -1,9 +1,8 @@
 # check=skip=InvalidDefaultArgInFrom
 
 ARG NGINX_VERSION=stable
-ARG NGINX_TTL_IMAGE_TAG=nginx-module-builder
 
-FROM nginx:${NGINX_VERSION} AS nginx-module-builder
+FROM nginx:${NGINX_VERSION} AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
@@ -26,9 +25,6 @@ WORKDIR /pkg-oss
 
 COPY ./modules /modules/
 
-# Module Builder
-FROM ${NGINX_TTL_IMAGE_TAG} AS builder
-
 ARG ENABLED_MODULES
 
 RUN set -ex \
@@ -38,7 +34,8 @@ RUN set -ex \
     fi
 
 WORKDIR /pkg-oss
-RUN mkdir /tmp/packages \
+RUN RUN --mount=type=cache,target=/tmp/locked,sharing=locked \
+    mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \

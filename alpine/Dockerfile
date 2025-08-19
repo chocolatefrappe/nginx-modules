@@ -1,10 +1,8 @@
 # check=skip=InvalidDefaultArgInFrom
 
 ARG NGINX_VERSION=stable
-ARG NGINX_TTL_IMAGE_TAG=nginx-module-builder
 
-FROM nginx:${NGINX_VERSION}-alpine AS nginx-module-builder
-
+FROM nginx:${NGINX_VERSION}-alpine AS builder
 RUN apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
@@ -18,9 +16,6 @@ WORKDIR /pkg-oss
 
 COPY ./modules /modules/
 
-# Module Builder
-FROM ${NGINX_TTL_IMAGE_TAG} AS builder
-
 ARG ENABLED_MODULES
 
 RUN set -ex \
@@ -30,7 +25,9 @@ RUN set -ex \
     fi
 
 WORKDIR /pkg-oss
-RUN mkdir /tmp/packages \
+RUN --mount=type=cache,target=/tmp/locked,sharing=locked \
+    set -eou pipefail \
+    mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \
