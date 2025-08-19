@@ -2,7 +2,8 @@
 
 ARG NGINX_VERSION=stable
 
-FROM nginx:${NGINX_VERSION}-alpine AS builder
+FROM nginx:${NGINX_VERSION}-alpine AS base-builder
+
 RUN apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
@@ -11,6 +12,7 @@ RUN apk update \
     && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
     && chmod +x /usr/local/bin/abuild
 
+FROM base-builder AS builder
 ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE} /pkg-oss
 ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss

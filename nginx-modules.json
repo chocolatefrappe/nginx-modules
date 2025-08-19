@@ -1,5 +1,9 @@
 
 {
+    "acme": {
+        "description": "An NGINX module with the implementation of the automatic certificate management (ACMEv2) protocol",
+        "url": "https://github.com/nginx/nginx-acme"
+    },
     "auth-spnego": {
         "description": "3rd-party kerberos authentication dynamic module",
         "url": "https://github.com/stnoonan/spnego-http-auth-nginx-module"
