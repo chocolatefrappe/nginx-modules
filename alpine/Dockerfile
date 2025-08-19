@@ -12,12 +12,13 @@ RUN apk update \
     && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
     && chmod +x /usr/local/bin/abuild
 
-FROM base-builder AS builder
 ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE} /pkg-oss
 ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
 
 COPY ./modules /modules/
+
+FROM base-builder AS builder
 
 ARG ENABLED_MODULES
 

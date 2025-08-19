@@ -20,12 +20,13 @@ RUN apt-get update \
         exit 1; \
     fi
 
-FROM base-builder AS builder
 ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE%%~*} /pkg-oss
 ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
 
 COPY ./modules /modules/
+
+FROM base-builder AS builder
 
 ARG ENABLED_MODULES
 
