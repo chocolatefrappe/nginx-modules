@@ -43,7 +43,7 @@ jobs:
     secrets: inherit
     with:
       targets: alpine
-      versions: ${{ matrix.version }}
+      version: ${{ matrix.version }}
       modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}
 
@@ -60,6 +60,6 @@ jobs:
     secrets: inherit
     with:
       targets: debian
-      versions: ${{ matrix.version }}
+      version: ${{ matrix.version }}
       modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}

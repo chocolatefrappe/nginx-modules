@@ -7,8 +7,8 @@ on:
         description: 'The targets for docker-bake.hcl'
         required: true
         type: string
-      versions:
-        description: 'The nginx versions to build'
+      version:
+        description: 'The nginx version to build'
         required: true
         type: string
       modules:
@@ -22,7 +22,7 @@ on:
 
 jobs:
   build:
-    name: "build (${{ inputs.targets }})"
+    name: "build ${{ inputs.targets }} (${{ inputs.version}})"
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -40,7 +40,7 @@ jobs:
       - name: Build and push
         uses: docker/bake-action@v6
         env:
-          NGINX_VERSIONS: ${{ inputs.versions }}
+          NGINX_VERSIONS: ${{ inputs.version }}
           NGINX_MODULES: ${{ inputs.modules }}
         with:
           targets: nginx-modules-${{ inputs.targets }}
