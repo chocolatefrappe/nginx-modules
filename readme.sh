@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-README_FILE="README.md"
-TEMPLATE_FILE="README.template.md"
-NGINX_VERSIONS_FILE="nginx-versions.json"
+README_FILE=${README_FILE:-"README.md"}
+TEMPLATE_FILE=${TEMPLATE_FILE:-"README.template.md"}
+NGINX_VERSIONS_FILE=${NGINX_VERSIONS_FILE:-"nginx-versions.json"}
 
 # Inject value into README.md
 function readme() {

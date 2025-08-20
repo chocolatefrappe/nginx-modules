@@ -47,6 +47,8 @@ jobs:
           EOF
 
       - name: Generate README.md
+        env:
+          NGINX_VERSIONS_FILE: .github/locks/nginx-versions.json
         run: ./readme.sh
 
       - name: Commit changes
