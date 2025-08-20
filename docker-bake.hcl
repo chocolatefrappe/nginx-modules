@@ -50,7 +50,8 @@ target "nginx-modules-alpine" {
         "linux/arm64",
     ]
     tags = [
-        "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}"
+        "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}",
+        "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}",
     ]
 }
 
@@ -70,6 +71,7 @@ target "nginx-modules-debian" {
         "linux/arm64",
     ]
     tags = [
-        "${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}"
+        "${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
+        "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
     ]
 }
