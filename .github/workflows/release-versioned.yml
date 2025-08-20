@@ -58,3 +58,15 @@ jobs:
       version: ${{ matrix.version }}
       modules: ${{ needs.generate.outputs.modules }}
       push: ${{ github.event_name != 'pull_request' }}
+
+  generate-readme:
+    needs: 
+      - generate
+      - alpine
+      - debian
+    permissions:
+      contents: write
+    uses: ./.github/workflows/use-readme.yml
+    secrets: inherit
+    with:
+      version: ${{ needs.generate.outputs.versions }}
