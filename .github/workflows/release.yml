@@ -38,11 +38,15 @@ jobs:
     needs: stage
     uses: ./.github/workflows/release-canonical.yml
     secrets: inherit
+    permissions:
+      packages: write
 
   channel:
     needs: stage
     uses: ./.github/workflows/release-channel.yml
     secrets: inherit
+    permissions:
+      packages: write
 
   versioned:
     needs: stage
@@ -50,3 +54,4 @@ jobs:
     secrets: inherit
     permissions:
       contents: write
+      packages: write
