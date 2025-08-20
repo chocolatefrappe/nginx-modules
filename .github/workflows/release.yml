@@ -48,3 +48,5 @@ jobs:
     needs: stage
     uses: ./.github/workflows/release-versioned.yml
     secrets: inherit
+    permissions:
+      contents: write

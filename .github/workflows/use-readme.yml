@@ -59,7 +59,7 @@ jobs:
             .github/locks/nginx-versions.json
           commit_message: Generate README.md
           commit_user_name: ${{ vars.BOT_USERNAME }}
-          commit_user_email: ${{ vars.BOT_EMAIL}}
+          commit_user_email: ${{ vars.BOT_EMAIL }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
