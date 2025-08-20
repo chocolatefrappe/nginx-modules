@@ -25,7 +25,6 @@ jobs:
     name: "build ${{ inputs.targets }} (${{ inputs.version}})"
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       packages: write
     steps:
       - name: Set up QEMU
