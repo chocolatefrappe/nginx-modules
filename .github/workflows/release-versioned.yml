@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  contents: write
   packages: write
 
 jobs:
@@ -67,8 +68,6 @@ jobs:
       - generate
       - alpine
       - debian
-    permissions:
-      contents: write
     uses: ./.github/workflows/use-readme.yml
     secrets: inherit
     with:

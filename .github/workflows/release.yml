@@ -19,10 +19,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-  actions: write
-
 env:
   GH_TOKEN: ${{ github.token}}
 
@@ -54,4 +50,3 @@ jobs:
     secrets: inherit
     permissions:
       contents: write
-      packages: write
