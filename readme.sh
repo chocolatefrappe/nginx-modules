@@ -17,7 +17,7 @@ function readme() {
 }
 
 if [ ! -f "${NGINX_VERSIONS_FILE}" ]; then
-    echo "The file nginx-versions.json does not exist."
+    echo "The file \"${NGINX_VERSIONS_FILE}\" does not exist."
     exit 1
 fi
 
