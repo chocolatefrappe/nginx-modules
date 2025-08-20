@@ -51,5 +51,5 @@ jobs:
           NGINX_MODULES: ${{ inputs.modules }}
         with:
           targets: nginx-modules-${{ inputs.targets }}
-          push: false
+          push: ${{ inputs.push }}
           files: docker-bake.hcl
