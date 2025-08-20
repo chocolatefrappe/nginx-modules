@@ -10,17 +10,6 @@ variable "NGINX_MODULES" {
 
 variable "REGISTRY_IMAGE" { default = "chocolatefrappe/nginx-modules" }
 
-// Local variables for NGINX versions and channels.
-// These are used to generate the matrix for building images with different NGINX versions and modules.
-variable "_NGINX_CHANNEL_VERSIONS" {
-    type = list(string)
-    default = ["stable", "mainline"]
-}
-variable "_NGINX_CANONICAL_VERSIONS" {
-    type = list(string)
-    default = setunion([for ver in NGINX_VERSIONS : regex_replace(ver, "^(.+)\\.(.+)\\.(.+)", "$1.$2")])
-}
-
 # NGINX targets for building images with various modules enabled.
 group "default" {
     targets = [
@@ -48,10 +37,10 @@ target "pkg-oss" {
 target "nginx-modules-alpine" {
     dockerfile = "alpine/Dockerfile"
     matrix = {
-        NGINX_VERSION = flatten([_NGINX_CHANNEL_VERSIONS, NGINX_VERSIONS, _NGINX_CANONICAL_VERSIONS])
+        NGINX_VERSION = NGINX_VERSIONS
         ENABLED_MODULE = NGINX_MODULES
     }
-    name = "nginx-modules-alpine-${sanitize(NGINX_VERSION)}-${ENABLED_MODULE}"
+    name = "nginx-modules-alpine-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
     args = {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
@@ -68,10 +57,10 @@ target "nginx-modules-alpine" {
 target "nginx-modules-debian" {
     dockerfile = "debian/Dockerfile"
     matrix = {
-        NGINX_VERSION = flatten([_NGINX_CHANNEL_VERSIONS, NGINX_VERSIONS, _NGINX_CANONICAL_VERSIONS])
+        NGINX_VERSION = NGINX_VERSIONS
         ENABLED_MODULE = NGINX_MODULES
     }
-    name = "nginx-modules-debian-${sanitize(NGINX_VERSION)}-${ENABLED_MODULE}"
+    name = "nginx-modules-debian-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
     args = {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
@@ -83,11 +72,4 @@ target "nginx-modules-debian" {
     tags = [
         "${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}"
     ]
-}
-
-target "test" {
-  matrix = {
-        NGINX_VERSION = flatten([_NGINX_CHANNEL_VERSIONS, NGINX_VERSIONS, _NGINX_CANONICAL_VERSIONS])
-    }
-    name = "nginx-modules-alpine-${sanitize(NGINX_VERSION)}"
 }

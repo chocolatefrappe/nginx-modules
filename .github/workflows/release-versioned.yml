@@ -1,0 +1,60 @@
+name: Release versioned
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      # Generate release versions
+      - id: today
+        uses: actions-matrix/today@main
+      - id: nginx-versions
+        uses: actions-matrix/release-matrix-action@v2
+        with:
+          search: "nginx"
+          limit: 3
+          date: ">=${{ steps.today.outputs.year }}"
+      # Generate modules
+      - uses: actions/checkout@v4
+      - id: nginx-modules
+        run: echo "modules=$(jq -ecr 'keys | join(",")' nginx-modules.json)" >> "$GITHUB_OUTPUT"
+    outputs:
+      versions: ${{ steps.nginx-versions.outputs.versions }}
+      modules: ${{ steps.nginx-modules.outputs.modules }}
+
+  alpine:
+    name: alpine
+    # continue-on-error: true
+    needs:
+      - generate
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.versions) }}
+    uses: ./.github/workflows/use-docker-build.yml
+    secrets: inherit
+    with:
+      targets: alpine
+      version: ${{ matrix.version }}
+      modules: ${{ needs.generate.outputs.modules }}
+      push: ${{ github.event_name != 'pull_request' }}
+
+  debian:
+    name: debian
+    # continue-on-error: true
+    needs:
+      - generate
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.versions) }}
+    uses: ./.github/workflows/use-docker-build.yml
+    secrets: inherit
+    with:
+      targets: debian
+      version: ${{ matrix.version }}
+      modules: ${{ needs.generate.outputs.modules }}
+      push: ${{ github.event_name != 'pull_request' }}
