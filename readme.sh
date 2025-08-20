@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-README_FILE="README.md"
-TEMPLATE_FILE="README.template.md"
-NGINX_VERSIONS_FILE=".github/locks/nginx-versions.json"
+README_FILE=${README_FILE:-"README.md"}
+TEMPLATE_FILE=${TEMPLATE_FILE:-"README.template.md"}
+NGINX_VERSIONS_FILE=${NGINX_VERSIONS_FILE:-"nginx-versions.json"}
 
 # Inject value into README.md
 function readme() {
@@ -17,7 +17,7 @@ function readme() {
 }
 
 if [ ! -f "${NGINX_VERSIONS_FILE}" ]; then
-    echo "The file nginx-versions.json does not exist."
+    echo "The file \"${NGINX_VERSIONS_FILE}\" does not exist."
     exit 1
 fi
 

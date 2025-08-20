@@ -1,25 +1,24 @@
 # check=skip=InvalidDefaultArgInFrom
 
 ARG NGINX_VERSION=stable
-ARG NGINX_TTL_IMAGE_TAG=nginx-module-builder
 
-FROM nginx:${NGINX_VERSION}-alpine AS nginx-module-builder
+FROM nginx:${NGINX_VERSION}-alpine AS base-builder
 
 RUN apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
-               xz g++ coreutils curl \
+               xz g++ coreutils curl cargo \
     # allow abuild as a root user \
     && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
     && chmod +x /usr/local/bin/abuild
 
 ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE} /pkg-oss
+ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
 
 COPY ./modules /modules/
 
-# Module Builder
-FROM ${NGINX_TTL_IMAGE_TAG} AS builder
+FROM base-builder AS builder
 
 ARG ENABLED_MODULES
 
@@ -30,7 +29,9 @@ RUN set -ex \
     fi
 
 WORKDIR /pkg-oss
-RUN mkdir /tmp/packages \
+RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
+    set -eo pipefail; \
+    mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \

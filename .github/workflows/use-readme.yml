@@ -1,0 +1,69 @@
+name: README.md
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'readme.sh'
+      - 'README.template.md'
+      - '.github/locks/nginx-versions.json'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version of nginx to generate the README for'
+        required: false
+        type: string
+        default: ""
+  workflow_call:
+    inputs:
+      version:
+        description: 'The version of nginx to generate the README for'
+        required: true
+        type: string
+        default: ""
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    # continue-on-error: truegit
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: Generate nginx-versions.json
+        if: ${{ github.event.inputs.version != '' }}
+        run: |
+          cat <<EOF >.github/locks/nginx-versions.json
+          ${{ inputs.version }}
+          EOF
+
+      - name: Generate README.md
+        env:
+          NGINX_VERSIONS_FILE: .github/locks/nginx-versions.json
+        run: ./readme.sh
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: |
+            README.md
+            .github/locks/nginx-versions.json
+          commit_message: Generate README.md
+          commit_user_name: ${{ vars.BOT_USERNAME }}
+          commit_user_email: ${{ vars.BOT_EMAIL }}
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: chocolatefrappe/nginx-modules

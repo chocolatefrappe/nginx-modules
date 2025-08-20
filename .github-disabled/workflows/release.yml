@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  # Runs at 00:00, only on Saturday
+  schedule:
+    - cron: '0 0 * * SAT'
+  push:
+    branches:
+      - main
+    paths:
+      - 'alpine/**'
+      - 'debian/**'
+      - 'modules/**'
+      - 'docker-bake.hcl'
+      - 'nginx-modules.json'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  GH_TOKEN: ${{ github.token}}
+
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Sleeping for 15 seconds to allow other jobs to start"
+          sleep 15
+
+  canonical:
+    needs: stage
+    uses: ./.github/workflows/release-canonical.yml
+    secrets: inherit
+
+  channel:
+    needs: stage
+    uses: ./.github/workflows/release-channel.yml
+    secrets: inherit
+
+  # versioned:
+  #   needs: stage
+  #   uses: ./.github/workflows/release-versioned.yml
+  #   secrets: inherit
+  #   permissions:
+  #     contents: write

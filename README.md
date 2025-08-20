@@ -1,7 +1,3 @@
-> [!IMPORTANT]
-> This repository is no longer being maintained.  
-> Please use [chocolatefrappe/nginx-builder](https://github.com/chocolatefrappe/nginx-builder) instead.
-
 ## About
 A pre-built NGINX packages and modules for container.
 
@@ -120,14 +116,9 @@ The following releases are available:
 
 **Versioned releases**:
 
-- `1.25.5`
-- `1.26.0`
-- `1.26.1`
-- `1.26.2`
-- `1.27.0`
-- `1.27.1`
-- `1.27.2`
-- `1.27.3`
+- `1.28.0`
+- `1.29.0`
+- `1.29.1`
 
 ## Modules
 
@@ -141,6 +132,7 @@ All modules are shipped using `scratch` as base image to reduce the size of the 
 
 The following modules are available:
 
+- [`acme`](https://github.com/nginx/nginx-acme): An NGINX module with the implementation of the automatic certificate management (ACMEv2) protocol
 - [`auth-spnego`](https://github.com/stnoonan/spnego-http-auth-nginx-module): 3rd-party kerberos authentication dynamic module
 - [`brotli`](https://github.com/google/ngx_brotli): 3rd-party brotli compression dynamic modules
 - [`echo`](https://github.com/openresty/echo-nginx-module): Brings 'echo', 'sleep', 'time', 'exec' and more shell-style goodies to Nginx config file
@@ -168,6 +160,7 @@ The following modules are available:
 
 The following tags are available:
 
+- `mainline-acme`, `mainline-alpine-acme`
 - `mainline-auth-spnego`, `mainline-alpine-auth-spnego`
 - `mainline-brotli`, `mainline-alpine-brotli`
 - `mainline-echo`, `mainline-alpine-echo`
@@ -190,6 +183,7 @@ The following tags are available:
 - `mainline-vts`, `mainline-alpine-vts`
 - `mainline-xslt`, `mainline-alpine-xslt`
 - `mainline-zip`, `mainline-alpine-zip`
+- `stable-acme`, `stable-alpine-acme`
 - `stable-auth-spnego`, `stable-alpine-auth-spnego`
 - `stable-brotli`, `stable-alpine-brotli`
 - `stable-echo`, `stable-alpine-echo`
@@ -215,182 +209,75 @@ The following tags are available:
 
 **Versioning releases**:
 
-- `1.25.5-auth-spnego`, `1.25.5-alpine-auth-spnego`
-- `1.25.5-brotli`, `1.25.5-alpine-brotli`
-- `1.25.5-echo`, `1.25.5-alpine-echo`
-- `1.25.5-encrypted-session`, `1.25.5-alpine-encrypted-session`
-- `1.25.5-fips-check`, `1.25.5-alpine-fips-check`
-- `1.25.5-geoip`, `1.25.5-alpine-geoip`
-- `1.25.5-geoip2`, `1.25.5-alpine-geoip2`
-- `1.25.5-headers-more`, `1.25.5-alpine-headers-more`
-- `1.25.5-image-filter`, `1.25.5-alpine-image-filter`
-- `1.25.5-lua`, `1.25.5-alpine-lua`
-- `1.25.5-ndk`, `1.25.5-alpine-ndk`
-- `1.25.5-njs`, `1.25.5-alpine-njs`
-- `1.25.5-opentracing`, `1.25.5-alpine-opentracing`
-- `1.25.5-otel`, `1.25.5-alpine-otel`
-- `1.25.5-passenger`, `1.25.5-alpine-passenger`
-- `1.25.5-perl`, `1.25.5-alpine-perl`
-- `1.25.5-rtmp`, `1.25.5-alpine-rtmp`
-- `1.25.5-set-misc`, `1.25.5-alpine-set-misc`
-- `1.25.5-subs-filter`, `1.25.5-alpine-subs-filter`
-- `1.25.5-vts`, `1.25.5-alpine-vts`
-- `1.25.5-xslt`, `1.25.5-alpine-xslt`
-- `1.25.5-zip`, `1.25.5-alpine-zip`
-- `1.26.0-auth-spnego`, `1.26.0-alpine-auth-spnego`
-- `1.26.0-brotli`, `1.26.0-alpine-brotli`
-- `1.26.0-echo`, `1.26.0-alpine-echo`
-- `1.26.0-encrypted-session`, `1.26.0-alpine-encrypted-session`
-- `1.26.0-fips-check`, `1.26.0-alpine-fips-check`
-- `1.26.0-geoip`, `1.26.0-alpine-geoip`
-- `1.26.0-geoip2`, `1.26.0-alpine-geoip2`
-- `1.26.0-headers-more`, `1.26.0-alpine-headers-more`
-- `1.26.0-image-filter`, `1.26.0-alpine-image-filter`
-- `1.26.0-lua`, `1.26.0-alpine-lua`
-- `1.26.0-ndk`, `1.26.0-alpine-ndk`
-- `1.26.0-njs`, `1.26.0-alpine-njs`
-- `1.26.0-opentracing`, `1.26.0-alpine-opentracing`
-- `1.26.0-otel`, `1.26.0-alpine-otel`
-- `1.26.0-passenger`, `1.26.0-alpine-passenger`
-- `1.26.0-perl`, `1.26.0-alpine-perl`
-- `1.26.0-rtmp`, `1.26.0-alpine-rtmp`
-- `1.26.0-set-misc`, `1.26.0-alpine-set-misc`
-- `1.26.0-subs-filter`, `1.26.0-alpine-subs-filter`
-- `1.26.0-vts`, `1.26.0-alpine-vts`
-- `1.26.0-xslt`, `1.26.0-alpine-xslt`
-- `1.26.0-zip`, `1.26.0-alpine-zip`
-- `1.26.1-auth-spnego`, `1.26.1-alpine-auth-spnego`
-- `1.26.1-brotli`, `1.26.1-alpine-brotli`
-- `1.26.1-echo`, `1.26.1-alpine-echo`
-- `1.26.1-encrypted-session`, `1.26.1-alpine-encrypted-session`
-- `1.26.1-fips-check`, `1.26.1-alpine-fips-check`
-- `1.26.1-geoip`, `1.26.1-alpine-geoip`
-- `1.26.1-geoip2`, `1.26.1-alpine-geoip2`
-- `1.26.1-headers-more`, `1.26.1-alpine-headers-more`
-- `1.26.1-image-filter`, `1.26.1-alpine-image-filter`
-- `1.26.1-lua`, `1.26.1-alpine-lua`
-- `1.26.1-ndk`, `1.26.1-alpine-ndk`
-- `1.26.1-njs`, `1.26.1-alpine-njs`
-- `1.26.1-opentracing`, `1.26.1-alpine-opentracing`
-- `1.26.1-otel`, `1.26.1-alpine-otel`
-- `1.26.1-passenger`, `1.26.1-alpine-passenger`
-- `1.26.1-perl`, `1.26.1-alpine-perl`
-- `1.26.1-rtmp`, `1.26.1-alpine-rtmp`
-- `1.26.1-set-misc`, `1.26.1-alpine-set-misc`
-- `1.26.1-subs-filter`, `1.26.1-alpine-subs-filter`
-- `1.26.1-vts`, `1.26.1-alpine-vts`
-- `1.26.1-xslt`, `1.26.1-alpine-xslt`
-- `1.26.1-zip`, `1.26.1-alpine-zip`
-- `1.26.2-auth-spnego`, `1.26.2-alpine-auth-spnego`
-- `1.26.2-brotli`, `1.26.2-alpine-brotli`
-- `1.26.2-echo`, `1.26.2-alpine-echo`
-- `1.26.2-encrypted-session`, `1.26.2-alpine-encrypted-session`
-- `1.26.2-fips-check`, `1.26.2-alpine-fips-check`
-- `1.26.2-geoip`, `1.26.2-alpine-geoip`
-- `1.26.2-geoip2`, `1.26.2-alpine-geoip2`
-- `1.26.2-headers-more`, `1.26.2-alpine-headers-more`
-- `1.26.2-image-filter`, `1.26.2-alpine-image-filter`
-- `1.26.2-lua`, `1.26.2-alpine-lua`
-- `1.26.2-ndk`, `1.26.2-alpine-ndk`
-- `1.26.2-njs`, `1.26.2-alpine-njs`
-- `1.26.2-opentracing`, `1.26.2-alpine-opentracing`
-- `1.26.2-otel`, `1.26.2-alpine-otel`
-- `1.26.2-passenger`, `1.26.2-alpine-passenger`
-- `1.26.2-perl`, `1.26.2-alpine-perl`
-- `1.26.2-rtmp`, `1.26.2-alpine-rtmp`
-- `1.26.2-set-misc`, `1.26.2-alpine-set-misc`
-- `1.26.2-subs-filter`, `1.26.2-alpine-subs-filter`
-- `1.26.2-vts`, `1.26.2-alpine-vts`
-- `1.26.2-xslt`, `1.26.2-alpine-xslt`
-- `1.26.2-zip`, `1.26.2-alpine-zip`
-- `1.27.0-auth-spnego`, `1.27.0-alpine-auth-spnego`
-- `1.27.0-brotli`, `1.27.0-alpine-brotli`
-- `1.27.0-echo`, `1.27.0-alpine-echo`
-- `1.27.0-encrypted-session`, `1.27.0-alpine-encrypted-session`
-- `1.27.0-fips-check`, `1.27.0-alpine-fips-check`
-- `1.27.0-geoip`, `1.27.0-alpine-geoip`
-- `1.27.0-geoip2`, `1.27.0-alpine-geoip2`
-- `1.27.0-headers-more`, `1.27.0-alpine-headers-more`
-- `1.27.0-image-filter`, `1.27.0-alpine-image-filter`
-- `1.27.0-lua`, `1.27.0-alpine-lua`
-- `1.27.0-ndk`, `1.27.0-alpine-ndk`
-- `1.27.0-njs`, `1.27.0-alpine-njs`
-- `1.27.0-opentracing`, `1.27.0-alpine-opentracing`
-- `1.27.0-otel`, `1.27.0-alpine-otel`
-- `1.27.0-passenger`, `1.27.0-alpine-passenger`
-- `1.27.0-perl`, `1.27.0-alpine-perl`
-- `1.27.0-rtmp`, `1.27.0-alpine-rtmp`
-- `1.27.0-set-misc`, `1.27.0-alpine-set-misc`
-- `1.27.0-subs-filter`, `1.27.0-alpine-subs-filter`
-- `1.27.0-vts`, `1.27.0-alpine-vts`
-- `1.27.0-xslt`, `1.27.0-alpine-xslt`
-- `1.27.0-zip`, `1.27.0-alpine-zip`
-- `1.27.1-auth-spnego`, `1.27.1-alpine-auth-spnego`
-- `1.27.1-brotli`, `1.27.1-alpine-brotli`
-- `1.27.1-echo`, `1.27.1-alpine-echo`
-- `1.27.1-encrypted-session`, `1.27.1-alpine-encrypted-session`
-- `1.27.1-fips-check`, `1.27.1-alpine-fips-check`
-- `1.27.1-geoip`, `1.27.1-alpine-geoip`
-- `1.27.1-geoip2`, `1.27.1-alpine-geoip2`
-- `1.27.1-headers-more`, `1.27.1-alpine-headers-more`
-- `1.27.1-image-filter`, `1.27.1-alpine-image-filter`
-- `1.27.1-lua`, `1.27.1-alpine-lua`
-- `1.27.1-ndk`, `1.27.1-alpine-ndk`
-- `1.27.1-njs`, `1.27.1-alpine-njs`
-- `1.27.1-opentracing`, `1.27.1-alpine-opentracing`
-- `1.27.1-otel`, `1.27.1-alpine-otel`
-- `1.27.1-passenger`, `1.27.1-alpine-passenger`
-- `1.27.1-perl`, `1.27.1-alpine-perl`
-- `1.27.1-rtmp`, `1.27.1-alpine-rtmp`
-- `1.27.1-set-misc`, `1.27.1-alpine-set-misc`
-- `1.27.1-subs-filter`, `1.27.1-alpine-subs-filter`
-- `1.27.1-vts`, `1.27.1-alpine-vts`
-- `1.27.1-xslt`, `1.27.1-alpine-xslt`
-- `1.27.1-zip`, `1.27.1-alpine-zip`
-- `1.27.2-auth-spnego`, `1.27.2-alpine-auth-spnego`
-- `1.27.2-brotli`, `1.27.2-alpine-brotli`
-- `1.27.2-echo`, `1.27.2-alpine-echo`
-- `1.27.2-encrypted-session`, `1.27.2-alpine-encrypted-session`
-- `1.27.2-fips-check`, `1.27.2-alpine-fips-check`
-- `1.27.2-geoip`, `1.27.2-alpine-geoip`
-- `1.27.2-geoip2`, `1.27.2-alpine-geoip2`
-- `1.27.2-headers-more`, `1.27.2-alpine-headers-more`
-- `1.27.2-image-filter`, `1.27.2-alpine-image-filter`
-- `1.27.2-lua`, `1.27.2-alpine-lua`
-- `1.27.2-ndk`, `1.27.2-alpine-ndk`
-- `1.27.2-njs`, `1.27.2-alpine-njs`
-- `1.27.2-opentracing`, `1.27.2-alpine-opentracing`
-- `1.27.2-otel`, `1.27.2-alpine-otel`
-- `1.27.2-passenger`, `1.27.2-alpine-passenger`
-- `1.27.2-perl`, `1.27.2-alpine-perl`
-- `1.27.2-rtmp`, `1.27.2-alpine-rtmp`
-- `1.27.2-set-misc`, `1.27.2-alpine-set-misc`
-- `1.27.2-subs-filter`, `1.27.2-alpine-subs-filter`
-- `1.27.2-vts`, `1.27.2-alpine-vts`
-- `1.27.2-xslt`, `1.27.2-alpine-xslt`
-- `1.27.2-zip`, `1.27.2-alpine-zip`
-- `1.27.3-auth-spnego`, `1.27.3-alpine-auth-spnego`
-- `1.27.3-brotli`, `1.27.3-alpine-brotli`
-- `1.27.3-echo`, `1.27.3-alpine-echo`
-- `1.27.3-encrypted-session`, `1.27.3-alpine-encrypted-session`
-- `1.27.3-fips-check`, `1.27.3-alpine-fips-check`
-- `1.27.3-geoip`, `1.27.3-alpine-geoip`
-- `1.27.3-geoip2`, `1.27.3-alpine-geoip2`
-- `1.27.3-headers-more`, `1.27.3-alpine-headers-more`
-- `1.27.3-image-filter`, `1.27.3-alpine-image-filter`
-- `1.27.3-lua`, `1.27.3-alpine-lua`
-- `1.27.3-ndk`, `1.27.3-alpine-ndk`
-- `1.27.3-njs`, `1.27.3-alpine-njs`
-- `1.27.3-opentracing`, `1.27.3-alpine-opentracing`
-- `1.27.3-otel`, `1.27.3-alpine-otel`
-- `1.27.3-passenger`, `1.27.3-alpine-passenger`
-- `1.27.3-perl`, `1.27.3-alpine-perl`
-- `1.27.3-rtmp`, `1.27.3-alpine-rtmp`
-- `1.27.3-set-misc`, `1.27.3-alpine-set-misc`
-- `1.27.3-subs-filter`, `1.27.3-alpine-subs-filter`
-- `1.27.3-vts`, `1.27.3-alpine-vts`
-- `1.27.3-xslt`, `1.27.3-alpine-xslt`
-- `1.27.3-zip`, `1.27.3-alpine-zip`
+- `1.28.0-acme`, `1.28.0-alpine-acme`
+- `1.28.0-auth-spnego`, `1.28.0-alpine-auth-spnego`
+- `1.28.0-brotli`, `1.28.0-alpine-brotli`
+- `1.28.0-echo`, `1.28.0-alpine-echo`
+- `1.28.0-encrypted-session`, `1.28.0-alpine-encrypted-session`
+- `1.28.0-fips-check`, `1.28.0-alpine-fips-check`
+- `1.28.0-geoip`, `1.28.0-alpine-geoip`
+- `1.28.0-geoip2`, `1.28.0-alpine-geoip2`
+- `1.28.0-headers-more`, `1.28.0-alpine-headers-more`
+- `1.28.0-image-filter`, `1.28.0-alpine-image-filter`
+- `1.28.0-lua`, `1.28.0-alpine-lua`
+- `1.28.0-ndk`, `1.28.0-alpine-ndk`
+- `1.28.0-njs`, `1.28.0-alpine-njs`
+- `1.28.0-opentracing`, `1.28.0-alpine-opentracing`
+- `1.28.0-otel`, `1.28.0-alpine-otel`
+- `1.28.0-passenger`, `1.28.0-alpine-passenger`
+- `1.28.0-perl`, `1.28.0-alpine-perl`
+- `1.28.0-rtmp`, `1.28.0-alpine-rtmp`
+- `1.28.0-set-misc`, `1.28.0-alpine-set-misc`
+- `1.28.0-subs-filter`, `1.28.0-alpine-subs-filter`
+- `1.28.0-vts`, `1.28.0-alpine-vts`
+- `1.28.0-xslt`, `1.28.0-alpine-xslt`
+- `1.28.0-zip`, `1.28.0-alpine-zip`
+- `1.29.0-acme`, `1.29.0-alpine-acme`
+- `1.29.0-auth-spnego`, `1.29.0-alpine-auth-spnego`
+- `1.29.0-brotli`, `1.29.0-alpine-brotli`
+- `1.29.0-echo`, `1.29.0-alpine-echo`
+- `1.29.0-encrypted-session`, `1.29.0-alpine-encrypted-session`
+- `1.29.0-fips-check`, `1.29.0-alpine-fips-check`
+- `1.29.0-geoip`, `1.29.0-alpine-geoip`
+- `1.29.0-geoip2`, `1.29.0-alpine-geoip2`
+- `1.29.0-headers-more`, `1.29.0-alpine-headers-more`
+- `1.29.0-image-filter`, `1.29.0-alpine-image-filter`
+- `1.29.0-lua`, `1.29.0-alpine-lua`
+- `1.29.0-ndk`, `1.29.0-alpine-ndk`
+- `1.29.0-njs`, `1.29.0-alpine-njs`
+- `1.29.0-opentracing`, `1.29.0-alpine-opentracing`
+- `1.29.0-otel`, `1.29.0-alpine-otel`
+- `1.29.0-passenger`, `1.29.0-alpine-passenger`
+- `1.29.0-perl`, `1.29.0-alpine-perl`
+- `1.29.0-rtmp`, `1.29.0-alpine-rtmp`
+- `1.29.0-set-misc`, `1.29.0-alpine-set-misc`
+- `1.29.0-subs-filter`, `1.29.0-alpine-subs-filter`
+- `1.29.0-vts`, `1.29.0-alpine-vts`
+- `1.29.0-xslt`, `1.29.0-alpine-xslt`
+- `1.29.0-zip`, `1.29.0-alpine-zip`
+- `1.29.1-acme`, `1.29.1-alpine-acme`
+- `1.29.1-auth-spnego`, `1.29.1-alpine-auth-spnego`
+- `1.29.1-brotli`, `1.29.1-alpine-brotli`
+- `1.29.1-echo`, `1.29.1-alpine-echo`
+- `1.29.1-encrypted-session`, `1.29.1-alpine-encrypted-session`
+- `1.29.1-fips-check`, `1.29.1-alpine-fips-check`
+- `1.29.1-geoip`, `1.29.1-alpine-geoip`
+- `1.29.1-geoip2`, `1.29.1-alpine-geoip2`
+- `1.29.1-headers-more`, `1.29.1-alpine-headers-more`
+- `1.29.1-image-filter`, `1.29.1-alpine-image-filter`
+- `1.29.1-lua`, `1.29.1-alpine-lua`
+- `1.29.1-ndk`, `1.29.1-alpine-ndk`
+- `1.29.1-njs`, `1.29.1-alpine-njs`
+- `1.29.1-opentracing`, `1.29.1-alpine-opentracing`
+- `1.29.1-otel`, `1.29.1-alpine-otel`
+- `1.29.1-passenger`, `1.29.1-alpine-passenger`
+- `1.29.1-perl`, `1.29.1-alpine-perl`
+- `1.29.1-rtmp`, `1.29.1-alpine-rtmp`
+- `1.29.1-set-misc`, `1.29.1-alpine-set-misc`
+- `1.29.1-subs-filter`, `1.29.1-alpine-subs-filter`
+- `1.29.1-vts`, `1.29.1-alpine-vts`
+- `1.29.1-xslt`, `1.29.1-alpine-xslt`
+- `1.29.1-zip`, `1.29.1-alpine-zip`
 
 ## Contributing
 

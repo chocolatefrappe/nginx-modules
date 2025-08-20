@@ -1,15 +1,14 @@
 # check=skip=InvalidDefaultArgInFrom
 
 ARG NGINX_VERSION=stable
-ARG NGINX_TTL_IMAGE_TAG=nginx-module-builder
 
-FROM nginx:${NGINX_VERSION} AS nginx-module-builder
+FROM nginx:${NGINX_VERSION} AS base-builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget git devscripts debhelper dpkg-dev \
                 quilt lsb-release build-essential libxml2-utils xsltproc \
-                equivs git g++ libparse-recdescent-perl \
+                equivs git g++ libparse-recdescent-perl cargo \
     && XSLSCRIPT_SHA512="f7194c5198daeab9b3b0c3aebf006922c7df1d345d454bd8474489ff2eb6b4bf8e2ffe442489a45d1aab80da6ecebe0097759a1e12cc26b5f0613d05b7c09ffa *stdin" \
     && wget -O /tmp/xslscript.pl https://raw.githubusercontent.com/nginx/xslscript/9204424259c343ca08a18a78915f40f28025e093/xslscript.pl \
     && if [ "$(cat /tmp/xslscript.pl | openssl sha512 -r)" = "$XSLSCRIPT_SHA512" ]; then \
@@ -22,12 +21,12 @@ RUN apt-get update \
     fi
 
 ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE%%~*} /pkg-oss
+ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
 
 COPY ./modules /modules/
 
-# Module Builder
-FROM ${NGINX_TTL_IMAGE_TAG} AS builder
+FROM base-builder AS builder
 
 ARG ENABLED_MODULES
 
@@ -38,7 +37,9 @@ RUN set -ex \
     fi
 
 WORKDIR /pkg-oss
-RUN mkdir /tmp/packages \
+RUN RUN --mount=type=cache,id=debian,target=/tmp/locked,sharing=locked \
+    set -eo pipefail; \
+    mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \
