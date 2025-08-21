@@ -13,8 +13,8 @@ on:
         type: string
       modules:
         description: 'The nginx modules to build'
-        required: true
         type: string
+        default: ''
       push:
         description: 'Whether to push the image to Docker Registry'
         required: false

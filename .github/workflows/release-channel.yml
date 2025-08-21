@@ -21,11 +21,29 @@ jobs:
       versions: ${{ steps.nginx-versions.outputs.versions }}
       modules: ${{ steps.nginx-modules.outputs.modules }}
 
+  prepare:
+    name: prepare
+    # continue-on-error: true
+    needs:
+      - generate
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ${{ fromJson(needs.generate.outputs.versions) }}
+    uses: ./.github/workflows/use-docker-build.yml
+    secrets: inherit
+    with:
+      targets: builder
+      version: ${{ matrix.version }}
+      modules: stub
+      push: ${{ github.event_name != 'pull_request' }}
+
   alpine:
     name: alpine
     # continue-on-error: true
     needs:
       - generate
+      - prepare
     strategy:
       fail-fast: false
       matrix:
@@ -43,6 +61,7 @@ jobs:
     # continue-on-error: true
     needs:
       - generate
+      - prepare
     strategy:
       fail-fast: false
       matrix:

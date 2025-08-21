@@ -8,13 +8,16 @@ it:
 	docker buildx bake pkg-oss
 	docker buildx bake --set="*.platform=" --print $(target)
 
-build: alpine debian
+build: nginx-modules-builder alpine debian
 .PHONY: alpine
 alpine: pkg-oss
 	docker buildx bake --set="*.platform=" --load --no-cache alpine
 .PHONY: debian
 debian: pkg-oss
 	docker buildx bake --set="*.platform=" --load --no-cache debian
+.PHONY: builder
+nginx-modules-builder:
+	docker buildx bake  --set="*.platform=" --load --no-cache nginx-modules-builder
 .PHONY: pkg-oss
 pkg-oss:
 	docker buildx bake pkg-oss

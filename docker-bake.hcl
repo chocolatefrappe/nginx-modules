@@ -34,6 +34,34 @@ target "pkg-oss" {
     platforms = [ "local" ]
 }
 
+group "nginx-modules-builder" {
+    targets = [
+        "nginx-modules-alpine-builder",
+        "nginx-modules-debian-builder",
+    ]
+}
+
+target "nginx-modules-alpine-builder" {
+    dockerfile = "alpine/Dockerfile"
+    matrix = {
+        NGINX_VERSION = NGINX_VERSIONS
+    }
+    name = "nginx-modules-alpine-builder-${replace(NGINX_VERSION, ".", "-")}"
+    target = "base-builder"
+    contexts = {
+        "rustup-init": "target:rustup-init-musl"
+    }
+    args = {
+        NGINX_VERSION = NGINX_VERSION,
+    }
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
+    ]
+    tags = [
+        "ghcr.io/${REGISTRY_IMAGE}:builder-${NGINX_VERSION}-alpine",
+    ]
+}
 target "nginx-modules-alpine" {
     dockerfile = "alpine/Dockerfile"
     matrix = {
@@ -41,9 +69,6 @@ target "nginx-modules-alpine" {
         ENABLED_MODULE = NGINX_MODULES
     }
     name = "nginx-modules-alpine-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
-    contexts = {
-        "rustup-init": "target:rustup-init-musl"
-    }
     args = {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
@@ -58,6 +83,27 @@ target "nginx-modules-alpine" {
     ]
 }
 
+target "nginx-modules-debian-builder" {
+    dockerfile = "debian/Dockerfile"
+    matrix = {
+        NGINX_VERSION = NGINX_VERSIONS
+    }
+    name = "nginx-modules-debian-builder-${replace(NGINX_VERSION, ".", "-")}"
+    target = "base-builder"
+    contexts = {
+        "rustup-init": "target:rustup-init-gnu"
+    }
+    args = {
+        NGINX_VERSION = NGINX_VERSION,
+    }
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
+    ]
+    tags = [
+        "ghcr.io/${REGISTRY_IMAGE}:builder-${NGINX_VERSION}",
+    ]
+}
 target "nginx-modules-debian" {
     dockerfile = "debian/Dockerfile"
     matrix = {
@@ -65,9 +111,6 @@ target "nginx-modules-debian" {
         ENABLED_MODULE = NGINX_MODULES
     }
     name = "nginx-modules-debian-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
-    contexts = {
-        "rustup-init": "target:rustup-init-gnu"
-    }
     args = {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,

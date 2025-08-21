@@ -26,13 +26,12 @@ RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
     cargo --version; \
     rustc --version;
 
+FROM ghcr.io/chocolatefrappe/nginx-modules:builder-${NGINX_VERSION}-alpine AS builder
+
 ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE} /pkg-oss
 ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
-
 COPY ./modules /modules/
-
-FROM base-builder AS builder
 
 ARG ENABLED_MODULES
 
