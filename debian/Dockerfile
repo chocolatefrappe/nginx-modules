@@ -28,7 +28,7 @@ ENV RUSTUP_HOME=/usr/local/rustup \
 COPY --from=rustup-init /rustup-init /usr/bin/rustup-init
 RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
     set -ex; \
-    /usr/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
+    rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
     chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
     rustup --version; \
     cargo --version; \
