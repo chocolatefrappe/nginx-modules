@@ -126,19 +126,11 @@ target "nginx-modules-debian" {
 }
 
 target "rustup-init-gnu" {
-  context = "rustup-init"
-  dockerfile = "gnu.Dockerfile"
-  tags = [
-    "${REGISTRY_IMAGE}:rustup-init-gnu",
-    "ghcr.io/${REGISTRY_IMAGE}:rustup-init-gnu",
-    ]
+    context = "rustup-init"
+    dockerfile = "gnu.Dockerfile"
 }
 
 target "rustup-init-musl" {
-  context = "rustup-init"
-  dockerfile = "musl.Dockerfile"
-  tags = [
-    "${REGISTRY_IMAGE}:rustup-init-musl",
-    "ghcr.io/${REGISTRY_IMAGE}:rustup-init-musl",
-    ]
+    context = "rustup-init"
+    dockerfile = "musl.Dockerfile"
 }
