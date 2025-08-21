@@ -22,6 +22,10 @@ concurrency:
 env:
   GH_TOKEN: ${{ github.token}}
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   stage:
     runs-on: ubuntu-latest
@@ -34,19 +38,13 @@ jobs:
     needs: stage
     uses: ./.github/workflows/release-canonical.yml
     secrets: inherit
-    permissions:
-      packages: write
 
   channel:
     needs: stage
     uses: ./.github/workflows/release-channel.yml
     secrets: inherit
-    permissions:
-      packages: write
 
   versioned:
     needs: stage
     uses: ./.github/workflows/release-versioned.yml
     secrets: inherit
-    permissions:
-      contents: write
