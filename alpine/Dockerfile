@@ -17,8 +17,10 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     PATH=/usr/local/cargo/bin:$PATH \
     RUST_VERSION=1.86.0
 COPY --from=rustup-init /rustup-init /usr/local/bin/rustup-init
-RUN set -ex; \
+RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
+    set -ex; \
     /usr/local/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
+    chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
     rustup --version; \
     cargo --version; \
     rustc --version;
