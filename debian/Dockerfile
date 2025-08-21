@@ -4,7 +4,8 @@ ARG NGINX_VERSION=stable
 
 FROM nginx:${NGINX_VERSION} AS base-builder
 
-RUN apt-get update \
+RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
+    apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget git devscripts debhelper dpkg-dev \
                 quilt lsb-release build-essential libxml2-utils xsltproc \
@@ -24,10 +25,10 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH \
     RUST_VERSION=1.86.0
-COPY --from=rustup-init /rustup-init /usr/local/bin/rustup-init
+COPY --from=rustup-init /rustup-init /usr/bin/rustup-init
 RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
     set -ex; \
-    /usr/local/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
+    /usr/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
     chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
     rustup --version; \
     cargo --version; \
