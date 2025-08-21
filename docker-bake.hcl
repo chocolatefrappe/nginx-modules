@@ -41,6 +41,9 @@ target "nginx-modules-alpine" {
         ENABLED_MODULE = NGINX_MODULES
     }
     name = "nginx-modules-alpine-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
+    contexts = {
+        "rustup-init": "target:rustup-init"
+    }
     args = {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
@@ -62,6 +65,9 @@ target "nginx-modules-debian" {
         ENABLED_MODULE = NGINX_MODULES
     }
     name = "nginx-modules-debian-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
+    contexts = {
+        "rustup-init": "target:rustup-init"
+    }
     args = {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
@@ -73,5 +79,13 @@ target "nginx-modules-debian" {
     tags = [
         "${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
         "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
+    ]
+}
+
+target "rustup-init" {
+  context = "rustup-init"
+  tags = [
+    "${REGISTRY_IMAGE}:rustup-init",
+    "ghcr.io/${REGISTRY_IMAGE}:rustup-init",
     ]
 }

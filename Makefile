@@ -1,4 +1,4 @@
-target :=
+target ?=
 
 .EXPORT_ALL_VARIABLES:
 NGINX_VERSIONS ?= $(shell jq -ecr 'join(",")' nginx-versions.json)
@@ -10,8 +10,11 @@ it:
 
 build: alpine debian
 .PHONY: alpine
-alpine:
-	docker buildx bake --set="*.platform=" --load alpine
+alpine: pkg-oss
+	docker buildx bake --set="*.platform=" --load --no-cache alpine
 .PHONY: debian
-debian:
-	docker buildx bake --set="*.platform=" --load debian
+debian: pkg-oss
+	docker buildx bake --set="*.platform=" --load --no-cache debian
+.PHONY: pkg-oss
+pkg-oss:
+	docker buildx bake pkg-oss
