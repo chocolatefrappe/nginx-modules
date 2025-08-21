@@ -42,7 +42,7 @@ target "nginx-modules-alpine" {
     }
     name = "nginx-modules-alpine-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
     contexts = {
-        "rustup-init": "target:rustup-init"
+        "rustup-init": "target:rustup-init-musl"
     }
     args = {
         NGINX_VERSION = NGINX_VERSION,
@@ -66,7 +66,7 @@ target "nginx-modules-debian" {
     }
     name = "nginx-modules-debian-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
     contexts = {
-        "rustup-init": "target:rustup-init"
+        "rustup-init": "target:rustup-init-gnu"
     }
     args = {
         NGINX_VERSION = NGINX_VERSION,
@@ -82,10 +82,20 @@ target "nginx-modules-debian" {
     ]
 }
 
-target "rustup-init" {
+target "rustup-init-gnu" {
   context = "rustup-init"
+  dockerfile = "gnu.Dockerfile"
   tags = [
-    "${REGISTRY_IMAGE}:rustup-init",
-    "ghcr.io/${REGISTRY_IMAGE}:rustup-init",
+    "${REGISTRY_IMAGE}:rustup-init-gnu",
+    "ghcr.io/${REGISTRY_IMAGE}:rustup-init-gnu",
+    ]
+}
+
+target "rustup-init-musl" {
+  context = "rustup-init"
+  dockerfile = "musl.Dockerfile"
+  tags = [
+    "${REGISTRY_IMAGE}:rustup-init-musl",
+    "ghcr.io/${REGISTRY_IMAGE}:rustup-init-musl",
     ]
 }
