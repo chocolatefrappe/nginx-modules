@@ -2,6 +2,8 @@
 
 ARG NGINX_VERSION=stable
 
+FROM ghcr.io/socheatsok78-lab/rustup-init:1.28.2-musl AS rustup-init
+
 FROM nginx:${NGINX_VERSION}-alpine AS base-builder
 
 RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
@@ -18,8 +20,9 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     PATH=/usr/local/cargo/bin:$PATH \
     RUST_VERSION=1.86.0
 RUN --mount=type=cache,id=alpine,target=/tmp/locked,sharing=locked \
+    --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin/rustup-init \
     set -ex; \
-    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
+    /usr/local/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
     chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
     rustup --version; \
     cargo --version; \
