@@ -6,7 +6,8 @@ FROM ghcr.io/socheatsok78-lab/rustup-init:1.28.2-musl AS rustup-init
 
 FROM nginx:${NGINX_VERSION}-alpine AS base-builder
 
-RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
+ARG TARGETPLATFORM
+RUN --mount=type=cache,id=${TARGETPLATFORM},target=/var/cache/apk,sharing=locked \
     apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
@@ -19,8 +20,7 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH \
     RUST_VERSION=1.86.0
-RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
-    --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin/rustup-init \
+RUN --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin/rustup-init \
     set -ex; \
     /usr/local/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
     chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
@@ -44,7 +44,8 @@ RUN set -ex \
     fi
 
 WORKDIR /pkg-oss
-RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
+ARG TARGETPLATFORM
+RUN --mount=type=cache,id=${TARGETPLATFORM},target=/var/cache/apk,sharing=locked \
     set -eo pipefail; \
     mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
