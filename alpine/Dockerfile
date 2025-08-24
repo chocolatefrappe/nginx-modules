@@ -46,8 +46,8 @@ RUN set -ex \
 WORKDIR /pkg-oss
 ARG TARGETPLATFORM
 RUN --mount=type=cache,id=${TARGETPLATFORM},target=/var/cache/apk,sharing=locked \
-    set -eo pipefail; \
-    mkdir /tmp/packages \
+    set -e \
+    && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \

@@ -57,8 +57,8 @@ WORKDIR /pkg-oss
 ARG TARGETPLATFORM
 RUN --mount=type=cache,id=debian/${TARGETPLATFORM}/var/cache/apt,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,id=debian/${TARGETPLATFORM}/var/lib/apt,target=/var/lib/apt,sharing=locked \
-    set -eo pipefail; \
-    mkdir /tmp/packages \
+    set -e \
+    && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \
