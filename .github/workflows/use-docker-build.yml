@@ -64,6 +64,3 @@ jobs:
             docker-bake.hcl
             cwd://${{ steps.docker-meta.outputs.bake-file-labels }}
             cwd://${{ steps.docker-meta.outputs.bake-file-annotations }}
-          set: |
-            *.cache-from=type=gha
-            *.cache-to=type=gha,mode=min
