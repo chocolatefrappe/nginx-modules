@@ -7,8 +7,8 @@ FROM ghcr.io/socheatsok78-lab/rustup-init:1.28.2 AS rustup-init
 FROM nginx:${NGINX_VERSION} AS base-builder
 
 ARG TARGETPLATFORM
-RUN --mount=type=cache,id=debian/${TARGETPLATFORM}/var/cache/apt,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,id=debian/${TARGETPLATFORM}/var/lib/apt,target=/var/lib/apt,sharing=locked \
+RUN --mount=type=cache,id=${TARGETPLATFORM}/debian/var/cache/apt,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=${TARGETPLATFORM}/debian/var/lib/apt,target=/var/lib/apt,sharing=locked \
     rm /etc/apt/apt.conf.d/docker-clean \
     && apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
@@ -55,8 +55,8 @@ RUN set -ex \
 
 WORKDIR /pkg-oss
 ARG TARGETPLATFORM
-RUN --mount=type=cache,id=debian/${TARGETPLATFORM}/var/cache/apt,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,id=debian/${TARGETPLATFORM}/var/lib/apt,target=/var/lib/apt,sharing=locked \
+RUN --mount=type=cache,id=${TARGETPLATFORM}/debian/var/cache/apt,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=${TARGETPLATFORM}/debian/var/lib/apt,target=/var/lib/apt,sharing=locked \
     set -e \
     && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
