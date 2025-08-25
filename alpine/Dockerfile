@@ -15,7 +15,7 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     RUST_VERSION=1.86.0
 RUN --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin/rustup-init \
     --mount=type=cache,target=/tmp/rustup-init,sharing=locked \
-    apk update && apk add gcc; \
+    apk add --no-cache gcc; \
     /usr/local/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
     chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
     rustup --version; \
