@@ -1,0 +1,6 @@
+linux-headers
+openssl-dev
+pcre2-dev
+zlib-dev
+ruby-dev
+ruby-rake
