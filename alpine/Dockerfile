@@ -6,6 +6,8 @@ FROM ghcr.io/socheatsok78-lab/rustup-init:1.28.2-musl AS rustup-init
 
 FROM nginx:${NGINX_VERSION}-alpine AS base-builder
 
+SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
+
 ARG TARGETPLATFORM
 RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,sharing=locked \
     apk update \
@@ -22,7 +24,6 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     RUST_VERSION=1.86.0
 RUN --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin/rustup-init \
     --mount=type=cache,target=/tmp/rustup-init,sharing=locked \
-    set -ex; \
     /usr/local/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
     chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
     rustup --version; \
@@ -47,8 +48,7 @@ RUN set -ex \
 WORKDIR /pkg-oss
 ARG TARGETPLATFORM
 RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,sharing=locked \
-    set -e \
-    && mkdir /tmp/packages \
+    mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
         if [ -d /modules/$module ]; then \
