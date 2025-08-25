@@ -28,7 +28,7 @@ jobs:
       # Generate modules
       - uses: actions/checkout@v4
       - id: nginx-modules
-        run: echo "modules=$(jq -ecr 'keys | join(",")' nginx-modules.json)" >> "$GITHUB_OUTPUT"
+        run: echo "modules=$(jq -ecr 'keys' nginx-modules.json)" >> "$GITHUB_OUTPUT"
     outputs:
       versions: ${{ steps.nginx-versions.outputs.version }}
       modules: ${{ steps.nginx-modules.outputs.modules }}

@@ -16,7 +16,7 @@ jobs:
       - id: nginx-versions
         run: echo 'versions=["stable", "mainline"]' >> "$GITHUB_OUTPUT"
       - id: nginx-modules
-        run: echo "modules=$(jq -ecr 'keys | join(",")' nginx-modules.json)" >> "$GITHUB_OUTPUT"
+        run: echo "modules=$(jq -ecr 'keys' nginx-modules.json)" >> "$GITHUB_OUTPUT"
     outputs:
       versions: ${{ steps.nginx-versions.outputs.versions }}
       modules: ${{ steps.nginx-modules.outputs.modules }}
