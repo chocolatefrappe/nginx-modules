@@ -24,7 +24,6 @@ jobs:
   build:
     name: "build ${{ inputs.targets }} (${{ inputs.version}})"
     runs-on: ubuntu-latest
-    timeout-minutes: 1560
     permissions:
       packages: write
     steps:

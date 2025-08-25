@@ -48,12 +48,16 @@ jobs:
       fail-fast: false
       matrix:
         version: ${{ fromJson(needs.generate.outputs.versions) }}
+        module: ${{ fromJson(needs.generate.outputs.modules) }}
+    concurrency:
+      group: alpine-${{ matrix.version }}
+      cancel-in-progress: false
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: alpine
       version: ${{ matrix.version }}
-      modules: ${{ needs.generate.outputs.modules }}
+      modules: ${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
 
   debian:
@@ -66,10 +70,14 @@ jobs:
       fail-fast: false
       matrix:
         version: ${{ fromJson(needs.generate.outputs.versions) }}
+        module: ${{ fromJson(needs.generate.outputs.modules) }}
+    concurrency:
+      group: alpine-${{ matrix.version }}
+      cancel-in-progress: false
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
       targets: debian
       version: ${{ matrix.version }}
-      modules: ${{ needs.generate.outputs.modules }}
+      modules: ${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
