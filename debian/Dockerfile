@@ -8,27 +8,6 @@ FROM nginx:${NGINX_VERSION} AS base-builder
 
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
-ARG TARGETPLATFORM
-RUN --mount=type=cache,id=${TARGETPLATFORM}/debian/var/cache/apt,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,id=${TARGETPLATFORM}/debian/var/lib/apt,target=/var/lib/apt,sharing=locked \
-    rm /etc/apt/apt.conf.d/docker-clean \
-    && apt-get update \
-    && apt-get install -y --no-install-suggests --no-install-recommends \
-                patch make wget git devscripts debhelper dpkg-dev \
-                quilt lsb-release build-essential libxml2-utils xsltproc \
-                equivs git g++ libparse-recdescent-perl \
-                curl pkg-config libssl-dev libpcre2-dev zlib1g-dev clang \
-    && XSLSCRIPT_SHA512="f7194c5198daeab9b3b0c3aebf006922c7df1d345d454bd8474489ff2eb6b4bf8e2ffe442489a45d1aab80da6ecebe0097759a1e12cc26b5f0613d05b7c09ffa *stdin" \
-    && wget -O /tmp/xslscript.pl https://raw.githubusercontent.com/nginx/xslscript/9204424259c343ca08a18a78915f40f28025e093/xslscript.pl \
-    && if [ "$(cat /tmp/xslscript.pl | openssl sha512 -r)" = "$XSLSCRIPT_SHA512" ]; then \
-        echo "XSLScript checksum verification succeeded!"; \
-        chmod +x /tmp/xslscript.pl; \
-        mv /tmp/xslscript.pl /usr/local/bin/; \
-    else \
-        echo "XSLScript checksum verification failed!"; \
-        exit 1; \
-    fi
-
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH \
@@ -40,6 +19,27 @@ RUN --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin
     rustup --version; \
     cargo --version; \
     rustc --version;
+
+ARG TARGETPLATFORM
+RUN --mount=type=cache,id=${TARGETPLATFORM}/debian/var/cache/apt,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=${TARGETPLATFORM}/debian/var/lib/apt,target=/var/lib/apt,sharing=locked \
+    rm /etc/apt/apt.conf.d/docker-clean \
+    && apt-get update \
+    && apt-get install -y --no-install-suggests --no-install-recommends \
+                patch make wget git devscripts debhelper dpkg-dev \
+                quilt lsb-release build-essential libxml2-utils xsltproc \
+                equivs git g++ libparse-recdescent-perl \
+                pkg-config libssl-dev \
+    && XSLSCRIPT_SHA512="f7194c5198daeab9b3b0c3aebf006922c7df1d345d454bd8474489ff2eb6b4bf8e2ffe442489a45d1aab80da6ecebe0097759a1e12cc26b5f0613d05b7c09ffa *stdin" \
+    && wget -O /tmp/xslscript.pl https://raw.githubusercontent.com/nginx/xslscript/9204424259c343ca08a18a78915f40f28025e093/xslscript.pl \
+    && if [ "$(cat /tmp/xslscript.pl | openssl sha512 -r)" = "$XSLSCRIPT_SHA512" ]; then \
+        echo "XSLScript checksum verification succeeded!"; \
+        chmod +x /tmp/xslscript.pl; \
+        mv /tmp/xslscript.pl /usr/local/bin/; \
+    else \
+        echo "XSLScript checksum verification failed!"; \
+        exit 1; \
+    fi
 
 FROM ghcr.io/chocolatefrappe/nginx-modules:builder-${NGINX_VERSION} AS builder
 

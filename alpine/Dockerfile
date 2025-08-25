@@ -6,7 +6,21 @@ FROM ghcr.io/socheatsok78-lab/rustup-init:1.28.2-musl AS rustup-init
 
 FROM nginx:${NGINX_VERSION}-alpine AS base-builder
 
+
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
+
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH \
+    RUST_VERSION=1.86.0
+RUN --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin/rustup-init \
+    --mount=type=cache,target=/tmp/rustup-init,sharing=locked \
+    apk update && apk add gcc; \
+    /usr/local/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
+    chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
+    rustup --version; \
+    cargo --version; \
+    rustc --version;
 
 ARG TARGETPLATFORM
 RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,sharing=locked \
@@ -17,18 +31,6 @@ RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,
     # allow abuild as a root user \
     && printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild \
     && chmod +x /usr/local/bin/abuild
-
-ENV RUSTUP_HOME=/usr/local/rustup \
-    CARGO_HOME=/usr/local/cargo \
-    PATH=/usr/local/cargo/bin:$PATH \
-    RUST_VERSION=1.86.0
-RUN --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin/rustup-init \
-    --mount=type=cache,target=/tmp/rustup-init,sharing=locked \
-    /usr/local/bin/rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION}; \
-    chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
-    rustup --version; \
-    cargo --version; \
-    rustc --version;
 
 FROM ghcr.io/chocolatefrappe/nginx-modules:builder-${NGINX_VERSION}-alpine AS builder
 
