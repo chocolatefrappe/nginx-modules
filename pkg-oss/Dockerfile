@@ -1,9 +1,9 @@
 FROM scratch
 
-ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/Makefile                          /Makefile
-ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/alpine/Makefile                   /alpine/Makefile
+# ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/Makefile                          /Makefile
+# ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/alpine/Makefile                   /alpine/Makefile
 ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/alpine/Makefile.module-acme       /alpine/Makefile.module-acme
-ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/debian/Makefile                   /debian/Makefile
+# ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/debian/Makefile                   /debian/Makefile
 ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/debian/Makefile.module-acme       /debian/Makefile.module-acme
 ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/contrib/src/nginx-acme/Makefile   /contrib/src/nginx-acme/Makefile
 ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/contrib/src/nginx-acme/SHA512SUMS /contrib/src/nginx-acme/SHA512SUMS
