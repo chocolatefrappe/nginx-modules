@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+LIBJAEGERTRACING_PLUGIN_VERSION=${LIBJAEGERTRACING_PLUGIN_VERSION:-"0.4.2"}
+wget https://github.com/jaegertracing/jaeger-client-cpp/releases/download/v${LIBJAEGERTRACING_PLUGIN_VERSION}/libjaegertracing_plugin.linux_amd64.so -O /usr/local/lib/libjaegertracing_plugin.so
