@@ -22,7 +22,7 @@ on:
 
 jobs:
   build:
-    name: "build ${{ inputs.targets }} (${{ inputs.version}})"
+    name: "build ${{ inputs.targets }} (${{ inputs.version}}) (${{ inputs.modules }})"
     runs-on: ubuntu-latest
     permissions:
       packages: write

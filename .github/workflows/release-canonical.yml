@@ -62,7 +62,7 @@ jobs:
         version: ${{ fromJson(needs.generate.outputs.versions) }}
         module: ${{ fromJson(needs.generate.outputs.modules) }}
     concurrency:
-      group: alpine-${{ matrix.version }}
+      group: release-canonical-alpine-${{ matrix.version }}-${{ matrix.module }}
       cancel-in-progress: false
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
@@ -84,7 +84,7 @@ jobs:
         version: ${{ fromJson(needs.generate.outputs.versions) }}
         module: ${{ fromJson(needs.generate.outputs.modules) }}
     concurrency:
-      group: alpine-${{ matrix.version }}
+      group: release-canonical-debian-${{ matrix.version }}-${{ matrix.module }}
       cancel-in-progress: false
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
