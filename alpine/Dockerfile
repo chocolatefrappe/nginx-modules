@@ -6,7 +6,6 @@ FROM ghcr.io/socheatsok78-lab/rustup-init:1.28.2-musl AS rustup-init
 
 FROM nginx:${NGINX_VERSION}-alpine AS base-builder
 
-
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
 ENV RUSTUP_HOME=/usr/local/rustup \
@@ -38,6 +37,7 @@ ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE} /pkg-os
 ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
 COPY ./modules /modules/
+COPY ./alpine/overrides /overrides/
 
 ARG ENABLED_MODULES
 
@@ -53,6 +53,12 @@ RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,
     mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
+        if [ -d /overrides/$module ]; then \
+            if [ -f /overrides/$module/build-deps ]; then \
+                echo "Installing $module build dependencies overrides"; \
+                apk update && apk add $(cat /overrides/$module/build-deps | xargs); \
+            fi; \
+        fi; \
         if [ -d /modules/$module ]; then \
             echo "Building $module from user-supplied sources"; \
             # check if module sources file is there and not empty

@@ -47,6 +47,7 @@ ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE%%~*} /pk
 ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
 COPY ./modules /modules/
+COPY ./debian/overrides /overrides/
 
 ARG ENABLED_MODULES
 
@@ -63,6 +64,12 @@ RUN --mount=type=cache,id=${TARGETPLATFORM}/debian/var/cache/apt,target=/var/cac
     mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
+        if [ -d /overrides/$module ]; then \
+            if [ -f /overrides/$module/build-deps ]; then \
+                echo "Installing $module build dependencies overrides"; \
+                apt-get update && apt-get install -y --no-install-suggests --no-install-recommends $(cat /overrides/$module/build-deps | xargs); \
+            fi; \
+        fi; \
         if [ -d /modules/$module ]; then \
             echo "Building $module from user-supplied sources"; \
             # check if module sources file is there and not empty
