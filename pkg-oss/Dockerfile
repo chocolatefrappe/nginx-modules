@@ -1,5 +1,6 @@
 FROM scratch
 
+ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/Makefile                          /Makefile
 ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/alpine/Makefile                   /alpine/Makefile
 ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/alpine/Makefile.module-acme       /alpine/Makefile.module-acme
 ADD https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/debian/Makefile                   /debian/Makefile
