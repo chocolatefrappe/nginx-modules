@@ -55,6 +55,8 @@ jobs:
         env:
           NGINX_VERSIONS: ${{ inputs.version }}
           NGINX_MODULES: ${{ inputs.modules }}
+          DOCKER_BUILD_SUMMARY: "false"
+          DOCKER_BUILD_RECORD_UPLOAD: "false"
         with:
           targets: nginx-modules-${{ inputs.targets }}
           push: ${{ inputs.push }}
