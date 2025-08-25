@@ -100,6 +100,9 @@ RUN --mount=type=cache,id=${TARGETPLATFORM}/debian/var/cache/apt,target=/var/cac
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
+# Check if /tmp/packages directory is not empty
+RUN ls -A /tmp/packages/*.deb
+
 # Create module-available.d directory and touch files for built modules
 RUN . /tmp/packages/modules.env \
     && for module in $BUILT_MODULES; do \
