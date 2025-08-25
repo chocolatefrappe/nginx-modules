@@ -7,7 +7,7 @@ FROM ghcr.io/socheatsok78-lab/rustup-init:1.28.2-musl AS rustup-init
 FROM nginx:${NGINX_VERSION}-alpine AS base-builder
 
 ARG TARGETPLATFORM
-RUN --mount=type=cache,id=${TARGETPLATFORM},target=/var/cache/apk,sharing=locked \
+RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,sharing=locked \
     apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
@@ -45,7 +45,7 @@ RUN set -ex \
 
 WORKDIR /pkg-oss
 ARG TARGETPLATFORM
-RUN --mount=type=cache,id=${TARGETPLATFORM},target=/var/cache/apk,sharing=locked \
+RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,sharing=locked \
     set -e \
     && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
