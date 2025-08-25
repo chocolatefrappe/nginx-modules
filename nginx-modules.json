@@ -52,10 +52,6 @@
         "description": "njs dynamic modules",
         "url": "https://nginx.org/en/docs/njs/"
     },
-    "opentracing": {
-        "description": "3rd-party OpenTracing dynamic module",
-        "url": "https://github.com/opentracing-contrib/nginx-opentracing"
-    },
     "otel": {
         "description": "NGINX Native OpenTelemetry (OTel) Module",
         "url": "https://github.com/nginxinc/nginx-otel"
