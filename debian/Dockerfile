@@ -21,9 +21,11 @@ RUN --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin
     rustc --version;
 
 ARG TARGETPLATFORM
+ARG TARGETARCH
 RUN --mount=type=cache,id=${TARGETPLATFORM}/debian/var/cache/apt,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,id=${TARGETPLATFORM}/debian/var/lib/apt,target=/var/lib/apt,sharing=locked \
     rm /etc/apt/apt.conf.d/docker-clean \
+    && dpkg --add-architecture ${TARGETARCH} \
     && apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget git devscripts debhelper dpkg-dev \
