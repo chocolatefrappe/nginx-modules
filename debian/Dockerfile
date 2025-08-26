@@ -43,6 +43,7 @@ RUN --mount=type=cache,id=${TARGETPLATFORM}/debian/var/cache/apt,target=/var/cac
 
 FROM ghcr.io/chocolatefrappe/nginx-modules:builder-${NGINX_VERSION} AS builder
 
+# git clone -b ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://github.com/nginx/pkg-oss.git /pkg-oss
 ADD https://github.com/nginx/pkg-oss.git#${NGINX_VERSION}-${PKG_RELEASE%%~*} /pkg-oss
 ADD pkg-oss /pkg-oss
 WORKDIR /pkg-oss
