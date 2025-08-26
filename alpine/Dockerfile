@@ -22,7 +22,7 @@ RUN --mount=type=bind,from=rustup-init,source=/rustup-init,target=/usr/local/bin
     rustc --version;
 
 ARG TARGETPLATFORM
-RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,sharing=locked \
+RUN --mount=type=cache,id=${TARGETPLATFORM}/lock,target=/tmp/lock,sharing=locked \
     apk update \
     && apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
                musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
@@ -50,7 +50,7 @@ RUN set -ex \
 
 WORKDIR /pkg-oss
 ARG TARGETPLATFORM
-RUN --mount=type=cache,id=${TARGETPLATFORM}/var/cache/apk,target=/var/cache/apk,sharing=locked \
+RUN --mount=type=cache,id=${TARGETPLATFORM}/lock,target=/tmp/lock,sharing=locked \
     mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
         echo "Building $module for nginx-$NGINX_VERSION"; \
