@@ -44,6 +44,55 @@ target "pkg-oss" {
     platforms = [ "local" ]
 }
 
+group "nginx-modules-build" {
+    targets = [
+        "nginx-modules-alpine",
+        "nginx-modules-debian",
+    ]
+}
+
+target "nginx-modules-alpine" {
+    inherits = [
+        "docker-metadata-action",
+        "docker-target-platforms",
+    ]
+    dockerfile = "alpine/Dockerfile"
+    matrix = {
+        NGINX_VERSION = NGINX_VERSIONS
+        ENABLED_MODULE = NGINX_MODULES
+    }
+    name = "nginx-modules-alpine-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
+    args = {
+        NGINX_VERSION = NGINX_VERSION,
+        ENABLED_MODULES = ENABLED_MODULE,
+    }
+    tags = [
+        "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}",
+        "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}",
+    ]
+}
+
+target "nginx-modules-debian" {
+    inherits = [
+        "docker-metadata-action",
+        "docker-target-platforms",
+    ]
+    dockerfile = "debian/Dockerfile"
+    matrix = {
+        NGINX_VERSION = NGINX_VERSIONS
+        ENABLED_MODULE = NGINX_MODULES
+    }
+    name = "nginx-modules-debian-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
+    args = {
+        NGINX_VERSION = NGINX_VERSION,
+        ENABLED_MODULES = ENABLED_MODULE,
+    }
+    tags = [
+        "${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
+        "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
+    ]
+}
+
 group "nginx-modules-builder" {
     targets = [
         "nginx-modules-alpine-builder",
@@ -69,26 +118,6 @@ target "nginx-modules-alpine-builder" {
         "ghcr.io/${REGISTRY_IMAGE}:builder-${NGINX_VERSION}-alpine",
     ]
 }
-target "nginx-modules-alpine" {
-    inherits = [
-        "docker-metadata-action",
-        "docker-target-platforms",
-    ]
-    dockerfile = "alpine/Dockerfile"
-    matrix = {
-        NGINX_VERSION = NGINX_VERSIONS
-        ENABLED_MODULE = NGINX_MODULES
-    }
-    name = "nginx-modules-alpine-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
-    args = {
-        NGINX_VERSION = NGINX_VERSION,
-        ENABLED_MODULES = ENABLED_MODULE,
-    }
-    tags = [
-        "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}",
-        "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}",
-    ]
-}
 
 target "nginx-modules-debian-builder" {
     inherits = [
@@ -106,25 +135,5 @@ target "nginx-modules-debian-builder" {
     }
     tags = [
         "ghcr.io/${REGISTRY_IMAGE}:builder-${NGINX_VERSION}",
-    ]
-}
-target "nginx-modules-debian" {
-    inherits = [
-        "docker-metadata-action",
-        "docker-target-platforms",
-    ]
-    dockerfile = "debian/Dockerfile"
-    matrix = {
-        NGINX_VERSION = NGINX_VERSIONS
-        ENABLED_MODULE = NGINX_MODULES
-    }
-    name = "nginx-modules-debian-${replace(NGINX_VERSION, ".", "-")}-${ENABLED_MODULE}"
-    args = {
-        NGINX_VERSION = NGINX_VERSION,
-        ENABLED_MODULES = ENABLED_MODULE,
-    }
-    tags = [
-        "${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
-        "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
     ]
 }
