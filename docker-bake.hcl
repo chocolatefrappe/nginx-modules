@@ -28,6 +28,16 @@ group "debian" {
     ]
 }
 
+// docker/metadata-
+target "docker-metadata-action" {}
+
+target "docker-target-platforms" {
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
+    ]
+}
+
 target "pkg-oss" {
     context = "pkg-oss"
     output = [ "pkg-oss" ]
@@ -42,6 +52,10 @@ group "nginx-modules-builder" {
 }
 
 target "nginx-modules-alpine-builder" {
+    inherits = [
+        "docker-metadata-action",
+        "docker-target-platforms",
+    ]
     dockerfile = "alpine/Dockerfile"
     matrix = {
         NGINX_VERSION = NGINX_VERSIONS
@@ -51,15 +65,15 @@ target "nginx-modules-alpine-builder" {
     args = {
         NGINX_VERSION = NGINX_VERSION,
     }
-    platforms = [
-        "linux/amd64",
-        "linux/arm64",
-    ]
     tags = [
         "ghcr.io/${REGISTRY_IMAGE}:builder-${NGINX_VERSION}-alpine",
     ]
 }
 target "nginx-modules-alpine" {
+    inherits = [
+        "docker-metadata-action",
+        "docker-target-platforms",
+    ]
     dockerfile = "alpine/Dockerfile"
     matrix = {
         NGINX_VERSION = NGINX_VERSIONS
@@ -70,10 +84,6 @@ target "nginx-modules-alpine" {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
     }
-    platforms = [
-        "linux/amd64",
-        "linux/arm64",
-    ]
     tags = [
         "${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}",
         "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-alpine-${ENABLED_MODULE}",
@@ -81,6 +91,10 @@ target "nginx-modules-alpine" {
 }
 
 target "nginx-modules-debian-builder" {
+    inherits = [
+        "docker-metadata-action",
+        "docker-target-platforms",
+    ]
     dockerfile = "debian/Dockerfile"
     matrix = {
         NGINX_VERSION = NGINX_VERSIONS
@@ -90,15 +104,15 @@ target "nginx-modules-debian-builder" {
     args = {
         NGINX_VERSION = NGINX_VERSION,
     }
-    platforms = [
-        "linux/amd64",
-        "linux/arm64",
-    ]
     tags = [
         "ghcr.io/${REGISTRY_IMAGE}:builder-${NGINX_VERSION}",
     ]
 }
 target "nginx-modules-debian" {
+    inherits = [
+        "docker-metadata-action",
+        "docker-target-platforms",
+    ]
     dockerfile = "debian/Dockerfile"
     matrix = {
         NGINX_VERSION = NGINX_VERSIONS
@@ -109,10 +123,6 @@ target "nginx-modules-debian" {
         NGINX_VERSION = NGINX_VERSION,
         ENABLED_MODULES = ENABLED_MODULE,
     }
-    platforms = [
-        "linux/amd64",
-        "linux/arm64",
-    ]
     tags = [
         "${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
         "ghcr.io/${REGISTRY_IMAGE}:${NGINX_VERSION}-${ENABLED_MODULE}",
