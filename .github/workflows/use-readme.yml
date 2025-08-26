@@ -24,7 +24,7 @@ on:
         default: ""
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: use-readme-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
