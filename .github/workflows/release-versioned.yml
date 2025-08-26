@@ -46,8 +46,8 @@ jobs:
       modules: stub
       push: ${{ github.event_name != 'pull_request' }}
 
-  alpine:
-    name: alpine
+  build:
+    name: build
     # continue-on-error: true
     needs:
       - generate
@@ -60,26 +60,7 @@ jobs:
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
-      targets: alpine
-      version: ${{ matrix.version }}
-      modules: ${{ matrix.module }}
-      push: ${{ github.event_name != 'pull_request' }}
-
-  debian:
-    name: debian
-    # continue-on-error: true
-    needs:
-      - generate
-      - prepare
-    strategy:
-      fail-fast: false
-      matrix:
-        version: ${{ fromJson(needs.generate.outputs.versions) }}
-        module: ${{ fromJson(needs.generate.outputs.modules) }}
-    uses: ./.github/workflows/use-docker-build.yml
-    secrets: inherit
-    with:
-      targets: debian
+      targets: build
       version: ${{ matrix.version }}
       modules: ${{ matrix.module }}
       push: ${{ github.event_name != 'pull_request' }}
@@ -87,8 +68,7 @@ jobs:
   generate-readme:
     needs: 
       - generate
-      - alpine
-      - debian
+      - build
     uses: ./.github/workflows/use-readme.yml
     secrets: inherit
     with:
