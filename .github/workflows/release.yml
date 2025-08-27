@@ -100,7 +100,6 @@ jobs:
 
   generate-readme:
     needs:
-      - generate
       - alpine
       - debian
     uses: ./.github/workflows/use-readme.yml
