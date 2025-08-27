@@ -140,6 +140,7 @@ group "default" {
 
 // docker/metadata-
 target "docker-metadata-action" {}
+"docker-annotations",
 
 target "docker-target-platforms" {
     platforms = [
@@ -164,6 +165,7 @@ group "modules" {
 target "mod-alpine" {
     inherits = [
         "docker-metadata-action",
+        "docker-annotations",
         "docker-target-platforms",
     ]
     dockerfile = "alpine/Dockerfile"
@@ -193,6 +195,7 @@ target "mod-alpine" {
 target "mod-debian" {
     inherits = [
         "docker-metadata-action",
+        "docker-annotations",
         "docker-target-platforms",
     ]
     dockerfile = "debian/Dockerfile"
@@ -229,6 +232,7 @@ group "builders" {
 target "builder-alpine" {
     inherits = [
         "docker-metadata-action",
+        "docker-annotations",
         "docker-target-platforms",
     ]
     dockerfile = "alpine/Dockerfile"
@@ -248,6 +252,7 @@ target "builder-alpine" {
 target "builder-debian" {
     inherits = [
         "docker-metadata-action",
+        "docker-annotations",
         "docker-target-platforms",
     ]
     dockerfile = "debian/Dockerfile"
@@ -264,6 +269,25 @@ target "builder-debian" {
     ]
 }
 
+// Custom targets for adding metadata to all images.
+variable "GITHUB_BASE_REF" { default = "main" }
+variable "GITHUB_REPOSITORY" { default = "chocolatefrappe/nginx-modules" }
+variable "GITHUB_SHA" { default = "adc83b19e793491b1c6ea0fd8b46cd9f32e592fc" }
+target "docker-annotations" {
+    annotations = [
+        "manifest:org.opencontainers.image.created=${timestamp()}",
+        // "manifest:org.opencontainers.image.description=[CONTINUED] A pre-built NGINX modules for container",
+        "manifest:org.opencontainers.image.licenses=MIT",
+        "manifest:org.opencontainers.image.revision=${GITHUB_SHA}",
+        "manifest:org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}",
+        "manifest:org.opencontainers.image.title=nginx-modules",
+        "manifest:org.opencontainers.image.url=https://github.com/${GITHUB_REPOSITORY}",
+        "manifest:org.opencontainers.image.version=${GITHUB_BASE_REF}"
+    ]
+}
+
+
+// targets for generating README snippets.
 target "readme-versions" {
     matrix = {
         NGINX_VERSION = NGINX_VERSIONS

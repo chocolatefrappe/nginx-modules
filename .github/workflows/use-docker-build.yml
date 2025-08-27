@@ -53,4 +53,3 @@ jobs:
           files: |
             docker-bake.hcl
             cwd://${{ steps.docker-meta.outputs.bake-file-labels }}
-            cwd://${{ steps.docker-meta.outputs.bake-file-annotations }}
