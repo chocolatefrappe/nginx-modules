@@ -4,7 +4,7 @@ ARG NGINX_VERSION=stable
 
 FROM ghcr.io/socheatsok78-lab/rustup-init:1.28.2 AS rustup-init
 
-FROM nginx:${NGINX_VERSION} AS base-builder
+FROM nginx:${NGINX_VERSION} AS builder-base
 
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 

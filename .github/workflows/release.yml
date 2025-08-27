@@ -27,24 +27,57 @@ permissions:
   packages: write
 
 jobs:
-  stage:
+  generate:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Sleeping for 15 seconds to allow other jobs to start"
-          sleep 15
+      - uses: actions/checkout@v4
+      - name: Generate builder matrix
+        id: generate-builder
+        uses: docker/bake-action/subaction/matrix@v6
+        with:
+          target: builders
+      - name: Generate module matrix
+        id: generate-module
+        uses: docker/bake-action/subaction/matrix@v6
+        with:
+          target: modules
+    outputs:
+      builder-matrix: ${{ steps.generate-builder.outputs.matrix }}
+      module-matrix: ${{ steps.generate-module.outputs.matrix }}
 
-  canonical:
-    needs: stage
-    uses: ./.github/workflows/release-canonical.yml
+  prepare:
+    name: prepare
+    # continue-on-error: true
+    needs:
+      - generate
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.generate.outputs.builder-matrix) }}
+    uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
+    with:
+      targets: ${{ matrix.target }}
+      push: ${{ github.event_name != 'pull_request' }}
 
-  channel:
-    needs: stage
-    uses: ./.github/workflows/release-channel.yml
+  build:
+    # continue-on-error: true
+    needs:
+      - generate
+      - prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.generate.outputs.module-matrix) }}
+    uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
+    with:
+      targets: ${{ matrix.target }}
+      push: ${{ github.event_name != 'pull_request' }}
 
-  versioned:
-    needs: stage
-    uses: ./.github/workflows/release-versioned.yml
+  generate-readme:
+    needs:
+      - generate
+      - build
+    uses: ./.github/workflows/use-readme.yml
     secrets: inherit

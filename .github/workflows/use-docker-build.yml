@@ -7,14 +7,6 @@ on:
         description: 'The targets for docker-bake.hcl'
         required: true
         type: string
-      version:
-        description: 'The nginx version to build'
-        required: true
-        type: string
-      modules:
-        description: 'The nginx modules to build'
-        type: string
-        default: ''
       push:
         description: 'Whether to push the image to Docker Registry'
         required: false
@@ -22,7 +14,7 @@ on:
 
 jobs:
   build:
-    name: "bake ${{ inputs.targets }} (${{ inputs.version}}) (${{ inputs.modules }})"
+    name: build
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -53,12 +45,10 @@ jobs:
       - name: Build and push
         uses: docker/bake-action@v6
         env:
-          NGINX_VERSIONS: ${{ inputs.version }}
-          NGINX_MODULES: ${{ inputs.modules }}
           DOCKER_BUILD_SUMMARY: "false"
           DOCKER_BUILD_RECORD_UPLOAD: "false"
         with:
-          targets: nginx-modules-${{ inputs.targets }}
+          targets: ${{ inputs.targets }}
           push: ${{ inputs.push }}
           files: |
             docker-bake.hcl

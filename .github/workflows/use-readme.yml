@@ -9,19 +9,8 @@ on:
       - 'README.template.md'
       - '.github/locks/nginx-versions.json'
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'The version of nginx to generate the README for'
-        required: false
-        type: string
-        default: ""
   workflow_call:
-    inputs:
-      version:
-        description: 'The version of nginx to generate the README for'
-        required: true
-        type: string
-        default: ""
+
 
 concurrency:
   group: use-readme-${{ github.workflow }}-${{ github.ref }}
@@ -39,16 +28,7 @@ jobs:
         with:
           token: ${{ secrets.BOT_PAT }}
 
-      - name: Generate nginx-versions.json
-        if: ${{ github.event.inputs.version != '' }}
-        run: |
-          cat <<EOF >.github/locks/nginx-versions.json
-          ${{ inputs.version }}
-          EOF
-
       - name: Generate README.md
-        env:
-          NGINX_VERSIONS_FILE: .github/locks/nginx-versions.json
         run: ./readme.sh
 
       - name: Commit changes

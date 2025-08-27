@@ -2,7 +2,6 @@
 
 README_FILE=${README_FILE:-"README.md"}
 TEMPLATE_FILE=${TEMPLATE_FILE:-"README.template.md"}
-NGINX_VERSIONS_FILE=${NGINX_VERSIONS_FILE:-"nginx-versions.json"}
 
 # Inject value into README.md
 function readme() {
@@ -10,16 +9,11 @@ function readme() {
     local value=$2
     
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        sed -i '' -e "s|<!--$key-->|$value|" $README_FILE
+        sed -i '' -e "s|<!--${key}-->|${value}|" $README_FILE
     else
-        sed -i -e "s|<!--$key-->|$value|" $README_FILE
+        sed -i -e "s|<!--${key}-->|${value}|" $README_FILE
     fi
 }
-
-if [ ! -f "${NGINX_VERSIONS_FILE}" ]; then
-    echo "The file \"${NGINX_VERSIONS_FILE}\" does not exist."
-    exit 1
-fi
 
 echo "Generating $README_FILE from $TEMPLATE_FILE..."
 
@@ -30,45 +24,31 @@ fi
 cp $TEMPLATE_FILE $README_FILE
 
 echo "- Generate supported releases list..."
-md_releases="\n"
-releases=(`jq -cr '. | join(" ")' ${NGINX_VERSIONS_FILE}`)
-for release in "${releases[@]}"; do
-    md_releases+="\n- \`$release\`"
-done
-readme releases "$md_releases"
+{
+    BAKE_DEFINITION=`docker buildx bake readme-versions 2>/dev/null --print`
+    echo -n "\n"
+    (jq -ecr '.target[].args.TEXT' <<< "${BAKE_DEFINITION}") | xargs -I{} echo -n "\n- {}"
+} > _releases.md
+readme releases "$(cat _releases.md)" && rm _releases.md
 
 echo "- Generate modules list..."
-md_modules="\n"
-modules=(`jq -cr 'keys_unsorted | join(" ")' ./nginx-modules.json`)
-for mod in "${modules[@]}"; do
-    desc=$(jq -cr ".[\"${mod}\"].description" nginx-modules.json)
-    homepage=$(jq -cr ".[\"${mod}\"].url" nginx-modules.json)
+{
+    BAKE_DEFINITION=`docker buildx bake readme-modules 2>/dev/null --print`
+    echo -n "\n"
+    (jq -ecr '.target[].args.TEXT' <<< "${BAKE_DEFINITION}") | xargs -I{} echo -n "\n- {}"
+} > _modules.md
+readme modules "$(cat _modules.md)" && rm _modules.md
 
-    md_modules+="\n- [\`$mod\`](${homepage}): ${desc}"
-done
-readme modules "$md_modules"
 
 echo "- Generate tags list..."
-md_tags="\n"
-
-# mainline, stable
-releases=(mainline stable)
-for release in "${releases[@]}"; do
-    for mod in "${modules[@]}"; do
-        # [Note] Set alpine release inline
-        md_tags+="\n- \`$release-$mod\`, \`$release-alpine-$mod\`"
-    done
-done
-
-# Versioned
-md_tags+="\n"
-md_tags+="\n**Versioning releases**:"
-md_tags+="\n"
-releases=(`jq -cr '. | join(" ")' ${NGINX_VERSIONS_FILE}`)
-for release in "${releases[@]}"; do
-    for mod in "${modules[@]}"; do
-        # [Note] Set alpine release inline
-        md_tags+="\n- \`$release-$mod\`, \`$release-alpine-$mod\`"
-    done
-done
-readme tags "$md_tags"
+{
+    BAKE_DEFINITION=`docker buildx bake readme-tags 2>/dev/null --print`
+    echo -n "\n"
+    (jq -ecr '.target[].args.TEXT' <<< "${BAKE_DEFINITION}") | grep stable | xargs -I{} echo -n "\n- {}"
+    (jq -ecr '.target[].args.TEXT' <<< "${BAKE_DEFINITION}") | grep mainline | xargs -I{} echo -n "\n- {}"
+    echo -n "\n"
+    echo -n "\n**Versioning releases**:"
+    echo -n "\n"
+    (jq -ecr '.target[].args.TEXT' <<< "${BAKE_DEFINITION}") | grep -v stable | grep -v mainline | xargs -I{} echo -n "\n- {}"
+} > _tags.md
+readme tags "$(cat _tags.md)" && rm _tags.md
