@@ -1,10 +1,6 @@
 target ?=
 platform ?=
 
-.EXPORT_ALL_VARIABLES:
-NGINX_VERSIONS ?= $(shell jq -ecr 'join(",")' nginx-versions.json)
-NGINX_MODULES ?= $(shell jq -r '. | keys | join(",")' nginx-modules.json)
-
 it: pkg-oss
 	time docker buildx bake --set="*.platform=$(platform)" --print $(target)
 
@@ -16,16 +12,16 @@ pkg-oss:
 
 .PHONY: alpine
 alpine: pkg-oss builder-alpine
-	time docker buildx bake --set="*.platform=" --load --set="*.platform=$(platform)" alpine
+	time docker buildx bake mod-alpine
 .PHONY: debian
 debian: pkg-oss builder-debian
-	time docker buildx bake --set="*.platform=" --load --set="*.platform=$(platform)" debian
+	time docker buildx bake mod-debian
 
 .PHONY: builder
 builder: builder-alpine builder-debian
 .PHONY: builder-alpine
 builder-alpine:
-	time docker buildx bake  --set="*.platform=" --load --set="*.platform=$(platform)" nginx-modules-alpine-builder
+	time docker buildx bake builder-alpine
 .PHONY: builder-debian
 builder-debian:
-	time docker buildx bake  --set="*.platform=" --load --set="*.platform=$(platform)" nginx-modules-debian-builder
+	time docker buildx bake builder-debian
