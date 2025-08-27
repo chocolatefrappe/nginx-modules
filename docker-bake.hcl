@@ -246,6 +246,9 @@ target "builder-alpine" {
     tags = [
         "ghcr.io/${REGISTRY_IMAGE}:builder-${NGINX_VERSION}-alpine",
     ]
+    annotations = [
+        "manifest:org.opencontainers.image.description=NGINX v${NGINX_VERSION} builder for alpine"
+    ]
 }
 
 target "builder-debian" {
@@ -265,6 +268,9 @@ target "builder-debian" {
     }
     tags = [
         "ghcr.io/${REGISTRY_IMAGE}:builder-${NGINX_VERSION}",
+    ]
+    annotations = [
+        "manifest:org.opencontainers.image.description=NGINX v${NGINX_VERSION} builder on debian"
     ]
 }
 
