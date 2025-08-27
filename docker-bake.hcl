@@ -140,7 +140,6 @@ group "default" {
 
 // docker/metadata-
 target "docker-metadata-action" {}
-"docker-annotations",
 
 target "docker-target-platforms" {
     platforms = [
