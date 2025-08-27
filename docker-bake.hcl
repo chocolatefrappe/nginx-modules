@@ -134,8 +134,7 @@ variable "REGISTRY_IMAGE" { default = "chocolatefrappe/nginx-modules" }
 group "default" {
     targets = [
         "builders",
-        "mod-alpine",
-        "mod-debian",
+        "modules",
     ]
 }
 

@@ -36,14 +36,20 @@ jobs:
         uses: docker/bake-action/subaction/matrix@v6
         with:
           target: builders
-      - name: Generate module matrix
-        id: generate-module
+      - name: Generate alpine matrix
+        id: generate-mod-alpine
         uses: docker/bake-action/subaction/matrix@v6
         with:
-          target: modules
+          target: mod-alpine
+      - name: Generate debian matrix
+        id: generate-mod-debian
+        uses: docker/bake-action/subaction/matrix@v6
+        with:
+          target: mod-debian
     outputs:
       builder-matrix: ${{ steps.generate-builder.outputs.matrix }}
-      module-matrix: ${{ steps.generate-module.outputs.matrix }}
+      mod-alpine-matrix: ${{ steps.generate-mod-alpine.outputs.matrix }}
+      mod-debian-matrix: ${{ steps.generate-mod-debian.outputs.matrix }}
 
   prepare:
     name: prepare
@@ -60,7 +66,8 @@ jobs:
       targets: ${{ matrix.target }}
       push: ${{ github.event_name != 'pull_request' }}
 
-  build:
+  alpine:
+    name: alpine
     # continue-on-error: true
     needs:
       - generate
@@ -68,7 +75,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJson(needs.generate.outputs.module-matrix) }}
+        include: ${{ fromJson(needs.generate.outputs.mod-alpine-matrix) }}
+    uses: ./.github/workflows/use-docker-build.yml
+    secrets: inherit
+    with:
+      targets: ${{ matrix.target }}
+      push: ${{ github.event_name != 'pull_request' }}
+  
+  debian:
+    name: debian
+    # continue-on-error: true
+    needs:
+      - generate
+      - prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.generate.outputs.mod-debian-matrix) }}
     uses: ./.github/workflows/use-docker-build.yml
     secrets: inherit
     with:
@@ -78,6 +101,7 @@ jobs:
   generate-readme:
     needs:
       - generate
-      - build
+      - alpine
+      - debian
     uses: ./.github/workflows/use-readme.yml
     secrets: inherit
