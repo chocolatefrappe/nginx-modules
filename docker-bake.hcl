@@ -138,7 +138,7 @@ group "default" {
     ]
 }
 
-// docker/metadata-
+// docker/metadata-action
 target "docker-metadata-action" {}
 
 target "docker-target-platforms" {
