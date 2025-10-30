@@ -4,11 +4,8 @@ variable "NGINX_VERSIONS" {
     default = [
         "stable",
         "mainline",
-        "1.28",
-        "1.28.0",
         "1.29",
-        "1.29.0",
-        "1.29.1",
+        "1.29.2",
     ]
 }
 
