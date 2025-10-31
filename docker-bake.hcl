@@ -5,7 +5,7 @@ variable "NGINX_VERSIONS" {
         "stable",
         "mainline",
         "1.29",
-        "1.29.2",
+        "1.29.3",
     ]
 }
 
