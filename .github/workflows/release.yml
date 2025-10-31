@@ -3,8 +3,8 @@ name: Release
 on:
   workflow_dispatch:
   # Runs at 00:00, only on Saturday
-  schedule:
-    - cron: '0 0 * * SAT'
+  # schedule:
+  #   - cron: '0 0 * * SAT'
   push:
     branches:
       - main
